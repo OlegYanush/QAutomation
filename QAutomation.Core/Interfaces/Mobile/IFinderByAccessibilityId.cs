@@ -5,7 +5,7 @@
     using System.Collections.Generic;
 
     public interface IFinderByAccessibilityId<out TMobileElement>
-        where TMobileElement : IMobileElement
+        where TMobileElement : class, IMobileElement
     {
         IEnumerable<TMobileElement> FindElementsByAccessibilityId(string accessibilityId, ILogger log);
         TMobileElement FindElementByAccessibilityId(string accessibilityId, ILogger log);

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAutomation.Appium", "QAuto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAutomation.Logger", "QAutomation.Logger\QAutomation.Logger.csproj", "{2241B6E4-11F8-4600-B1F0-F97518F2D6A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{91FDCC55-C12F-415F-94A8-1E901766896A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2241B6E4-11F8-4600-B1F0-F97518F2D6A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2241B6E4-11F8-4600-B1F0-F97518F2D6A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2241B6E4-11F8-4600-B1F0-F97518F2D6A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91FDCC55-C12F-415F-94A8-1E901766896A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91FDCC55-C12F-415F-94A8-1E901766896A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91FDCC55-C12F-415F-94A8-1E901766896A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91FDCC55-C12F-415F-94A8-1E901766896A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,12 +4,12 @@
     using QAutomation.Logger;
     using System.Collections.Generic;
 
-    public interface IFinderByXPath<out TElement> where TElement : IElement
+    public interface IFinderByXPath<out TElement> where TElement : class, IElement
     {
-        IEnumerable<T> FindsElementByXPath<T>(string xpath, ILogger log) where T : IElement;
-        T FindElementByXPath<T>(string xpath, ILogger log) where T : IElement;
+        IEnumerable<T> FindElementsByXPath<T>(string xpath, ILogger log) where T : class, IElement;
+        T FindElementByXPath<T>(string xpath, ILogger log) where T : class, IElement;
 
-        IEnumerable<TElement> FindsElementByXPath(string xpath, ILogger log);
+        IEnumerable<TElement> FindElementsByXPath(string xpath, ILogger log);
         TElement FindElementByXPath(string xpath, ILogger log);
     }
 }

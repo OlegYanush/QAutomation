@@ -8,5 +8,7 @@
 
     public interface IMobileElement : IElement
     {
+        IMobileElement FindElementByPlatformSelector(string selector);
+        IEnumerable<IMobileElement> FindElementsByPlatformSelector(string selector);
     }
 }

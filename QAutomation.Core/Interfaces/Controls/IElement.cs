@@ -2,16 +2,23 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
     public interface IElement
     {
-        string GetAttribute(string attribute);
-        string GetCssValue(string property);
+        bool Displayed { get; }
+        bool Enabled { get; }
+
+        Point Location { get; }
+        string Content { get; }
 
         string Tag { get; }
-        string Content { get; }
+        Size Size { get; }
+
+        string GetAttribute(string attribute);
+        string GetCssValue(string property);
     }
 }

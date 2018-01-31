@@ -9,7 +9,7 @@ namespace QAutomation.Appium
 {
     public static class ByExtensions
     {
-        public static OpenQA.Selenium.By ToSeleniumBy(this Core.By by)
+        public static OpenQA.Selenium.By ToAppiumBy(this Core.By by)
         {
             switch (by.Type)
             {
@@ -25,6 +25,15 @@ namespace QAutomation.Appium
                     return OpenQA.Selenium.By.CssSelector(by.Value);
                 case SearchType.Name:
                     return OpenQA.Selenium.By.Name(by.Value);
+                case SearchType.AccessibilyId:
+                    return OpenQA.Selenium.Appium.MobileBy.AccessibilityId(by.Value);
+                case SearchType.AndroidUIAutomator:
+                    return OpenQA.Selenium.Appium.MobileBy.AndroidUIAutomator(by.Value);
+                case SearchType.IosAutomation:
+                    return OpenQA.Selenium.Appium.MobileBy.IosUIAutomation(by.Value);
+                case SearchType.IosNSPredicate:
+                    return OpenQA.Selenium.Appium.MobileBy.IosNSPredicate(by.Value);
+                    
                 default:
                     throw new Exception(string.Format("Unknown search type: {0}", by.Type));
             }

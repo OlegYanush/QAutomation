@@ -7,6 +7,6 @@
        IFinderById<TElement>, IFinderByPartialLinkText<TElement>,
        IFinderByLinkText<TElement>, IFinderByXPath<TElement>,
        IFinderByName<TElement>, IFinderByTagName<TElement>
-        where TElement : IElement
+        where TElement : class, IElement
     { }
 }

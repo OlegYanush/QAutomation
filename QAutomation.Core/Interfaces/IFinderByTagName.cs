@@ -1,20 +1,19 @@
-﻿using QAutomation.Core.Interfaces.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace QAutomation.Core.Interfaces
+﻿namespace QAutomation.Core.Interfaces
 {
-    public interface IFinderByTagName<out TElement> where TElement : IElement
+    using QAutomation.Core.Interfaces.Controls;
+    using QAutomation.Logger;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    public interface IFinderByTagName<out TElement> where TElement : class, IElement
     {
-        TElement FindElementByTagName(string tagName);
+        IEnumerable<T> FindElementsByTagName<T>(string tagName, ILogger log) where T : class, IElement;
+        T FindElementByTagName<T>(string tagName, ILogger log) where T : class, IElement;
 
-        T FindElementByTagName<T>(string id) where T : IElement;
-
-        IEnumerable<TElement> FindElementsByTagName(string tagName);
-
-        IEnumerable<T> FindElementsByTagName<T>(string id) where T : IElement;
+        IEnumerable<TElement> FindElementsByTagName(string tagName, ILogger log);
+        TElement FindElementByTagName(string tagName, ILogger log);
     }
 }

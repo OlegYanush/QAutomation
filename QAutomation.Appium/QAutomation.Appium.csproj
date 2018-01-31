@@ -64,6 +64,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ByExtensions.cs" />
+    <Compile Include="Controls\AndroidElement.cs" />
+    <Compile Include="Controls\Element.cs" />
+    <Compile Include="Controls\IOSElement.cs" />
+    <Compile Include="Engine\AndroidDriverManager.cs" />
+    <Compile Include="Engine\AndroidDriverManager.FinderService.cs" />
+    <Compile Include="Engine\ElementFinderService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,14 +77,15 @@
       <Project>{39b66db9-f457-4766-bc61-f9c0365bd772}</Project>
       <Name>QAutomation.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QAutomation.Logger\QAutomation.Logger.csproj">
+      <Project>{2241B6E4-11F8-4600-B1F0-F97518F2D6A9}</Project>
+      <Name>QAutomation.Logger</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\" />
-    <Folder Include="Engine\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

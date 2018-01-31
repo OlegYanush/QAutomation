@@ -6,6 +6,6 @@
         IFinderById<TMobileElement>, IFinderByAccessibilityId<TMobileElement>,
         IFinderByClassName<TMobileElement>, IFinderByTagName<TMobileElement>,
         IFinderByXPath<TMobileElement>
-        where TMobileElement : IMobileElement
+        where TMobileElement : class, IMobileElement
     { }
 }
