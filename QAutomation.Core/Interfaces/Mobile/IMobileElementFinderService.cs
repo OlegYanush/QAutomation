@@ -2,10 +2,10 @@
 {
     using Controls;
 
-    public interface IMobileElementFinderService<out TMobileElement> :
+    public interface IMobileElementFinderService<TMobileElement> :
         IFinderById<TMobileElement>, IFinderByAccessibilityId<TMobileElement>,
         IFinderByClassName<TMobileElement>, IFinderByTagName<TMobileElement>,
         IFinderByXPath<TMobileElement>
-        where TMobileElement : class, IMobileElement
+        where TMobileElement :  IMobileElement
     { }
 }

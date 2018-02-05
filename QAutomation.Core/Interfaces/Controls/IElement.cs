@@ -9,6 +9,9 @@
 
     public interface IElement
     {
+        IElement Parent { get; }
+        By By { get; set; }
+
         bool Displayed { get; }
         bool Enabled { get; }
 

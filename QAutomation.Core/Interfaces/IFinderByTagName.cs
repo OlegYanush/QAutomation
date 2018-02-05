@@ -8,12 +8,12 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public interface IFinderByTagName<out TElement> where TElement : class, IElement
+    public interface IFinderByTagName<TElement> where TElement : IElement
     {
-        IEnumerable<T> FindElementsByTagName<T>(string tagName, ILogger log) where T : class, IElement;
-        T FindElementByTagName<T>(string tagName, ILogger log) where T : class, IElement;
+        IEnumerable<T> FindElementsByTagName<T>(string tagName, ILogger log, double timeoutInSec = -1) where T : TElement;
+        T FindElementByTagName<T>(string tagName, ILogger log, double timeoutInSec = -1) where T : TElement;
 
-        IEnumerable<TElement> FindElementsByTagName(string tagName, ILogger log);
-        TElement FindElementByTagName(string tagName, ILogger log);
+        IEnumerable<IElement> FindElementsByTagName(string tagName, ILogger log, double timeoutInSec = -1);
+        IElement FindElementByTagName(string tagName, ILogger log, double timeoutInSec = -1) ;
     }
 }

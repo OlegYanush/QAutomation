@@ -1,46 +1,56 @@
-﻿namespace QAutomation.Appium.Controls
-{
-    using OpenQA.Selenium;
-    using QAutomation.Appium.Engine;
-    using QAutomation.Core.Interfaces.Controls;
-    using System;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Unity;
+﻿using OpenQA.Selenium.Appium.Android;
+using QAutomation.Appium.Engine;
+using QAutomation.Core.Interfaces.Controls;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Unity;
+using DroidElement = OpenQA.Selenium.Appium.Android.AndroidElement;
 
+namespace QAutomation.Appium.Controls
+{
     public class Element : IElement
     {
-        private IWebDriver _webDriver;
-        private IWebElement _webElement;
+        private AndroidDriver<DroidElement> _wrappedDriver;
+        private DroidElement _wrappedElement;
 
-        //private ElementFinderService<IElement> _elementFinderService;
+        private ElementFinderService _elementFinderService;
 
-        public Element(IWebDriver driver, IWebElement element, IUnityContainer container)
+        public Element(AndroidDriver<DroidElement> driver, DroidElement element, IUnityContainer container)
         {
-            _webDriver = driver;
-            _webElement = element;
-            //_elementFinderService = new ElementFinderService<IElement>(container);
+            _wrappedDriver = driver;
+            _wrappedElement = element;
+
+            _elementFinderService = new ElementFinderService(container);
         }
 
-        public bool Displayed => _webElement.Displayed;
+        public IElement Parent => throw new NotImplementedException();
 
-        public bool Enabled => _webElement.Enabled;
+        public Core.By By { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public Point Location => _webElement.Location;
+        public bool Displayed => _wrappedElement.Displayed;
 
-        public string Content => _webElement.Text;
+        public bool Enabled => _wrappedElement.Enabled;
 
-        public string Tag => _webElement.TagName;
+        public Point Location => _wrappedElement.Location;
 
-        public Size Size => _webElement.Size;
+        public string Content => _wrappedElement.Text;
+
+        public string Tag => _wrappedElement.TagName;
+
+        public Size Size => _wrappedElement.Size;
 
         public string GetAttribute(string attribute)
-            => _webElement.GetAttribute(attribute);
+        {
+            return _wrappedElement.GetAttribute(attribute);
+        }
 
         public string GetCssValue(string property)
-            => _webElement.GetCssValue(property);
+        {
+            return _wrappedElement.GetCssValue(property);
+        }
     }
 }

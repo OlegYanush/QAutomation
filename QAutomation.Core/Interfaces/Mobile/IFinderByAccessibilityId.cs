@@ -4,10 +4,10 @@
     using QAutomation.Logger;
     using System.Collections.Generic;
 
-    public interface IFinderByAccessibilityId<out TMobileElement>
-        where TMobileElement : class, IMobileElement
+    public interface IFinderByAccessibilityId<TMobileElement>
+        where TMobileElement : IMobileElement
     {
-        IEnumerable<TMobileElement> FindElementsByAccessibilityId(string accessibilityId, ILogger log);
-        TMobileElement FindElementByAccessibilityId(string accessibilityId, ILogger log);
+        IEnumerable<T> FindElementsByAccessibilityId<T>(string accessibilityId, ILogger log, double timeoutInSec = -1) where T : TMobileElement;
+        T FindElementByAccessibilityId<T>(string accessibilityId, ILogger log, double timeoutInSec = -1) where T : TMobileElement;
     }
 }

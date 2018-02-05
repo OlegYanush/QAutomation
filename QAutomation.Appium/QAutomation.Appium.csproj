@@ -63,14 +63,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AndroidDriverConfig.cs" />
+    <Compile Include="AndroidDriver.cs" />
     <Compile Include="ByExtensions.cs" />
     <Compile Include="Controls\AndroidElement.cs" />
     <Compile Include="Controls\Element.cs" />
-    <Compile Include="Controls\IOSElement.cs" />
-    <Compile Include="Engine\AndroidDriverManager.cs" />
     <Compile Include="Engine\AndroidDriverManager.FinderService.cs" />
+    <Compile Include="Engine\AndroidDriverManager.cs" />
     <Compile Include="Engine\ElementFinderService.cs" />
+    <Compile Include="IosDriver.cs" />
+    <Compile Include="IosDriverConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UiObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QAutomation.Core\QAutomation.Core.csproj">

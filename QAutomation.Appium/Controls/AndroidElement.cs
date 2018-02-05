@@ -1,63 +1,71 @@
-﻿namespace QAutomation.Appium.Controls
-{
-    using OpenQA.Selenium.Appium.Android;
-    using QAutomation.Appium.Engine;
-    using QAutomation.Core.Interfaces.Controls;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using Unity;
-    using DroidElement = OpenQA.Selenium.Appium.Android.AndroidElement;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Appium.Android;
+using OpenQA.Selenium.Appium.Interfaces;
+using QAutomation.Appium.Engine;
+using QAutomation.Core;
+using QAutomation.Core.Interfaces.Controls;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Unity;
+using DroidElement = OpenQA.Selenium.Appium.Android.AndroidElement;
 
+namespace QAutomation.Appium.Controls
+{
     public class AndroidElement : IMobileElement
     {
-        private AndroidDriver<DroidElement> _appiumDriver;
-        private DroidElement _androidElement;
+        private AndroidDriver<DroidElement> _wrappedDriver;
+        private DroidElement _wrappedElement;
 
-        private ElementFinderService _finderElementService;
+        private ElementFinderService _elementFinderService;
 
-        public AndroidElement(AndroidDriver<DroidElement> driver, DroidElement element, IUnityContainer container)
+        public AndroidElement(AndroidDriver<DroidElement> driver, DroidElement element, IUnityContainer container, IElement parent = null)
         {
-            _appiumDriver = driver;
-            _androidElement = element;
+            _wrappedDriver = driver;
+            _wrappedElement = element;
 
-            _finderElementService = new ElementFinderService(container);
+            Parent = parent;
+
+            _elementFinderService = new ElementFinderService(container);
         }
 
-        public bool Displayed => _androidElement.Displayed;
-        public bool Enabled => _androidElement.Enabled;
+        public IElement Parent { get; private set; }
 
-        public Point Location => _androidElement.Location;
-        public string Content => _androidElement.Text;
+        public Core.By By { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public string Tag => _androidElement.TagName;
-        public Size Size => _androidElement.Size;
+        public bool Displayed => _wrappedElement.Displayed;
+
+        public bool Enabled => _wrappedElement.Enabled;
+
+        public Point Location => _wrappedElement.Location;
+
+        public string Content => _wrappedElement.Text;
+
+        public string Tag => _wrappedElement.TagName;
+
+        public Size Size => _wrappedElement.Size;
 
         public IMobileElement FindElementByPlatformSelector(string selector)
         {
-            return null;
-
-            //var element = _androidElement.FindElementByAndroidUIAutomator(selector);
-            //var resolved = _finderElementService.Resolve<IMobileElement>(_androidElement, element);
-
-            //return resolved;
+            throw new NotImplementedException();
         }
 
         public IEnumerable<IMobileElement> FindElementsByPlatformSelector(string selector)
         {
-            return null;
-            //var elements = _androidElement.FindElementsByAndroidUIAutomator(selector);
-            //var resolved = new List<IMobileElement>();
-
-            //foreach (var element in elements)
-            //    resolved.Add(_finderElementService.Resolve<IMobileElement>(_appiumDriver, element));
-
-            //return resolved;
+            throw new NotImplementedException();
         }
 
         public string GetAttribute(string attribute)
-            => _androidElement.GetAttribute(attribute);
+        {
+            return _wrappedElement.GetAttribute(attribute);
+        }
 
         public string GetCssValue(string property)
-            => _androidElement.GetAttribute(property);
+        {
+            return _wrappedElement.GetCssValue(property);
+        }
     }
 }

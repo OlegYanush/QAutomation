@@ -2,7 +2,7 @@
 {
     using Controls;
 
-    public interface IElementFinderService<out TElement> :
+    public interface IElementFinderService<TElement> :
        IFinderByClassName<TElement>, IFinderByCssSelector<TElement>,
        IFinderById<TElement>, IFinderByPartialLinkText<TElement>,
        IFinderByLinkText<TElement>, IFinderByXPath<TElement>,

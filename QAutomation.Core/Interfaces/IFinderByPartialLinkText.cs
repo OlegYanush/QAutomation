@@ -4,12 +4,12 @@
     using QAutomation.Logger;
     using System.Collections.Generic;
 
-    public interface IFinderByPartialLinkText<out TElement> where TElement : class, IElement
+    public interface IFinderByPartialLinkText<TElement> where TElement : IElement
     {
-        IEnumerable<T> FindElementsByPartialLinkText<T>(string partialLinkText, ILogger log) where T : class, IElement;
-        T FindElementByPartialLinkText<T>(string partialLinkText, ILogger log) where T : class, IElement;
+        IEnumerable<T> FindElementsByPartialLinkText<T>(string partialLinkText, ILogger log, double timeoutInSec = -1) where T : TElement;
+        T FindElementByPartialLinkText<T>(string partialLinkText, ILogger log, double timeoutInSec = -1) where T : TElement;
 
-        IEnumerable<TElement> FindElementsByPartialLinkText(string partialLinkText, ILogger log);
-        TElement FindElementByPartialLinkText(string partialLinkText, ILogger log);
+        IEnumerable<IElement> FindElementsByPartialLinkText(string partialLinkText, ILogger log, double timeoutInSec = -1);
+        IElement FindElementByPartialLinkText(string partialLinkText, ILogger log, double timeoutInSec = -1);
     }
 }

@@ -2,7 +2,7 @@
 {
     using Controls;
 
-    public interface IMobileDriver<out TMobileElement> : IMobileElementFinderService<TMobileElement>,
+    public interface IMobileDriver<TMobileElement> : IMobileElementFinderService<TMobileElement>,
         IManageAppService, IManageDeviceService, IManageInputService, IHasSessionService,
         IFinderByCssSelector<IElement>, IFinderByLinkText<IElement>, IFinderByName<IElement>,
         IFinderByPartialLinkText<IElement>
