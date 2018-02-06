@@ -2,12 +2,12 @@
 {
     using Enums;
     using QAutomation.Core.Enums.Mobile;
+    using QAutomation.Core.Interfaces.Mobile;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-
 
     public abstract class MobileDriverConfig
     {
@@ -23,7 +23,7 @@
 
         public Uri RemoteAddressServerUri { get; set; }
 
-        public abstract Platform Platform { get; }
+        public abstract MobilePlatform Platform { get; }
         public string Version { get; set; }
 
         public string DeviceName { get; set; }
@@ -40,9 +40,9 @@
 
         public ScreenOrientation Orientation { get; set; } = ScreenOrientation.Landscape;
 
-        public New.IMobileDriver CreateDriver => UseEmulator ? CreateEmulatorDriver() : CreateRealDeviceDriver();
+        public IMobileDriver CreateDriver => UseEmulator ? CreateEmulatorDriver() : CreateRealDeviceDriver();
 
-        public abstract New.IMobileDriver CreateEmulatorDriver();
-        public abstract New.IMobileDriver CreateRealDeviceDriver();
+        public abstract IMobileDriver CreateEmulatorDriver();
+        public abstract IMobileDriver CreateRealDeviceDriver();
     }
 }

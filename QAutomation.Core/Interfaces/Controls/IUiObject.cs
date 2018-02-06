@@ -1,5 +1,6 @@
 ﻿namespace QAutomation.Core.Interfaces.Controls
 {
+    using QAutomation.Core.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
@@ -7,21 +8,19 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public interface IElement
+    public interface IUiObject : IUiObjectFinder
     {
-        IElement Parent { get; }
-        By By { get; set; }
+        string Name { get; set; }
+
+        string Tag { get; }
+        string Content { get; }
 
         bool Displayed { get; }
         bool Enabled { get; }
 
-        Point Location { get; }
-        string Content { get; }
-
-        string Tag { get; }
         Size Size { get; }
+        Point Position { get; }
 
         string GetAttribute(string attribute);
-        string GetCssValue(string property);
     }
 }

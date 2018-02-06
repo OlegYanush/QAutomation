@@ -4,12 +4,9 @@
     using QAutomation.Logger;
     using System.Collections.Generic;
 
-    public interface IFinderByXPath<TElement> where TElement : IElement
+    public interface IFinderByXPath
     {
-        IEnumerable<T> FindElementsByXPath<T>(string xpath, ILogger log, double timeoutInSec = -1) where T : TElement;
-        T FindElementByXPath<T>(string xpath, ILogger log, double timeoutInSec = -1) where T : TElement;
-
-        IEnumerable<IElement> FindElementsByXPath(string xpath, ILogger log, double timeoutInSec = -1);
-        IElement FindElementByXPath(string xpath, ILogger log, double timeoutInSec = -1);
+        TUiObject FindElementByXPath<TUiObject>(string xpath, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
+        IEnumerable<TUiObject> FindElementsByXPath<TUiObject>(string xpath, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
     }
 }

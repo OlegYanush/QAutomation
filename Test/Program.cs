@@ -4,7 +4,6 @@ using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 using QAutomation.Appium;
-using QAutomation.Appium.Controls;
 using QAutomation.Appium.Engine;
 using QAutomation.Core;
 using QAutomation.Core.Interfaces.Controls;
@@ -48,34 +47,39 @@ namespace Test
             //Console.WriteLine(stopwatch.Elapsed.TotalSeconds);
 
             //driver.Quit();
-            var capabilities = new DesiredCapabilities();
+        //    var capabilities = new DesiredCapabilities();
 
-            capabilities.SetCapability("app", Path.Combine(Directory.GetCurrentDirectory(), "whatsapp.apk"));
-            capabilities.SetCapability("platformName", "android");
+        //    capabilities.SetCapability("app", Path.Combine(Directory.GetCurrentDirectory(), "whatsapp.apk"));
+        //    capabilities.SetCapability("platformName", "android");
 
-            capabilities.SetCapability("deviceName", "android emulator");
-            capabilities.SetCapability("appWaitActivity", "*.EULA");
+        //    capabilities.SetCapability("deviceName", "android emulator");
+        //    capabilities.SetCapability("appWaitActivity", "*.EULA");
 
-            var driver = new AndroidDriver<OpenQA.Selenium.Appium.Android.AndroidElement>(new Uri("http://localhost:4723/wd/hub/"), capabilities, TimeSpan.FromMinutes(2));
+        //    var driver = new AndroidDriver<OpenQA.Selenium.Appium.Android.AndroidElement>(new Uri("http://localhost:4723/wd/hub/"), capabilities, TimeSpan.FromMinutes(2));
 
-            var unityContainer = new UnityContainer();
+        //    var unityContainer = new UnityContainer();
 
-            unityContainer.RegisterType<IElement, Element>();
-            unityContainer.RegisterType<IUiObject, UiObject>();
+        //    unityContainer.RegisterType<IUiObject, UiObject>();
 
-            //unityContainer.RegisterType<IMobileElement, QAutomation.Appium.Controls.AndroidElement>();
+        //    //unityContainer.RegisterType<IMobileElement, QAutomation.Appium.Controls.AndroidElement>();
 
+        //    var wrapper = new AndroidDriver(driver, unityContainer);
 
+        //    try
+        //    {
+        //        var element = wrapper.FindByXPath<IUiObject>("//*");
 
-            try
-            {
+        //        var child = element.Find<UiObject>(new UiSelector().ResourceId("android:id/button2"), null);
 
-            }
-            catch (Exception ex)
-            {
-            }
+        //        child.WrappedElement.Click();
 
-            driver.Quit();
+        //        var title = driver.Title;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+
+        //    driver.Quit();
         }
     }
 }

@@ -1,19 +1,12 @@
 ﻿namespace QAutomation.Core.Interfaces
 {
-    using QAutomation.Core.Interfaces.Controls;
+    using Controls;
     using QAutomation.Logger;
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
-    public interface IFinderByTagName<TElement> where TElement : IElement
+    public interface IFinderByTagName
     {
-        IEnumerable<T> FindElementsByTagName<T>(string tagName, ILogger log, double timeoutInSec = -1) where T : TElement;
-        T FindElementByTagName<T>(string tagName, ILogger log, double timeoutInSec = -1) where T : TElement;
-
-        IEnumerable<IElement> FindElementsByTagName(string tagName, ILogger log, double timeoutInSec = -1);
-        IElement FindElementByTagName(string tagName, ILogger log, double timeoutInSec = -1) ;
+        TUiObject FindElementByTagName<TUiObject>(string tagName, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
+        IEnumerable<TUiObject> FindElementsByTagName<TUiObject>(string tagName, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
     }
 }

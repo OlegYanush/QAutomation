@@ -13,7 +13,7 @@ namespace QAutomation.Appium
 {
     public class IosDriverConfig : MobileDriverConfig
     {
-        public override Platform Platform => Platform.IOS;
+        public override MobilePlatform Platform => MobilePlatform.IOS;
 
         public IUnityContainer Container { get; set; }
 

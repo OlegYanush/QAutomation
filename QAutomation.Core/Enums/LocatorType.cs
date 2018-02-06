@@ -6,15 +6,18 @@
     using System.Text;
     using System.Threading.Tasks;
 
-
     public enum LocatorType
     {
         Id,
-        ClassName,
-        CssSelector,
+        Name,
         XPath,
+        TagName,
+        LinkText,
+        ClassName,
         UiSelector,
+        CssSelector,
         UiAutomation,
-        AccessibilityId
+        AccessibilityId,
+        PartialLinkText
     }
 }

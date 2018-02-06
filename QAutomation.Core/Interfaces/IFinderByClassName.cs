@@ -4,12 +4,10 @@
     using QAutomation.Logger;
     using System.Collections.Generic;
 
-    public interface IFinderByClassName<TElement> where TElement : IElement
+    public interface IFinderByClassName
     {
-        IEnumerable<T> FindElementsByClassName<T>(string className, ILogger log, double timeoutInSec = -1) where T : TElement;
-        T FindElementByClassName<T>(string className, ILogger log, double timeoutInSec = -1) where T : TElement;
+        TUiObject FindElementByClassName<TUiObject>(string className, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
 
-        IEnumerable<IElement> FindsElementByClassName(string className, ILogger log, double timeoutInSec = -1);
-        IElement FindElementByClassName(string className, ILogger log, double timeoutInSec = -1);
+        IEnumerable<TUiObject> FindElementsByClassName<TUiObject>(string className, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
     }
 }

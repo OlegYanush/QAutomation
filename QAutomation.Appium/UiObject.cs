@@ -15,7 +15,6 @@
     {
         private ElementFinderService _elementFinderService;
 
-        protected ISearchContext _searchContext;
         protected IWebElement _wrappedElement;
 
         public string Name { get; set; }
@@ -25,11 +24,9 @@
 
         public IWebElement WrappedElement => _wrappedElement;
 
-        public UiObject(IWebElement element, ISearchContext context, IUnityContainer container)
+        public UiObject(IWebElement element, IUnityContainer container)
         {
             _wrappedElement = element;
-            _searchContext = context;
-
             _elementFinderService = new ElementFinderService(container);
         }
 

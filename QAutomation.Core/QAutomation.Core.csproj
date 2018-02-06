@@ -41,41 +41,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="By.cs" />
     <Compile Include="Enums\LocatorType.cs" />
     <Compile Include="Enums\Mobile\ScreenOrientation.cs" />
-    <Compile Include="Enums\Platform.cs" />
-    <Compile Include="Enums\SearchType.cs" />
-    <Compile Include="Interfaces\IWebElementFinderService.cs" />
-    <Compile Include="Interfaces\IFinderByPartialLinkText.cs" />
-    <Compile Include="Interfaces\IFinderByTagName.cs" />
-    <Compile Include="Interfaces\Controls\IElement.cs" />
-    <Compile Include="Interfaces\Controls\IMobileElement.cs" />
-    <Compile Include="Interfaces\IFinderByCssSelector.cs" />
-    <Compile Include="Interfaces\IFinderById.cs" />
-    <Compile Include="Interfaces\IFinderByLinkText.cs" />
-    <Compile Include="Interfaces\IFinderByName.cs" />
-    <Compile Include="Interfaces\IFinderByXPath.cs" />
-    <Compile Include="Interfaces\Mobile\IFinderByAccessibilityId.cs" />
-    <Compile Include="Interfaces\IFinderByClassName.cs" />
+    <Compile Include="Enums\Mobile\Platform.cs" />
+    <Compile Include="Interfaces\IUiObjectFinderService.cs" />
     <Compile Include="Interfaces\Mobile\IManageAppService.cs" />
     <Compile Include="Interfaces\Mobile\IManageDeviceService.cs" />
     <Compile Include="Interfaces\Mobile\IManageInputService.cs" />
     <Compile Include="Interfaces\Mobile\IHasSessionService.cs" />
-    <Compile Include="Interfaces\Mobile\IMobileDriver.cs" />
-    <Compile Include="Interfaces\Mobile\IMobileElementFinderService.cs" />
+    <Compile Include="Interfaces\Mobile\IMobileDriverConfig.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Locator.cs" />
-    <Compile Include="MobileDriverConfig.cs" />
-    <Compile Include="New\IFinderByAccessibilyId.cs" />
-    <Compile Include="New\IFinderByClassName.cs" />
-    <Compile Include="New\IFinderByCssSelector.cs" />
-    <Compile Include="New\IFinderById.cs" />
-    <Compile Include="New\IFinderByXPath.cs" />
-    <Compile Include="New\IMobileDriver.cs" />
-    <Compile Include="New\IUiObjectFinder.cs" />
+    <Compile Include="Interfaces\Mobile\IFinderByAccessibilyId.cs" />
+    <Compile Include="Interfaces\IFinderByClassName.cs" />
+    <Compile Include="Interfaces\IFinderByCssSelector.cs" />
+    <Compile Include="Interfaces\IFinderById.cs" />
+    <Compile Include="Interfaces\IFinderByLinkText.cs" />
+    <Compile Include="Interfaces\IFinderByName.cs" />
+    <Compile Include="Interfaces\IFinderByPartialLinkText.cs" />
+    <Compile Include="Interfaces\IFinderByTagName.cs" />
+    <Compile Include="Interfaces\Mobile\IFInderByUiSelector.cs" />
+    <Compile Include="Interfaces\IFinderByXPath.cs" />
+    <Compile Include="Interfaces\Mobile\IMobileDriver.cs" />
+    <Compile Include="Interfaces\IUiObjectFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IUiObject.cs" />
+    <Compile Include="Interfaces\Controls\IUiObject.cs" />
     <Compile Include="UiSelector.cs" />
   </ItemGroup>
   <ItemGroup>
