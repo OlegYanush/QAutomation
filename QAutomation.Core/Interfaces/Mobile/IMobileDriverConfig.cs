@@ -4,7 +4,7 @@
 
     public interface IMobileDriverConfig
     {
-        MobilePlatform Platform { get; set; }
+        MobilePlatform Platform { get; }
         bool UseEmulator { get; set; }
         string Version { get; set; }
 

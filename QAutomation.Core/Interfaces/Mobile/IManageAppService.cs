@@ -5,8 +5,8 @@
 
     public interface IManageAppService
     {
-        Dictionary<string, object> GetAppStringDectionary(ILogger log, string language = null, string stringFile = null);
-        bool IsAppInstalled(string boundleId, ILogger log);
+        Dictionary<string, object> GetAppStringDictionary(ILogger log, string language = null, string stringFile = null);
+        bool IsAppInstalled(string bundledId, ILogger log);
 
         void InstallApp(string appPath, ILogger log);
         void BackgroundApp(int seconds, ILogger log);

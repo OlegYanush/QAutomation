@@ -55,21 +55,29 @@
     <Reference Include="Unity.Container, Version=5.5.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.Container.5.5.6\lib\net45\Unity.Container.dll</HintPath>
     </Reference>
-    <Reference Include="WebDriver, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selenium.WebDriver.3.8.0\lib\net45\WebDriver.dll</HintPath>
+    <Reference Include="WebDriver, Version=3.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.3.9.0\lib\net45\WebDriver.dll</HintPath>
     </Reference>
-    <Reference Include="WebDriver.Support, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selenium.Support.3.8.0\lib\net45\WebDriver.Support.dll</HintPath>
+    <Reference Include="WebDriver.Support, Version=3.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.Support.3.9.0\lib\net45\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ByExtensions.cs" />
+    <Compile Include="Engine\Android\WrappedAndroidDriver.HasSessionService.cs" />
+    <Compile Include="Engine\Android\WrappedAndroidDriver.ManageAppService.cs" />
+    <Compile Include="Engine\Android\WrappedAndroidDriver.cs" />
+    <Compile Include="Engine\Android\WrappedAndroidDriver.ManageDeviceService.cs" />
+    <Compile Include="Engine\Android\WrappedAndroidDriver.ManageInputService.cs" />
+    <Compile Include="Engine\IOS\IosMobileDriver.cs" />
+    <Compile Include="Extensions\LocatorExtensions.cs" />
+    <Compile Include="Configs\AndroidDriverConfig.cs" />
+    <Compile Include="Configs\IosDriverConfig.cs" />
+    <Compile Include="Configs\MobileDriverConfig.cs" />
+    <Compile Include="Controls\Button.cs" />
+    <Compile Include="Controls\Input.cs" />
     <Compile Include="Engine\ElementFinderService.cs" />
-    <Compile Include="IosDriver.cs" />
-    <Compile Include="IosDriverConfig.cs" />
-    <Compile Include="MobileDriverConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UiObject.cs" />
+    <Compile Include="Controls\UiObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QAutomation.Core\QAutomation.Core.csproj">
@@ -85,8 +93,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

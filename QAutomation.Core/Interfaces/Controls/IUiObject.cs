@@ -15,7 +15,7 @@
         bool Enabled { get; }
 
         Size Size { get; }
-        Point Position { get; }
+        Point Location { get; }
 
         void Focus(ILogger log);
         string GetAttribute(string attribute, ILogger log);

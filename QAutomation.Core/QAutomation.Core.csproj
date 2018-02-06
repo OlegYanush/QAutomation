@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="Enums\LocatorType.cs" />
     <Compile Include="Enums\Mobile\ScreenOrientation.cs" />
-    <Compile Include="Enums\Mobile\Platform.cs" />
+    <Compile Include="Enums\Mobile\MobilePlatform.cs" />
     <Compile Include="Interfaces\Controls\IButton.cs" />
     <Compile Include="Interfaces\Controls\IInput.cs" />
     <Compile Include="Interfaces\IUiObjectFinderService.cs" />

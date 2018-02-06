@@ -15,7 +15,7 @@
         void SetContext(string context, ILogger log);
 
         ScreenOrientation GetOrientation(ILogger log);
-        void SetOrientation(ILogger log);
+        void SetOrientation(ScreenOrientation orientation, ILogger log);
 
         List<string> GetAllContexts(ILogger log);
 

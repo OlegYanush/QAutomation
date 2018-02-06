@@ -8,7 +8,7 @@
         List<string> GetIMEAvailableEngines(ILogger log);
 
         string GetIMEActiveEngine(ILogger log);
-        void IsIMEActive(ILogger log);
+        bool IsIMEActive(ILogger log);
 
         void ActivateIMEEngine(string imeEngine, ILogger log);
         void DeactiveIMEEngine(ILogger log);
