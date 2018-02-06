@@ -21,6 +21,7 @@
         public static Locator ClassName(string className) => new Locator(className, LocatorType.ClassName);
         public static Locator CssSelector(string cssSelector) => new Locator(cssSelector, LocatorType.CssSelector);
         public static Locator PartialLinkText(string partialLinkText) => new Locator(partialLinkText, LocatorType.PartialLinkText);
+        public static Locator AccessibilityId(string accessibilityId) => new Locator(accessibilityId, LocatorType.AccessibilityId);
 
         public override string ToString() => $"[Type: {Type}, Value: {Value}]";
     }
