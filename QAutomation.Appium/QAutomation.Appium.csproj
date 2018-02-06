@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\Android\WrappedAndroidDriver.FinderSevice.cs" />
     <Compile Include="Engine\Android\WrappedAndroidDriver.HasSessionService.cs" />
     <Compile Include="Engine\Android\WrappedAndroidDriver.ManageAppService.cs" />
     <Compile Include="Engine\Android\WrappedAndroidDriver.cs" />
