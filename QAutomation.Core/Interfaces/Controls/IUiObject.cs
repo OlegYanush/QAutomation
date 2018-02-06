@@ -1,12 +1,8 @@
 ﻿namespace QAutomation.Core.Interfaces.Controls
 {
     using QAutomation.Core.Interfaces;
-    using System;
-    using System.Collections.Generic;
+    using QAutomation.Logger;
     using System.Drawing;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public interface IUiObject : IUiObjectFinder
     {
@@ -21,6 +17,7 @@
         Size Size { get; }
         Point Position { get; }
 
-        string GetAttribute(string attribute);
+        void Focus(ILogger log);
+        string GetAttribute(string attribute, ILogger log);
     }
 }
