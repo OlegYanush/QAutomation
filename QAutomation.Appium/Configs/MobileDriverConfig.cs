@@ -5,27 +5,35 @@
     using QAutomation.Core.Enums.Mobile;
     using QAutomation.Core.Interfaces.Mobile;
     using System;
+    using Unity;
 
     public abstract class MobileDriverConfig : IMobileDriverConfig
     {
+        protected IUnityContainer _unityContainer { get; set; }
+
+        protected MobileDriverConfig(IUnityContainer container)
+        {
+            _unityContainer = container;
+        }
+
         public abstract MobilePlatform Platform { get; }
         public string Version { get; set; }
 
         public bool UseEmulator { get; set; }
-        public Core.Enums.Mobile.ScreenOrientation Orientation { get; set; } = Core.Enums.Mobile.ScreenOrientation.Landscape;
+        public Core.Enums.Mobile.ScreenOrientation Orientation { get; set; } = Core.Enums.Mobile.ScreenOrientation.Portrait;
 
-        public double ImplicitWaitTimeoutInSec { get; set; }
-        public double ExplicitWaitTimeoutInSec { get; set; }
+        public double ImplicitWaitTimeoutInSec { get; set; } = 60;
+        public double ExplicitWaitTimeoutInSec { get; set; } = 60;
 
-        public double HttpCommandTimeoutInSec { get; set; }
-        public double JavaScriptTimeoutInSec { get; set; }
+        public double HttpCommandTimeoutInSec { get; set; } = 65;
+        public double JavaScriptTimeoutInSec { get; set; } = 60;
 
-        public double PoolingIntervalInSec { get; set; }
+        public double PoolingIntervalInSec { get; set; } = 2;
 
         public Uri RemoteAddressServerUri { get; set; }
 
         public string DeviceName { get; set; }
-        public string AutomationName { get; set; }
+        public string AutomationName { get; set; } = AutomationEngine.Appium;
 
         public string DeviceId { get; set; }
         public string PathToApp { get; set; }
@@ -36,6 +44,8 @@
         public bool NoReset { get; set; }
         public bool FullReset { get; set; }
 
+        public bool AutoWebView { get; set; }
+
         public IMobileDriver CreateDriver() => UseEmulator ? CreateEmulatorDriver() : CreateRealDeviceDriver();
 
         public abstract IMobileDriver CreateEmulatorDriver();
@@ -43,17 +53,66 @@
 
         protected virtual DesiredCapabilities GetEmulatorCapabilities()
         {
-            return null;
+            var capabilities = new DesiredCapabilities();
+
+            capabilities.SetCapability("automationName", AutomationName);
+            capabilities.SetCapability("platformName", Platform);
+
+            capabilities.SetCapability("platformVersion", Version);
+            capabilities.SetCapability("deviceName", DeviceName);
+
+            capabilities.SetCapability("newCommandTimeout", HttpCommandTimeoutInSec);
+            capabilities.SetCapability("orientation", Orientation.ToString().ToUpperInvariant());
+
+            capabilities.SetCapability("fullReset", FullReset);
+            capabilities.SetCapability("noReset", NoReset);
+
+            capabilities.SetCapability("autoWebview", AutoWebView);
+
+            capabilities.SetCapability("locale", Locale);
+            capabilities.SetCapability("orientation", Orientation.ToString().ToUpperInvariant());
+
+            if (DeviceId != default(string))
+                capabilities.SetCapability("udid", DeviceId);
+
+            if (PathToApp != default(string))
+                capabilities.SetCapability("app", PathToApp);
+            else
+                capabilities.SetCapability("browserName", BrowserName);
+
+            return capabilities;
         }
 
         protected virtual DesiredCapabilities GetRealDeviceCapabilities()
         {
-            return null;
+            var capabilities = new DesiredCapabilities();
+
+            capabilities.SetCapability("automationName", AutomationName);
+            capabilities.SetCapability("platformName", Platform);
+
+            capabilities.SetCapability("platformVersion", Version);
+            capabilities.SetCapability("deviceName", DeviceName);
+
+            capabilities.SetCapability("newCommandTimeout", HttpCommandTimeoutInSec);
+            capabilities.SetCapability("autoWebview", AutoWebView);
+
+            capabilities.SetCapability("fullReset", FullReset);
+            capabilities.SetCapability("noReset", NoReset);
+
+            if (DeviceId != default(string))
+                capabilities.SetCapability("udid", DeviceId);
+
+            if (PathToApp != default(string))
+                capabilities.SetCapability("app", PathToApp);
+            else
+                capabilities.SetCapability("browserName", BrowserName);
+
+            return capabilities;
         }
 
         protected void ConfigurateDriverTimeouts(IWebDriver driver)
         {
-            driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(JavaScriptTimeoutInSec);
+            //driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(JavaScriptTimeoutInSec);
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(ImplicitWaitTimeoutInSec);
         }
     }

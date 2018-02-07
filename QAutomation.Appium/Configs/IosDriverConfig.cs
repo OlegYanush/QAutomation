@@ -1,16 +1,16 @@
 ﻿namespace QAutomation.Appium.Configs
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using OpenQA.Selenium.Appium.iOS;
     using QAutomation.Core.Enums.Mobile;
     using QAutomation.Core.Interfaces.Mobile;
+    using Unity;
 
     public class IosDriverConfig : MobileDriverConfig
     {
+        public IosDriverConfig(IUnityContainer container)
+           : base(container) { }
+
         public override MobilePlatform Platform => MobilePlatform.IOS;
 
         public override IMobileDriver CreateEmulatorDriver()

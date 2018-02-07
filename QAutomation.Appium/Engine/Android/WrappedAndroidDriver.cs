@@ -33,10 +33,10 @@
 
         private void ResetImplicitWaitTimeout()
         {
-            var timeouts = _nativeDriver.Manage().Timeouts();
+            //var timeouts = _nativeDriver.Manage().Timeouts();
 
-            if (timeouts.ImplicitWait.TotalSeconds != _config.ImplicitWaitTimeoutInSec)
-                SetImplicitWaitTimeout(_config.ImplicitWaitTimeoutInSec);
+            //if (timeouts.ImplicitWait.TotalSeconds != _config.ImplicitWaitTimeoutInSec)
+            SetImplicitWaitTimeout(_config.ImplicitWaitTimeoutInSec);
         }
 
         private TUiObject Find<TUiObject>(Func<ISearchContext, Locator, TUiObject> finderFunc, Locator locator, ILogger log, double timeoutInSec = -1)
