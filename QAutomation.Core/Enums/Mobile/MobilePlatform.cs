@@ -1,8 +1,9 @@
 ﻿namespace QAutomation.Core.Enums.Mobile
 {
-    public enum MobilePlatform
+    public enum MobilePlatform : byte
     {
-        Android,
-        IOS
+        Android = 0,
+        IOS = 1,
+        FirefoxOS = 2
     }
 }

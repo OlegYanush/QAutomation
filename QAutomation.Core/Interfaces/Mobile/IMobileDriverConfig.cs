@@ -2,7 +2,7 @@
 {
     using QAutomation.Core.Enums.Mobile;
 
-    public interface IMobileDriverConfig
+    public interface IMobileDriverConfig : IDriverConfig
     {
         MobilePlatform Platform { get; }
         bool UseEmulator { get; set; }
