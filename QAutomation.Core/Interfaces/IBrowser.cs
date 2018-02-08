@@ -4,6 +4,9 @@
 
     public interface IBrowser
     {
+        string GetCurrentUrl(ILogger log);
+        string GetCurrentTitle(ILogger log);
+
         void SwitchToFrame(IFrame frame, ILogger log);
         void SwitchToDefaultContent(ILogger log);
 

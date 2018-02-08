@@ -6,7 +6,10 @@
 
     public interface IFInderByUiSelector
     {
-        TUiObject FindElementByUiSelector<TUiObject>(string uiSelector, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
-        IEnumerable<TUiObject> FindElementsByUiSelector<TUiObject>(string uiSelector, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
+        TUiElement FindElementByUiSelector<TUiElement>(string uiSelector, ILogger log) where TUiElement : IUiElement;
+        TUiElement FindElementByUiSelector<TUiElement>(string uiSelector, ILogger log, int timeoutInSec) where TUiElement : IUiElement;
+
+        IEnumerable<TUiElement> FindElementsByUiSelector<TUiElement>(string uiSelector, ILogger log) where TUiElement : IUiElement;
+        IEnumerable<TUiElement> FindElementsByUiSelector<TUiElement>(string uiSelector, ILogger log, int timeoutInSec) where TUiElement : IUiElement;
     }
 }

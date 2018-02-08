@@ -1,7 +1,7 @@
 ﻿namespace QAutomation.Appium.Extensions
 {
-    using QAutomation.Core;
     using QAutomation.Core.Enums;
+    using QAutomation.Core.Locators;
     using System;
 
     public static class LocatorExtensions

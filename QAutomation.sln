@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAutomation.Core", "QAutomation.Core\QAutomation.Core.csproj", "{39B66DB9-F457-4766-BC61-F9C0365BD772}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAutomation.Logger", "QAutomation.Logger\QAutomation.Logger.csproj", "{2241B6E4-11F8-4600-B1F0-F97518F2D6A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{91FDCC55-C12F-415F-94A8-1E901766896A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAutomation.Selenium", "QAutomation.Selenium\QAutomation.Selenium.csproj", "{5D211D25-B827-432B-B84B-282238884E9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{91FDCC55-C12F-415F-94A8-1E901766896A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91FDCC55-C12F-415F-94A8-1E901766896A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91FDCC55-C12F-415F-94A8-1E901766896A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D211D25-B827-432B-B84B-282238884E9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D211D25-B827-432B-B84B-282238884E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D211D25-B827-432B-B84B-282238884E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D211D25-B827-432B-B84B-282238884E9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -40,7 +40,7 @@
         }
 
         private TUiObject Find<TUiObject>(Func<ISearchContext, Locator, TUiObject> finderFunc, Locator locator, ILogger log, double timeoutInSec = -1)
-            where TUiObject : IUiObject
+            where TUiObject : IUiElement
         {
             log?.DEBUG($"Find element with locator = {locator}.");
 
@@ -65,7 +65,7 @@
         }
 
         private IEnumerable<TUiObject> FindAll<TUiObject>(Func<ISearchContext, Locator, IEnumerable<TUiObject>> finderFunc, Locator locator, ILogger log, double timeoutInSec = -1)
-          where TUiObject : IUiObject
+          where TUiObject : IUiElement
         {
             log?.DEBUG($"Find elements with locator = {locator}.");
 

@@ -6,7 +6,10 @@
 
     public interface IFinderByCssSelector
     {
-        TUiObject FindElementByCssSelector<TUiObject>(string cssSelector, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
-        IEnumerable<TUiObject> FindElementsByCssSelector<TUiObject>(string cssSelector, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
+        TUiElement FindElementByCssSelector<TUiElement>(string cssSelector, ILogger log) where TUiElement : IUiElement;
+        TUiElement FindElementByCssSelector<TUiElement>(string cssSelector, ILogger log, int timeoutInSec) where TUiElement : IUiElement;
+
+        IEnumerable<TUiElement> FindElementsByCssSelector<TUiElement>(string cssSelector, ILogger log) where TUiElement : IUiElement;
+        IEnumerable<TUiElement> FindElementsByCssSelector<TUiElement>(string cssSelector, ILogger log, int timeoutInSec) where TUiElement : IUiElement;
     }
 }

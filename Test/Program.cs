@@ -27,7 +27,7 @@ namespace Test
         {
             var container = new UnityContainer();
 
-            container.RegisterType<IUiObject, UiObject>();
+            container.RegisterType<IUiElement, UiObject>();
             container.RegisterType<IButton, Button>();
             container.RegisterType<IInput, Input>();
 
@@ -58,7 +58,7 @@ namespace Test
 
             try
             {
-                var uiObject = driver.FindElementByXPath<IUiObject>("//*", null, 5);
+                var uiObject = driver.FindElementByXPath<IUiElement>("//*", null, 5);
 
                 var button = uiObject.Find<IButton>(new UiSelector().ResourceId("android:id/button2"), null);
 

@@ -4,15 +4,15 @@
     using OpenQA.Selenium.Interactions;
     using OpenQA.Selenium.Remote;
     using QAutomation.Appium.Engine;
-    using QAutomation.Core;
     using QAutomation.Core.Interfaces.Controls;
+    using QAutomation.Core.Locators;
     using QAutomation.Logger;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
     using Unity;
 
-    public class UiObject : IUiObject
+    public class UiObject : IUiElement
     {
         protected IWebElement _wrappedElement;
         protected ElementFinderService _elementFinderService;
@@ -36,11 +36,11 @@
             _elementFinderService = new ElementFinderService(container);
         }
 
-        public TUiObject Find<TUiObject>(Locator locator, ILogger log) where TUiObject : IUiObject
+        public TUiObject Find<TUiObject>(Locator locator, ILogger log) where TUiObject : IUiElement
         {
             return _elementFinderService.Find<TUiObject>(_wrappedElement, locator);
         }
-        public IEnumerable<TUiObject> FindAll<TUiObject>(Locator locator, ILogger log) where TUiObject : IUiObject
+        public IEnumerable<TUiObject> FindAll<TUiObject>(Locator locator, ILogger log) where TUiObject : IUiElement
         {
             return _elementFinderService.FindAll<TUiObject>(_wrappedElement, locator);
         }
@@ -83,7 +83,7 @@
             }
         }
 
-        public TUiObject Find<TUiObject>(Locator locator, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject
+        public TUiObject Find<TUiObject>(Locator locator, ILogger log, double timeoutInSec = -1) where TUiObject : IUiElement
         {
             log?.DEBUG($"Find child element with locator {locator}.");
 
@@ -118,7 +118,7 @@
                     remoteWebDriver.Manage().Timeouts().ImplicitWait = defaultImplicitTimeout;
             }
         }
-        public IEnumerable<TUiObject> FindAll<TUiObject>(Locator locator, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject
+        public IEnumerable<TUiObject> FindAll<TUiObject>(Locator locator, ILogger log, double timeoutInSec = -1) where TUiObject : IUiElement
         {
             log?.DEBUG($"Find child elements with locator {locator}.");
 

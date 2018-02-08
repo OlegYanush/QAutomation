@@ -1,8 +1,8 @@
-﻿namespace QAutomation.Core
+﻿namespace QAutomation.Core.Locators.Mobile
 {
     using Enums;
 
-    public class UiSelector : Locator
+    public class UiSelector : MobileLocator
     {
         public UiSelector()
             : base("new UiSelector()", LocatorType.UiSelector) { }

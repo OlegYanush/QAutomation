@@ -6,7 +6,10 @@
 
     public interface IFinderByXPath
     {
-        TUiObject FindElementByXPath<TUiObject>(string xpath, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
-        IEnumerable<TUiObject> FindElementsByXPath<TUiObject>(string xpath, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
+        TUiElement FindElementByXPath<TUiElement>(string xpath, ILogger log) where TUiElement : IUiElement;
+        TUiElement FindElementByXPath<TUiElement>(string xpath, ILogger log, int timeoutInSec) where TUiElement : IUiElement;
+
+        IEnumerable<TUiElement> FindElementsByXPath<TUiElement>(string xpath, ILogger log) where TUiElement : IUiElement;
+        IEnumerable<TUiElement> FindElementsByXPath<TUiElement>(string xpath, ILogger log,int timeoutInSec) where TUiElement : IUiElement;
     }
 }

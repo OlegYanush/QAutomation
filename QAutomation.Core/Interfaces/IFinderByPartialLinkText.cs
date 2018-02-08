@@ -6,7 +6,10 @@
 
     public interface IFinderByPartialLinkText
     {
-        TUiObject FindElementByPartialLinkText<TUiObject>(string partialLinkText, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
-        IEnumerable<TUiObject> FindElementsByPartialLinkText<TUiObject>(string partialLinkText, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
+        TUiElement FindElementByPartialLinkText<TUiElement>(string partialLinkText, ILogger log) where TUiElement : IUiElement;
+        TUiElement FindElementByPartialLinkText<TUiElement>(string partialLinkText, ILogger log, int timeoutInSec) where TUiElement : IUiElement;
+
+        IEnumerable<TUiElement> FindElementsByPartialLinkText<TUiElement>(string partialLinkText, ILogger log) where TUiElement : IUiElement;
+        IEnumerable<TUiElement> FindElementsByPartialLinkText<TUiElement>(string partialLinkText, ILogger log, int timeoutInSec) where TUiElement : IUiElement;
     }
 }

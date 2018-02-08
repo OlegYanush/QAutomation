@@ -4,10 +4,8 @@
     using QAutomation.Logger;
     using System.Drawing;
 
-    public interface IUiObject : IUiObjectFinder
+    public interface IUiElement : IUiElementFinder
     {
-        string Name { get; set; }
-
         string Tag { get; }
         string Content { get; }
 
@@ -17,7 +15,6 @@
         Size Size { get; }
         Point Location { get; }
 
-        void Focus(ILogger log);
         string GetAttribute(string attribute, ILogger log);
     }
 }

@@ -2,7 +2,7 @@
 {
     using QAutomation.Logger;
 
-    public interface IButton : IUiObject
+    public interface IButton : IUiElement
     {
         void Click(ILogger log);
     }

@@ -6,7 +6,10 @@
 
     public interface IFinderById
     {
-        TUiObject FindElementById<TUiObject>(string id, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
-        IEnumerable<TUiObject> FindElementsById<TUiObject>(string id, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
+        TUiElement FindElementById<TUiElement>(string id, ILogger log) where TUiElement : IUiElement;
+        TUiElement FindElementById<TUiElement>(string id, ILogger log, int timeoutInSec) where TUiElement : IUiElement;
+
+        IEnumerable<TUiElement> FindElementsById<TUiElement>(string id, ILogger log) where TUiElement : IUiElement;
+        IEnumerable<TUiElement> FindElementsById<TUiElement>(string id, ILogger log, int timeoutInSec) where TUiElement : IUiElement;
     }
 }

@@ -1,10 +1,9 @@
-﻿namespace QAutomation.Appium.Engine
+﻿namespace QAutomation.Selenium.Engine
 {
     using OpenQA.Selenium;
-    using QAutomation.Appium.Extensions;
-    using QAutomation.Core;
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Locators;
+    using QAutomation.Selenium.Extensions;
     using System.Collections.Generic;
     using Unity;
     using Unity.Resolution;
@@ -18,15 +17,14 @@
             _unityContainer = container;
         }
 
-        public TUiObject Find<TUiObject>(ISearchContext searchContext, Locator locator)
+        public TUiObject Find<TUiObject>(ISearchContext searchContexnt, Locator locator)
          where TUiObject : IUiElement
         {
-            var element = searchContext.FindElement(locator.ToNativeBy());
-            var resolved = Resolve<TUiObject>(element);
+            var element = searchContexnt.FindElement(locator.ToNativeBy());
+            var resolved = Resolve<TUiObject>(searchContexnt, element);
 
             return resolved;
         }
-
         public IEnumerable<TUiObject> FindAll<TUiObject>(ISearchContext searchContext, Locator locator)
             where TUiObject : IUiElement
         {
@@ -34,15 +32,16 @@
             var resolved = new List<TUiObject>();
 
             foreach (var element in elements)
-                resolved.Add(Resolve<TUiObject>(element));
+                resolved.Add(Resolve<TUiObject>(searchContext, element));
 
             return resolved;
         }
 
-        private TUiObject Resolve<TUiObject>(IWebElement element) where TUiObject : IUiElement
+        private TUiObject Resolve<TUiObject>(ISearchContext searchContext, IWebElement element) where TUiObject : IUiElement
         {
             var resolved = _unityContainer.Resolve<TUiObject>(new ResolverOverride[]
             {
+                new ParameterOverride("driver", searchContext),
                 new ParameterOverride("element", element),
                 new ParameterOverride("container", _unityContainer)
             });

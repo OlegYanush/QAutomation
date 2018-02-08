@@ -6,7 +6,10 @@
 
     public interface IFinderByAccessibilyId
     {
-        TUiObject FindElementByAccessibilityId<TUiObject>(string accessibilityId, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
-        IEnumerable<TUiObject> FindElementsByAccessibilityId<TUiObject>(string accessibilityId, ILogger log, double timeoutInSec = -1) where TUiObject : IUiObject;
+        TUiElement FindElementByAccessibilityId<TUiElement>(string accessibilityId, ILogger log) where TUiElement : IUiElement;
+        TUiElement FindElementByAccessibilityId<TUiElement>(string accessibilityId, ILogger log, int timeoutInSec) where TUiElement : IUiElement;
+
+        IEnumerable<TUiElement> FindElementsByAccessibilityId<TUiElement>(string accessibilityId, ILogger log) where TUiElement : IUiElement;
+        IEnumerable<TUiElement> FindElementsByAccessibilityId<TUiElement>(string accessibilityId, ILogger log, int timeoutInSec) where TUiElement : IUiElement;
     }
 }
