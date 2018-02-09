@@ -8,9 +8,12 @@
     using OpenQA.Selenium;
     using OpenQA.Selenium.Firefox;
     using OpenQA.Selenium.Remote;
+    using QAutomation.Core.Enums;
 
-    class FirefoxDriverConfig : MobileDriverConfig
+    public class FirefoxDriverConfig : WebDriverConfig
     {
+        public override Browser Browser => Browser.Firefox;
+
         public override IWebDriver CreateLocalDriver()
         {
             var driver = new FirefoxDriver();
@@ -20,7 +23,7 @@
 
         public override IWebDriver CreateRemoteDriver()
         {
-            var driver = new RemoteWebDriver(GridUri, GetCapabilites(), TimeSpan.FromSeconds(Timeouts.HttpCommandTimeoutInSec));
+            var driver = new RemoteWebDriver(GridUri, GetCapabilites(), TimeSpan.FromSeconds(Timeouts.HttpCommandTimeout));
 
             return driver;
         }

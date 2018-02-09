@@ -4,7 +4,7 @@
     using QAutomation.Logger;
     using System;
 
-    public partial class WebDriverWrapper : IBrowser
+    public partial class WrappedWebDriver : IBrowser
     {
         public void Close(ILogger log)
         {
@@ -23,7 +23,7 @@
             }
         }
 
-        public string GetCurrentTitle(ILogger log)
+        public string GetPageTitle(ILogger log)
         {
             log?.DEBUG("Get current page title.");
             try
@@ -42,7 +42,7 @@
             }
         }
 
-        public string GetCurrentUrl(ILogger log)
+        public string GetPageUrl(ILogger log)
         {
             log?.DEBUG("Get current URL.");
             try
@@ -66,7 +66,7 @@
             throw new NotImplementedException();
         }
 
-        public string GetSourceString(ILogger log)
+        public string GetPageSource(ILogger log)
         {
             log?.DEBUG("Get current page source.");
             try
@@ -79,23 +79,6 @@
             catch (Exception ex)
             {
                 var message = "Error occurred during getting current page source.";
-                log?.ERROR(message, ex);
-
-                throw new Exception(message, ex);
-            }
-        }
-
-        public void Maximize(ILogger log)
-        {
-            log?.DEBUG("Maximize window.");
-            try
-            {
-                _wrappedDriver.Manage().Window.Maximize();
-                log?.INFO("Maximizing window successfully completed.");
-            }
-            catch (Exception ex)
-            {
-                var message = "Error occurred during maximizing window.";
                 log?.ERROR(message, ex);
 
                 throw new Exception(message, ex);
@@ -147,6 +130,23 @@
             catch (Exception ex)
             {
                 var message = $"Error occurred during switching to frame by name = '{frame.Name}'.";
+                log?.ERROR(message, ex);
+
+                throw new Exception(message, ex);
+            }
+        }
+
+        public void SwitchToParentFrame(ILogger log)
+        {
+            log?.DEBUG("Switch to parent frame.");
+            try
+            {
+                _wrappedDriver.SwitchTo().ParentFrame();
+                log?.INFO("Switching to parent frame successfully completed.");
+            }
+            catch (Exception ex)
+            {
+                var message = "Error occurred during switching to parent frame.";
                 log?.ERROR(message, ex);
 
                 throw new Exception(message, ex);

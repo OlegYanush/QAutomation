@@ -11,19 +11,19 @@
         {
             switch (locator.Type)
             {
-                case LocatorType.Id:
+                case SearchCriteria.Id:
                     return By.Id(locator.Value);
-                case LocatorType.XPath:
+                case SearchCriteria.XPath:
                     return By.XPath(locator.Value);
-                case LocatorType.ClassName:
+                case SearchCriteria.ClassName:
                     return By.ClassName(locator.Value);
-                case LocatorType.CssSelector:
+                case SearchCriteria.CssSelector:
                     return By.CssSelector(locator.Value);
-                case LocatorType.LinkText:
+                case SearchCriteria.LinkText:
                     return By.LinkText(locator.Value);
-                case LocatorType.PartialLinkText:
+                case SearchCriteria.PartialLinkText:
                     return By.PartialLinkText(locator.Value);
-                case LocatorType.TagName:
+                case SearchCriteria.TagName:
                     return By.TagName(locator.Value);
 
                 default:

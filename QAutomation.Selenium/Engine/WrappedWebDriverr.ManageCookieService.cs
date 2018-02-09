@@ -4,7 +4,7 @@
     using QAutomation.Logger;
     using System;
 
-    public partial class WebDriverWrapper : IManageCookieService
+    public partial class WrappedWebDriver : IManageCookieService
     {
         public void AddCookie(string name, string value, ILogger log)
         {
@@ -23,7 +23,7 @@
             }
         }
 
-        public void ClearAllCookies(ILogger log)
+        public void DeleteAllCookies(ILogger log)
         {
             log?.DEBUG($"Clear all cookies'.");
             try

@@ -5,9 +5,9 @@
     using QAutomation.Logger;
     using System;
 
-    public partial class WebDriverWrapper : IJavaScriptInvoker
+    public partial class WrappedWebDriver : IJsExecutor
     {
-        public string InvokeJavaScript(string script, ILogger log)
+        public string ExecuteJavaScript(string script, ILogger log)
         {
             log?.DEBUG($"Invoke js code = '{script}'.");
             try

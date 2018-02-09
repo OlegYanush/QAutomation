@@ -12,7 +12,7 @@
     using System.Drawing;
     using Unity;
 
-    public class UiObject : IUiElement
+    public class UiElement : IUiElement
     {
         protected IWebDriver _wrappedDriver;
         protected IWebElement _wrappedElement;
@@ -31,7 +31,7 @@
         public Size Size => _wrappedElement.Size;
         public Point Location => _wrappedElement.Location;
 
-        public UiObject(IWebDriver driver, IWebElement element, IUnityContainer container)
+        public UiElement(IWebDriver driver, IWebElement element, IUnityContainer container)
         {
             _wrappedDriver = driver;
             _wrappedElement = element;
@@ -109,7 +109,7 @@
             }
             finally
             {
-                var defaultTimeout = TimeoutSettingsProvider.Settings.ImplicitWaitTimeoutInSec;
+                var defaultTimeout = TimeoutSettingsProvider.Settings.ImplicitWait;
                 log?.DEBUG($"Reset implicit timeout to {defaultTimeout} second(s).");
 
                 _wrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(defaultTimeout));
@@ -126,7 +126,7 @@
             }
             finally
             {
-                var defaultTimeout = TimeoutSettingsProvider.Settings.ImplicitWaitTimeoutInSec;
+                var defaultTimeout = TimeoutSettingsProvider.Settings.ImplicitWait;
                 log?.DEBUG($"Reset implicit timeout to {defaultTimeout} second(s).");
 
                 _wrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(defaultTimeout));

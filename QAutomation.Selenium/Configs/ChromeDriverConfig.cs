@@ -6,9 +6,12 @@
     using System.Text;
     using System.Threading.Tasks;
     using OpenQA.Selenium;
+    using QAutomation.Core.Enums;
 
-    public class ChromeDriverConfig : MobileDriverConfig
+    public class ChromeDriverConfig : WebDriverConfig
     {
+        public override Browser Browser => Browser.Chrome;
+
         public override IWebDriver CreateLocalDriver()
         {
             throw new NotImplementedException();

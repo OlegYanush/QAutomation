@@ -8,7 +8,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public partial class WebDriverWrapper : IManageNavigationService
+    public partial class WrappedWebDriver : IManageNavigationService
     {
         public void Back(ILogger log)
         {
