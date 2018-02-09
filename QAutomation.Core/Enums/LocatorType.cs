@@ -1,6 +1,6 @@
 ﻿namespace QAutomation.Core.Enums
 {
-    public enum LocatorType
+    public enum SearchCriteria : byte
     {
         Id,
         Name,

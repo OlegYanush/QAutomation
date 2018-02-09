@@ -4,18 +4,16 @@
 
     public interface IBrowser
     {
-        string GetCurrentUrl(ILogger log);
-        string GetCurrentTitle(ILogger log);
+        void Quit(ILogger log);
 
-        void SwitchToFrame(IFrame frame, ILogger log);
-        void SwitchToDefaultContent(ILogger log);
+        string GetPageUrl(ILogger log);
+        string GetPageTitle(ILogger log);
 
-        string GetSourceString(ILogger log);
+        string GetPageSource(ILogger log);
         IFrame GetFrameByName(string name);
 
-        void Maximize(ILogger log);
-
-        void Close(ILogger log);
-        void Quit(ILogger log);
+        void SwitchToParentFrame(ILogger log);
+        void SwitchToDefaultContent(ILogger log);
+        void SwitchToFrame(IFrame frame, ILogger log);
     }
 }

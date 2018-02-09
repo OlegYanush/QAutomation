@@ -14,13 +14,13 @@
 
                 Settings = new TimeoutSettings
                 {
-                    ExplicitWaitTimeoutInSec = section.ExplicitTimeout.Value,
-                    ImplicitWaitTimeoutInSec = section.ImplicitTimeout.Value,
+                    ExplicitWait = section.ExplicitTimeout.Value,
+                    ImplicitWait = section.ImplicitTimeout.Value,
 
-                    HttpCommandTimeoutInSec = section.HttpCommandTimeout.Value,
+                    HttpCommandTimeout = section.HttpCommandTimeout.Value,
 
-                    JavaScriptTimeoutInSec = section.JavascriptTimeout.Value,
-                    PoolingIntervalInSec = section.JavascriptTimeout.Value
+                    JavaScriptTimeout = section.JavascriptTimeout.Value,
+                    PoolingInterval = section.JavascriptTimeout.Value
                 };
             }
             catch { throw; }

@@ -8,6 +8,6 @@
         string GetCookie(string name, ILogger log);
 
         void DeleteCookie(string name, ILogger log);
-        void ClearAllCookies(ILogger log);
+        void DeleteAllCookies(ILogger log);
     }
 }

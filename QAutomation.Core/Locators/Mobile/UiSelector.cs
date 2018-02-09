@@ -5,10 +5,10 @@
     public class UiSelector : MobileLocator
     {
         public UiSelector()
-            : base("new UiSelector()", LocatorType.UiSelector) { }
+            : base("new UiSelector()", SearchCriteria.UiSelector) { }
 
         public UiSelector(string value)
-            : base(value, LocatorType.UiSelector) { }
+            : base(value, SearchCriteria.UiSelector) { }
 
         public UiSelector ClassNameMatches(string regex)
             => AppendProperty("classNameMatches", regex);

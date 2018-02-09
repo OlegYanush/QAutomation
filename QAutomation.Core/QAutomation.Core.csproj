@@ -46,25 +46,29 @@
     <Compile Include="Configuration\TimeoutSettingsSection.cs" />
     <Compile Include="Configuration\TimeoutSettingsProvider.cs" />
     <Compile Include="Configuration\ValueConfigurationElement.cs" />
+    <Compile Include="Enums\Browser.cs" />
     <Compile Include="Enums\LocatorType.cs" />
     <Compile Include="Enums\Mobile\ScreenOrientation.cs" />
     <Compile Include="Enums\Mobile\MobilePlatform.cs" />
-    <Compile Include="Interfaces\IDriver.cs" />
+    <Compile Include="Interfaces\IBrowserDriver.cs" />
     <Compile Include="Interfaces\IBrowser.cs" />
     <Compile Include="Interfaces\IManageCookieService.cs" />
     <Compile Include="Interfaces\Controls\IButton.cs" />
     <Compile Include="Interfaces\Controls\IInput.cs" />
     <Compile Include="Interfaces\IDriverConfig.cs" />
     <Compile Include="Interfaces\IFrame.cs" />
-    <Compile Include="Interfaces\IJavaScriptInvoker.cs" />
+    <Compile Include="Interfaces\IJsExecutor.cs" />
     <Compile Include="Interfaces\IManageNavigationService.cs" />
+    <Compile Include="Interfaces\IManageWindowService.cs" />
     <Compile Include="Interfaces\IUiElementFinderService.cs" />
+    <Compile Include="Interfaces\IWindow.cs" />
     <Compile Include="Interfaces\Mobile\IManageAppService.cs" />
     <Compile Include="Interfaces\Mobile\IManageDeviceService.cs" />
     <Compile Include="Interfaces\Mobile\IManageInputService.cs" />
     <Compile Include="Interfaces\Mobile\IHasSessionService.cs" />
     <Compile Include="Interfaces\Mobile\IMobileDriverConfig.cs" />
     <Compile Include="Interfaces\IWaitingActionService.cs" />
+    <Compile Include="Interfaces\IBrowserDriverConfig.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Locators\Locator.cs" />
     <Compile Include="Interfaces\Mobile\IFinderByAccessibilyId.cs" />
@@ -83,7 +87,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\Controls\IUiElement.cs" />
     <Compile Include="Locators\Mobile\UiSelector.cs" />
-    <Compile Include="TimeoutSettings.cs" />
+    <Compile Include="Configuration\TimeoutSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QAutomation.Logger\QAutomation.Logger.csproj">
@@ -91,6 +95,8 @@
       <Name>QAutomation.Logger</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
