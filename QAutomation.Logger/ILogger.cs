@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace QAutomation.Logger
+﻿namespace QAutomation.Logger
 {
+    using System;
+
     public interface ILogger
     {
         void TRACE(string message, Exception innerException = null);
@@ -13,5 +9,7 @@ namespace QAutomation.Logger
         void INFO(string message, Exception innerException = null);
         void WARN(string message, Exception innerException = null);
         void ERROR(string message, Exception innerException = null);
+
+        void LOG(LogLevel level, string message, Exception innerException = null);
     }
 }
