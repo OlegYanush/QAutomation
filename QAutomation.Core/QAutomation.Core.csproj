@@ -47,9 +47,11 @@
     <Compile Include="Configuration\TimeoutSettingsProvider.cs" />
     <Compile Include="Configuration\ValueConfigurationElement.cs" />
     <Compile Include="Enums\Browser.cs" />
-    <Compile Include="Enums\LocatorType.cs" />
+    <Compile Include="Enums\CheckboxState.cs" />
+    <Compile Include="Enums\SearchCriteria.cs" />
     <Compile Include="Enums\Mobile\ScreenOrientation.cs" />
     <Compile Include="Enums\Mobile\MobilePlatform.cs" />
+    <Compile Include="Interfaces\Controls\ICheckbox.cs" />
     <Compile Include="Interfaces\IBrowserDriver.cs" />
     <Compile Include="Interfaces\IBrowser.cs" />
     <Compile Include="Interfaces\IManageCookieService.cs" />

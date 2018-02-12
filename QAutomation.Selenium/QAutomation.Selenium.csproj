@@ -77,13 +77,14 @@
     <Compile Include="Configs\IEDriverConfig.cs" />
     <Compile Include="Configs\WebDriverConfig.cs" />
     <Compile Include="Controls\Button.cs" />
+    <Compile Include="Controls\Checkbox.cs" />
     <Compile Include="Controls\Input.cs" />
     <Compile Include="Controls\UiElement.cs" />
     <Compile Include="Engine\ElementFinderService.cs" />
     <Compile Include="Engine\WrappedWebDriver.Browser.cs" />
     <Compile Include="Engine\WrappedWebDriver.cs" />
     <Compile Include="Engine\WrappedWebDriver.FinderService.cs" />
-    <Compile Include="Engine\WrappedWebDriver.JavaScriptInvoker.cs" />
+    <Compile Include="Engine\WrappedWebDriver.JsExecutor.cs" />
     <Compile Include="Engine\WrappedWebDriverr.ManageCookieService.cs" />
     <Compile Include="Engine\WrappedWebDriver.ManageNavigationService.cs" />
     <Compile Include="Engine\WrappedWebDriver.ManageWindowService.cs" />

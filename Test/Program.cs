@@ -43,7 +43,6 @@ namespace Test
 
             container.RegisterInstance(container);
             container.RegisterInstance(typeof(WebDriverConfig), new FirefoxDriverConfig());
-            //container.RegisterInstance(new ChromeDriverConfig());
 
             var driver = container.Resolve<IBrowserDriver>();
 
@@ -55,6 +54,7 @@ namespace Test
             var searchBtn = driver.FindElementById<IButton>("sb_form_go", null);
 
             searchBtn.Click(null);
+
 
             //var driver = new WebDriverWrapper(condig)
 
@@ -113,7 +113,33 @@ namespace Test
 
             window.FullScreen(null);
 
+            window.Maximize(null);
+
             Console.WriteLine(window.GetSize(null));
+
+            var location = window.GetPosition(null);
+
+            window.SetPosition(new System.Drawing.Point(0, 0), null);
+
+            location = window.GetPosition(null);
+
+            var handle = window.GetHandle(null);
+
+            window.SetSize(new System.Drawing.Size(1920, 1080), null);
+
+            driver.Back(null);
+
+            var handls = driver.GetAllWindowHandles(null);
+
+            driver.Forward(null);
+
+            var source = driver.GetPageSource(null);
+
+            var title = driver.GetPageTitle(null);
+            var url = driver.GetPageUrl(null);
+
+            driver.DeleteAllCookies(null);
+            var result = driver.ExecuteJavaScript("document.readyState", null);
 
             driver.Quit(null);
         }
