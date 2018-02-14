@@ -9,17 +9,17 @@
     {
         public string ExecuteJavaScript(string script, ILogger log)
         {
-            log?.DEBUG($"Invoke js code = '{script}'.");
+            log?.DEBUG($"Execute js code = '{script}'.");
             try
             {
                 var result = ((IJavaScriptExecutor)_wrappedDriver).ExecuteAsyncScript(script) as string;
-                log?.INFO($"Invoking js code = '{script}' successfully completed. Returned value = '{result}'.");
+                log?.INFO($"Executing js code = '{script}' successfully completed. Returned value = '{result}'.");
 
                 return result;
             }
             catch (Exception ex)
             {
-                var message = $"Error occurred during invoking js code = '{script}'.";
+                var message = $"Error occurred during executing js code = '{script}'.";
                 log?.ERROR(message, ex);
 
                 throw new Exception(message, ex);

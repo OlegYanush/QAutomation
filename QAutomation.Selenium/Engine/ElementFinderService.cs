@@ -4,6 +4,7 @@
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Locators;
     using QAutomation.Selenium.Extensions;
+    using System;
     using System.Collections.Generic;
     using Unity;
     using Unity.Resolution;
@@ -17,14 +18,37 @@
             _unityContainer = container;
         }
 
-        public TUiObject Find<TUiObject>(ISearchContext searchContexnt, Locator locator)
+        public TUiObject Find<TUiObject>(ISearchContext searchContext, Locator locator)
          where TUiObject : IUiElement
         {
-            var element = searchContexnt.FindElement(locator.ToNativeBy());
-            var resolved = Resolve<TUiObject>(searchContexnt, element);
+            var element = searchContext.FindElement(locator.ToNativeBy());
+            var resolved = Resolve<TUiObject>(searchContext, element);
 
             return resolved;
         }
+
+        public TUiObject Find<TUiObject>(ISearchContext searchContext, IEnumerable<Locator> locators)
+            where TUiObject : IUiElement
+        {
+            if (locators == null)
+                throw new ArgumentNullException(nameof(locators), "List of locators may not be null");
+
+            string errorString = null;
+
+            foreach (var locator in locators)
+            {
+                try
+                {
+                    return Find<TUiObject>(searchContext, locator);
+                }
+                catch (NoSuchElementException)
+                {
+                    errorString = (errorString == null ? "Could not find element by: " : errorString + ", or: ") + locator;
+                }
+            }
+            throw new NoSuchElementException(errorString);
+        }
+
         public IEnumerable<TUiObject> FindAll<TUiObject>(ISearchContext searchContext, Locator locator)
             where TUiObject : IUiElement
         {
@@ -35,6 +59,20 @@
                 resolved.Add(Resolve<TUiObject>(searchContext, element));
 
             return resolved;
+        }
+
+        public IEnumerable<TUiObject> FindAll<TUiObject>(ISearchContext searchContext, IEnumerable<Locator> locators)
+          where TUiObject : IUiElement
+        {
+            if (locators == null)
+                throw new ArgumentNullException(nameof(locators), "List of locators may not be null");
+
+            var collection = new List<TUiObject>();
+
+            foreach (var locator in locators)
+                collection.AddRange(FindAll<TUiObject>(searchContext, locator));
+
+            return collection;
         }
 
         private TUiObject Resolve<TUiObject>(ISearchContext searchContext, IWebElement element) where TUiObject : IUiElement

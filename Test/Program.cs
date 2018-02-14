@@ -1,16 +1,17 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Support.PageObjects;
 using QAutomation.Core;
 using QAutomation.Core.Interfaces;
 using QAutomation.Core.Interfaces.Controls;
 using QAutomation.Core.Locators;
+using QAutomation.Selenium.Attributes;
 using QAutomation.Selenium.Configs;
 using QAutomation.Selenium.Controls;
 using QAutomation.Selenium.Engine;
+using QAutomation.Selenium.Support.PageObjects;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,6 +23,17 @@ using Unity;
 
 namespace Test
 {
+    public class Page
+    {
+        [QAutomationFindBy(How = QAutomation.Core.Enums.SearchCriteria.XPath, Using = "//input[@class='b_searchbox']")]
+        public IList<Input> Element { get; set; }
+
+        public Page(WrappedWebDriver driver, IUnityContainer container)
+        {
+            PageFactory.InitElements(driver.WrappedDriver, this, new QAutomationPageMemberObjectDecorator(container));
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
@@ -42,16 +54,20 @@ namespace Test
             container.RegisterType<IButton, Button>();
 
             container.RegisterInstance(container);
-            container.RegisterInstance(typeof(WebDriverConfig), new FirefoxDriverConfig());
+            container.RegisterInstance<WebDriverConfig>(new ChromeDriverConfig());
 
             var driver = container.Resolve<IBrowserDriver>();
 
+            var page = new Page(driver as WrappedWebDriver, container);
+
             driver.Navigate("https://www.bing.com", null);
 
-            var input = driver.FindElementById<IInput>("sb_form_q", null);
+            page.Element[0].SendKeys("Manchester United", null);
+
+            var input = driver.FindElementByXPath<IInput>("//input[@class='b_searchbox']", null);
 
             input.SendKeys("Manchester United", null);
-            var searchBtn = driver.FindElementById<IButton>("sb_form_go", null);
+            var searchBtn = driver.FindElementByXPath<IButton>("//input[@class='b_searchbox']", null);
 
             searchBtn.Click(null);
 

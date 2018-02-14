@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAutomation.Selenium", "QAutomation.Selenium\QAutomation.Selenium.csproj", "{5D211D25-B827-432B-B84B-282238884E9A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDriver.Support", "..\selenium\dotnet\src\support\WebDriver.Support.csproj", "{0ED94830-738B-4F01-A000-CBD038E12B75}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDriver", "..\selenium\dotnet\src\webdriver\WebDriver.csproj", "{14474911-4F22-4E9C-ACE3-D21BDD5AE46E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{5D211D25-B827-432B-B84B-282238884E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D211D25-B827-432B-B84B-282238884E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D211D25-B827-432B-B84B-282238884E9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ED94830-738B-4F01-A000-CBD038E12B75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ED94830-738B-4F01-A000-CBD038E12B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ED94830-738B-4F01-A000-CBD038E12B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ED94830-738B-4F01-A000-CBD038E12B75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14474911-4F22-4E9C-ACE3-D21BDD5AE46E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14474911-4F22-4E9C-ACE3-D21BDD5AE46E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14474911-4F22-4E9C-ACE3-D21BDD5AE46E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14474911-4F22-4E9C-ACE3-D21BDD5AE46E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

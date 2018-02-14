@@ -6,6 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
     using QAutomation.Core.Enums;
 
     public class ChromeDriverConfig : WebDriverConfig
@@ -14,7 +15,9 @@
 
         public override IWebDriver CreateLocalDriver()
         {
-            throw new NotImplementedException();
+            var driver = new ChromeDriver();
+
+            return driver;
         }
 
         public override IWebDriver CreateRemoteDriver()
