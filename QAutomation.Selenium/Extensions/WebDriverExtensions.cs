@@ -5,9 +5,6 @@
 
     public static class WebDriverExtensions
     {
-        public static void SetImplicitWait(this IWebDriver driver, TimeSpan timeout)
-        {
-            driver.Manage().Timeouts().ImplicitWait = timeout;
-        }
+        public static void SetImplicitWait(this IWebDriver driver, TimeSpan timeout) => driver.Manage().Timeouts().ImplicitWait = timeout;
     }
 }

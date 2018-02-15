@@ -16,13 +16,13 @@
         public IBrowserDriverConfig Config => _config;
         public IWebDriver WrappedDriver => _wrappedDriver;
 
-        public WrappedWebDriver(WebDriverConfig config, IUnityContainer container)
+        public WrappedWebDriver(WebDriverConfig config, IElementResolver resolver)
         {
             _config = config;
             _wrappedDriver = _config.CreateDriver();
 
             _currentWindow = new BrowserWindow(_wrappedDriver);
-            _elementFinderService = new ElementFinderService(container);
+            _elementFinderService = new ElementFinderService(resolver);
         }
     }
 }

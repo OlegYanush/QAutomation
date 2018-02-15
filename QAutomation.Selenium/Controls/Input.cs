@@ -3,12 +3,11 @@
     using OpenQA.Selenium;
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Logger;
-    using Unity;
 
     public class Input : UiElement, IInput
     {
-        public Input(IWebDriver driver, IWebElement element, IUnityContainer container)
-            : base(driver, element, container) { }
+        public Input(IWebDriver driver, IWebElement element, IElementResolver resolver)
+            : base(driver, element, resolver) { }
 
 
         public void Clear(ILogger log)

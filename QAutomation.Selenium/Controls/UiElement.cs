@@ -10,7 +10,6 @@
     using System;
     using System.Collections.Generic;
     using System.Drawing;
-    using Unity;
 
     public class UiElement : IUiElement
     {
@@ -31,12 +30,12 @@
         public Size Size => _wrappedElement.Size;
         public Point Location => _wrappedElement.Location;
 
-        public UiElement(IWebDriver driver, IWebElement element, IUnityContainer container)
+        public UiElement(IWebDriver driver, IWebElement element, IElementResolver resolver)
         {
             _wrappedDriver = driver;
             _wrappedElement = element;
 
-            _elementFinderService = new ElementFinderService(container);
+            _elementFinderService = new ElementFinderService(resolver);
         }
 
         public string GetAttribute(string attribute, ILogger log)

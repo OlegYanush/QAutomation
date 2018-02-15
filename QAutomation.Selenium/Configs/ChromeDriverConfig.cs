@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Chrome;
+    using OpenQA.Selenium.Remote;
     using QAutomation.Core.Enums;
 
     public class ChromeDriverConfig : WebDriverConfig
@@ -22,12 +23,19 @@
 
         public override IWebDriver CreateRemoteDriver()
         {
-            throw new NotImplementedException();
+            return new RemoteWebDriver(GridUri, GetOptions());
         }
 
         protected override ICapabilities GetCapabilites()
         {
             throw new NotImplementedException();
+        }
+
+        protected DriverOptions GetOptions()
+        {
+            var options = new ChromeOptions();
+
+            return options;
         }
     }
 }

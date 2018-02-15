@@ -75,6 +75,10 @@
     <Compile Include="Controls\Checkbox.cs" />
     <Compile Include="Controls\Input.cs" />
     <Compile Include="Controls\UiElement.cs" />
+    <Compile Include="Support\IUiElementLocator.cs" />
+    <Compile Include="Support\QAutomationElementLocator.cs" />
+    <Compile Include="UnityElementResolverService.cs" />
+    <Compile Include="IElementResolver.cs" />
     <Compile Include="Support\PageObjects\QAutomationPageMemberObjectDecorator.cs" />
     <Compile Include="Engine\ElementFinderService.cs" />
     <Compile Include="Engine\WrappedWebDriver.Browser.cs" />

@@ -15,6 +15,8 @@
                     return By.Id(locator.Value);
                 case SearchCriteria.XPath:
                     return By.XPath(locator.Value);
+                case SearchCriteria.Name:
+                    return By.Name(locator.Value);
                 case SearchCriteria.ClassName:
                     return By.ClassName(locator.Value);
                 case SearchCriteria.CssSelector:

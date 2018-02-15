@@ -4,12 +4,11 @@
     using QAutomation.Core.Enums;
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Logger;
-    using Unity;
 
     public class Checkbox : Button, ICheckbox
     {
-        public Checkbox(IWebDriver driver, IWebElement element, IUnityContainer container)
-            : base(driver, element, container) { }
+        public Checkbox(IWebDriver driver, IWebElement element, IElementResolver resolver)
+            : base(driver, element, resolver) { }
 
         public CheckboxState GetState(ILogger log)
         {

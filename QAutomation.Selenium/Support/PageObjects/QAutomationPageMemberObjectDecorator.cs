@@ -1,6 +1,5 @@
 ﻿namespace QAutomation.Selenium.Support.PageObjects
 {
-    using OpenQA.Selenium;
     using OpenQA.Selenium.Support.PageObjects;
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Locators;
@@ -8,48 +7,18 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using System.Reflection.Emit;
-    using Unity;
 
     public class QAutomationPageMemberObjectDecorator : IPageObjectMemberDecorator
     {
-        private static List<Type> _interfacesToBeProxied;
-        private static Type _interfaceProxyType;
-
-        private static List<Type> InterfacesToBeProxied
-        {
-            get
-            {
-                if (_interfacesToBeProxied == null)
-                    _interfacesToBeProxied = new List<Type> { typeof(IUiElement) };
-
-                return _interfacesToBeProxied;
-            }
-        }
-
         private static Type InterfaceToBeProxied => typeof(IUiElement);
-        private static Type InterfaceProxyType
-        {
-            get
-            {
-                if (_interfaceProxyType == null)
-                {
-                    _interfaceProxyType = CreateTypeForASingleElement();
-                }
-
-                return _interfaceProxyType;
-            }
-        }
-
-        private IUnityContainer _container;
-
-        public QAutomationPageMemberObjectDecorator(IUnityContainer container)
-        {
-            _container = container;
-        }
 
         public object Decorate(MemberInfo member, IElementLocator locator)
         {
+            var castedLocator = locator as IUiElementLocator;
+
+            if (castedLocator == null)
+                throw new ArgumentException($"{GetType().Name}.{nameof(IPageObjectMemberDecorator.Decorate)} method requires {nameof(IUiElementLocator)} lcoator type");
+
             FieldInfo field = member as FieldInfo;
             PropertyInfo property = member as PropertyInfo;
 
@@ -76,7 +45,7 @@
             if (locators.Count > 0)
             {
                 bool cache = ShouldCacheLookup(member);
-                object proxyObject = CreateProxyObject(targetType, locator, locators, _container, cache);
+                object proxyObject = CreateProxyObject(targetType, castedLocator, locators, cache);
                 return proxyObject;
             }
 
@@ -111,23 +80,7 @@
             return locators.AsReadOnly();
         }
 
-        private static Type CreateTypeForASingleElement()
-        {
-            AssemblyName tempAssemblyName = new AssemblyName(Guid.NewGuid().ToString());
-
-            AssemblyBuilder dynamicAssembly = AppDomain.CurrentDomain.DefineDynamicAssembly(tempAssemblyName, AssemblyBuilderAccess.Run);
-            ModuleBuilder moduleBuilder = dynamicAssembly.DefineDynamicModule(tempAssemblyName.Name);
-            TypeBuilder typeBuilder = moduleBuilder.DefineType(typeof(IUiElement).FullName, TypeAttributes.Public | TypeAttributes.Interface | TypeAttributes.Abstract);
-
-            foreach (Type type in InterfacesToBeProxied)
-            {
-                typeBuilder.AddInterfaceImplementation(type);
-            }
-
-            return typeBuilder.CreateType();
-        }
-
-        private static object CreateProxyObject(Type memberType, IElementLocator locator, IEnumerable<Locator> locators, IUnityContainer container, bool cache)
+        private static object CreateProxyObject(Type memberType, IUiElementLocator locator, IEnumerable<Locator> locators, bool cache)
         {
             MethodInfo method = null;
 
@@ -135,7 +88,7 @@
             {
                 var genericTypeDef = memberType.GetGenericTypeDefinition();
 
-                if (genericTypeDef.Equals(typeof(IList<>)) || genericTypeDef.IsAssignableFrom(typeof(IList<>)))
+                if (genericTypeDef.Equals(typeof(IList<>)))
                 {
                     var arguments = memberType.GetGenericArguments();
 
@@ -147,24 +100,28 @@
                     }
                 }
             }
-            else if (memberType.GetInterface(nameof(IUiElement)) != null || memberType.IsAssignableFrom(InterfaceToBeProxied))
+            else if (memberType.IsInterface &&
+                        (memberType.GetInterface(InterfaceToBeProxied.Name) != null || memberType.IsAssignableFrom(InterfaceToBeProxied)))
             {
                 var proxyType = typeof(UiElementProxy<>).MakeGenericType(memberType);
                 method = proxyType.GetMethod("CreateProxy", BindingFlags.Public | BindingFlags.Static);
             }
             else
-                return null;
+                throw new ArgumentException($"Type of member '{memberType.Name}' isn't IList<{InterfaceToBeProxied.Name}>,{InterfaceToBeProxied.Name} or derived interface.");
 
-            return method.Invoke(null, new object[] { memberType, locators, locator.SearchContext, container, cache });
+            return method.Invoke(null, new object[] { memberType, locators, locator, cache });
         }
 
         protected static bool ShouldCacheLookup(MemberInfo member)
         {
             if (member == null)
-                throw new ArgumentNullException("member", "memeber cannot be null");
+                throw new ArgumentNullException(nameof(member), "memeber cannot be null");
 
             var cacheAttributeType = typeof(CacheLookupAttribute);
-            bool cache = member.GetCustomAttributes(cacheAttributeType, true).Length != 0 || member.DeclaringType.GetCustomAttributes(cacheAttributeType, true).Length != 0;
+
+            bool cache = member.GetCustomAttributes(cacheAttributeType, true).Length != 0
+                      || member.DeclaringType.GetCustomAttributes(cacheAttributeType, true).Length != 0;
+
             return cache;
         }
     }

@@ -6,23 +6,21 @@
     using QAutomation.Selenium.Extensions;
     using System;
     using System.Collections.Generic;
-    using Unity;
-    using Unity.Resolution;
 
     public class ElementFinderService
     {
-        private readonly IUnityContainer _unityContainer;
+        IElementResolver _resolver;
 
-        public ElementFinderService(IUnityContainer container)
+        public ElementFinderService(IElementResolver resolver)
         {
-            _unityContainer = container;
+            _resolver = resolver;
         }
 
         public TUiObject Find<TUiObject>(ISearchContext searchContext, Locator locator)
          where TUiObject : IUiElement
         {
             var element = searchContext.FindElement(locator.ToNativeBy());
-            var resolved = Resolve<TUiObject>(searchContext, element);
+            var resolved = _resolver.Resolve<TUiObject>(searchContext, element);
 
             return resolved;
         }
@@ -56,7 +54,7 @@
             var resolved = new List<TUiObject>();
 
             foreach (var element in elements)
-                resolved.Add(Resolve<TUiObject>(searchContext, element));
+                resolved.Add(_resolver.Resolve<TUiObject>(searchContext, element));
 
             return resolved;
         }
@@ -73,18 +71,6 @@
                 collection.AddRange(FindAll<TUiObject>(searchContext, locator));
 
             return collection;
-        }
-
-        private TUiObject Resolve<TUiObject>(ISearchContext searchContext, IWebElement element) where TUiObject : IUiElement
-        {
-            var resolved = _unityContainer.Resolve<TUiObject>(new ResolverOverride[]
-            {
-                new ParameterOverride("driver", searchContext),
-                new ParameterOverride("element", element),
-                new ParameterOverride("container", _unityContainer)
-            });
-
-            return resolved;
         }
     }
 }

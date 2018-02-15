@@ -20,18 +20,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unity;
+using QAutomation.Core.Enums;
+using QAutomation.Selenium.Support;
+using QAutomation.Selenium;
 
 namespace Test
 {
     public class Page
     {
-        [QAutomationFindBy(How = QAutomation.Core.Enums.SearchCriteria.XPath, Using = "//input[@class='b_searchbox']")]
-        public IList<Input> Element { get; set; }
+        [QAutomationFindBy(How = SearchCriteria.XPath, Using = "//input[@class='b_searchbox']")]
+        public IList<IUiElement> Element { get; set; }
+
+        [QAutomationFindBy(How = SearchCriteria.Name, Using = "option2")]
+        public ICheckbox Checkbox { get; set; }
 
         public Page(WrappedWebDriver driver, IUnityContainer container)
         {
-            PageFactory.InitElements(driver.WrappedDriver, this, new QAutomationPageMemberObjectDecorator(container));
+            PageFactory.InitElements(this, new DefaultElementLocator(driver.WrappedDriver)
+                ,
+                new QAutomationPageMemberObjectDecorator());
         }
+
+        //new QAutomationElementLocator(driver.WrappedDriver, new UnityElementResolverService(container))
     }
 
     class Program
@@ -52,24 +62,30 @@ namespace Test
             container.RegisterType<IUiElement, UiElement>();
             container.RegisterType<IInput, Input>();
             container.RegisterType<IButton, Button>();
+            container.RegisterType<ICheckbox, Checkbox>();
 
             container.RegisterInstance(container);
-            container.RegisterInstance<WebDriverConfig>(new ChromeDriverConfig());
+            container.RegisterInstance<WebDriverConfig>(new ChromeDriverConfig { GridUri = new Uri("http://127.0.0.1:4444/wd/hub/"), UseGrid = true });
 
+            var resolver = new UnityElementResolverService(container);
+
+            container.RegisterInstance<IElementResolver>(resolver);
             var driver = container.Resolve<IBrowserDriver>();
 
             var page = new Page(driver as WrappedWebDriver, container);
 
-            driver.Navigate("https://www.bing.com", null);
+            driver.Navigate("http://www.echoecho.com/htmlforms09.htm", null);
 
-            page.Element[0].SendKeys("Manchester United", null);
+            var element = page.Element[0].Content;
 
-            var input = driver.FindElementByXPath<IInput>("//input[@class='b_searchbox']", null);
+            page.Checkbox.SetState(CheckboxState.UnSelected, null);
 
-            input.SendKeys("Manchester United", null);
-            var searchBtn = driver.FindElementByXPath<IButton>("//input[@class='b_searchbox']", null);
+            //page.Element[0].SendKeys("Manchester United", null);
 
-            searchBtn.Click(null);
+            //var input = driver.FindElementByXPath<IInput>("//input[@class='b_searchbox']", null);
+
+            //input.SendKeys("Manchester United", null);
+            //page.Button.Click(null);
 
 
             //var driver = new WebDriverWrapper(condig)
