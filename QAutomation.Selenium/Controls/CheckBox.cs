@@ -3,12 +3,13 @@
     using OpenQA.Selenium;
     using QAutomation.Core.Enums;
     using QAutomation.Core.Interfaces.Controls;
+    using QAutomation.Core.Locators;
     using QAutomation.Logger;
 
     public class Checkbox : Button, ICheckbox
     {
-        public Checkbox(IWebDriver driver, IWebElement element, IElementResolver resolver)
-            : base(driver, element, resolver) { }
+        public Checkbox(IWebDriver driver, IWebElement element, IElementResolver resolver, Locator locator)
+            : base(driver, element, resolver, locator) { }
 
         public CheckboxState GetState(ILogger log)
         {

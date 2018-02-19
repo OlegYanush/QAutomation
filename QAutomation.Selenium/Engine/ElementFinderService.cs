@@ -19,8 +19,21 @@
         public TUiObject Find<TUiObject>(ISearchContext searchContext, Locator locator)
          where TUiObject : IUiElement
         {
-            var element = searchContext.FindElement(locator.ToNativeBy());
-            var resolved = _resolver.Resolve<TUiObject>(searchContext, element);
+            IWebElement currentElement = null;
+
+            var currentContext = searchContext;
+            Locator currentParent = locator.Parent;
+
+            while (currentParent != null)
+            {
+                currentElement = currentContext.FindElement(currentParent.ToNativeBy());
+                currentContext = (currentElement as ISearchContext);
+
+                currentParent = currentParent.Parent;
+            }
+
+            currentElement = currentContext.FindElement(locator.ToNativeBy());
+            var resolved = _resolver.Resolve<TUiObject>(searchContext, currentElement, locator);
 
             return resolved;
         }
@@ -54,7 +67,7 @@
             var resolved = new List<TUiObject>();
 
             foreach (var element in elements)
-                resolved.Add(_resolver.Resolve<TUiObject>(searchContext, element));
+                resolved.Add(_resolver.Resolve<TUiObject>(searchContext, element, locator));
 
             return resolved;
         }

@@ -38,7 +38,7 @@
             foreach (var locator in locators)
                 bys.Add(locator.ToNativeBy());
 
-            return _resolver.Resolve<TUiElement>(_locator.SearchContext, _locator.LocateElement(bys));
+            return _resolver.Resolve<TUiElement>(_locator.SearchContext, _locator.LocateElement(bys), null);
         }
 
         public ReadOnlyCollection<TUiElement> LocateElements<TUiElement>(IEnumerable<Locator> locators)
@@ -53,7 +53,7 @@
             var elements = _locator.LocateElements(bys);
 
             foreach (var element in elements)
-                resolved.Add(_resolver.Resolve<TUiElement>(_locator.SearchContext, element));
+                resolved.Add(_resolver.Resolve<TUiElement>(_locator.SearchContext, element, null));
 
             return resolved.AsReadOnly();
         }

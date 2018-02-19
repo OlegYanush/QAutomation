@@ -18,6 +18,8 @@
 
         protected ElementFinderService _elementFinderService;
 
+        public Locator Locator { get; private set; }
+
         public IWebDriver WrappedDriver => _wrappedDriver;
         public IWebElement WrappedElement => _wrappedElement;
 
@@ -30,11 +32,13 @@
         public Size Size => _wrappedElement.Size;
         public Point Location => _wrappedElement.Location;
 
-        public UiElement(IWebDriver driver, IWebElement element, IElementResolver resolver)
+        public UiElement(IWebDriver driver, IWebElement element, IElementResolver resolver, Locator locator)
         {
+            Locator = locator;
+
             _wrappedDriver = driver;
             _wrappedElement = element;
-
+           
             _elementFinderService = new ElementFinderService(resolver);
         }
 
@@ -58,13 +62,14 @@
             }
         }
 
-        public TUiObject Find<TUiObject>(Locator locator, ILogger log) where TUiObject : IUiElement
+        protected TUiElement Find<TUiElement>(ISearchContext context, Locator locator, ILogger log)
+            where TUiElement : IUiElement
         {
             log?.DEBUG($"Find child element with locator '{locator}'.");
 
             try
             {
-                var element = _elementFinderService.Find<TUiObject>(_wrappedElement, locator);
+                var element = _elementFinderService.Find<TUiElement>(context, locator);
                 log?.INFO($"Child element by locator '{locator}' successfully found.");
 
                 return element;
@@ -77,13 +82,13 @@
                 throw new Exception(message, ex);
             }
         }
-        public IEnumerable<TUiObject> FindAll<TUiObject>(Locator locator, ILogger log) where TUiObject : IUiElement
+        protected IEnumerable<TUiElement> FindAll<TUiElement>(ISearchContext context, Locator locator, ILogger log) where TUiElement : IUiElement
         {
             log?.DEBUG($"Find child elements with locator '{locator}'.");
 
             try
             {
-                var elements = _elementFinderService.FindAll<TUiObject>(_wrappedElement, locator);
+                var elements = _elementFinderService.FindAll<TUiElement>(context, locator);
                 log?.INFO($"Child elements by locator '{locator}' successfully found.");
 
                 return elements;
@@ -97,14 +102,22 @@
             }
         }
 
-        public TUiObject Find<TUiObject>(Locator locator, ILogger log, double timeoutInSec) where TUiObject : IUiElement
+
+        public virtual TUiElement Find<TUiElement>(Locator locator, ILogger log)
+            where TUiElement : IUiElement => Find<TUiElement>(_wrappedElement, locator, log);
+
+        public virtual IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log)
+            where TUiElement : IUiElement => FindAll<TUiElement>(_wrappedElement, locator, log);
+
+
+        public TUiElement Find<TUiElement>(Locator locator, ILogger log, double timeoutInSec) where TUiElement : IUiElement
         {
             try
             {
                 log?.DEBUG($"Set implicit timeout = {timeoutInSec} second(s)");
                 _wrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(timeoutInSec));
 
-                return Find<TUiObject>(locator, log);
+                return Find<TUiElement>(locator, log);
             }
             finally
             {
@@ -114,14 +127,14 @@
                 _wrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(defaultTimeout));
             }
         }
-        public IEnumerable<TUiObject> FindAll<TUiObject>(Locator locator, ILogger log, double timeoutInSec) where TUiObject : IUiElement
+        public IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log, double timeoutInSec) where TUiElement : IUiElement
         {
             try
             {
                 log?.DEBUG($"Set implicit timeout = {timeoutInSec} second(s)");
                 _wrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(timeoutInSec));
 
-                return FindAll<TUiObject>(locator, log);
+                return FindAll<TUiElement>(locator, log);
             }
             finally
             {

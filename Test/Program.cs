@@ -63,22 +63,37 @@ namespace Test
             container.RegisterType<IInput, Input>();
             container.RegisterType<IButton, Button>();
             container.RegisterType<ICheckbox, Checkbox>();
+            container.RegisterType<IFrame, Frame>();
 
             container.RegisterInstance(container);
-            container.RegisterInstance<WebDriverConfig>(new ChromeDriverConfig { GridUri = new Uri("http://127.0.0.1:4444/wd/hub/"), UseGrid = true });
+            container.RegisterInstance<WebDriverConfig>(new ChromeDriverConfig { GridUri = new Uri("http://127.0.0.1:4444/wd/hub/"), UseGrid = false });
 
             var resolver = new UnityElementResolverService(container);
 
             container.RegisterInstance<IElementResolver>(resolver);
             var driver = container.Resolve<IBrowserDriver>();
 
-            var page = new Page(driver as WrappedWebDriver, container);
 
-            driver.Navigate("http://www.echoecho.com/htmlforms09.htm", null);
+            //var locator = new Locator("b_searchboxForm", SearchCriteria.ClassName);
 
-            var element = page.Element[0].Content;
+            //var childLocator = Locator.Id("sb_form_q", locator);
 
-            page.Checkbox.SetState(CheckboxState.UnSelected, null);
+            driver.Navigate("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_iframe", null);
+
+            //var element = driver.Find<IInput>(childLocator, null);
+
+            //var page = new Page(driver as WrappedWebDriver, container);
+
+            //driver.SwitchToFrame(new Frame("iframeResult"), null);
+
+            var frame = driver.Find<IFrame>(Locator.Name("iframeResult"), null);
+
+            var childFrame = frame.Find<IUiElement>(Locator.XPath(".//*[@src = 'https://www.w3schools.com']"), null);
+
+            driver.Quit(null);
+            //var element = page.Element[0].Content;
+
+            //page.Checkbox.SetState(CheckboxState.UnSelected, null);
 
             //page.Element[0].SendKeys("Manchester United", null);
 
