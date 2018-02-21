@@ -2,10 +2,9 @@
 {
     using OpenQA.Selenium;
     using QAutomation.Core.Interfaces.Controls;
-    using QAutomation.Core.Locators;
 
     public interface IElementResolver
     {
-        TUiElement Resolve<TUiElement>(ISearchContext searchContext, IWebElement element, Locator locator) where TUiElement : IUiElement;
+        TUiElement Resolve<TUiElement>(IWebDriver driver, IWebElement element, IUiElement parent = null) where TUiElement : IUiElement;
     }
 }

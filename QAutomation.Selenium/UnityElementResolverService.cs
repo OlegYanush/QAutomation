@@ -15,15 +15,15 @@
             _container = container;
         }
 
-        public TUiElement Resolve<TUiElement>(ISearchContext searchContext, IWebElement element, Locator locator)
+        public TUiElement Resolve<TUiElement>(IWebDriver driver, IWebElement element, IUiElement parent = null)
             where TUiElement : IUiElement
         {
             var resolved = _container.Resolve<TUiElement>(new ResolverOverride[]
             {
-                new ParameterOverride("driver", searchContext),
+                new ParameterOverride("driver", driver),
                 new ParameterOverride("element", element),
                 new ParameterOverride("resolver", this),
-                new ParameterOverride("locator", locator)
+                new ParameterOverride("parent", parent)
             });
 
             return resolved;

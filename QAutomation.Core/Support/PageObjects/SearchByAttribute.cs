@@ -1,17 +1,21 @@
-﻿namespace QAutomation.Selenium.Attributes
+﻿namespace QAutomation.Core.Support.PageObjects
 {
     using QAutomation.Core.Enums;
     using QAutomation.Core.Locators;
     using System;
-    using System.ComponentModel;
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
-    public class QAutomationFindByAttribute : Attribute
+    public class SearchByAttribute : Attribute
     {
-        private Locator _locator = null;
+        private Locator _locator;
 
-        [DefaultValue(SearchCriteria.XPath)]
-        public SearchCriteria How { get; set; }
+        public SearchByAttribute() { }
+        public SearchByAttribute(string locator)
+        {
+            Using = locator;
+        }
+
+        public SearchCriteria How { get; set; } = SearchCriteria.XPath;
 
         public string Using { get; set; }
 
@@ -24,7 +28,6 @@
 
                 return _locator;
             }
-            set { _locator = value; }
         }
     }
 }

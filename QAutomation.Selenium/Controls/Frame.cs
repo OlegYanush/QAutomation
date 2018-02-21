@@ -1,30 +1,54 @@
 ﻿namespace QAutomation.Selenium.Controls
 {
+    using Core.Enums;
     using OpenQA.Selenium;
     using QAutomation.Core.Interfaces;
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Locators;
     using QAutomation.Logger;
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
 
     public class Frame : UiElement, IFrame
     {
-        public Frame(IWebDriver driver, IWebElement element, IElementResolver resolver, Locator locator)
-            : base(driver, element, resolver, locator)
-        { }
+        private bool _isSwitched;
+        private string _name;
 
-        public string Name => Locator.Value;
+        public Frame(IWebDriver driver, IWebElement element, IElementResolver resolver, IUiElement parent = null)
+            : base(driver, element, resolver, parent) { }
+
+        public string Name
+        {
+            get
+            {
+                if (_name == null)
+                    _name = GetAttribute("name", null);
+
+                return _name;
+            }
+        }
 
         public override TUiObject Find<TUiObject>(Locator locator, ILogger log)
         {
-            _wrappedDriver = _wrappedDriver.SwitchTo().Frame(Locator.Value);
-
+            SwitchToCurrentFrame(ref _isSwitched);
             return Find<TUiObject>(_wrappedDriver, locator, log);
+        }
+
+        public override IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log)
+        {
+            SwitchToCurrentFrame(ref _isSwitched);
+            return base.FindAll<TUiElement>(locator, log);
+        }
+
+        private void SwitchToCurrentFrame(ref bool isSwitched)
+        {
+            if (!isSwitched)
+            {
+                _wrappedDriver = !string.IsNullOrEmpty(Name)
+                    ? _wrappedDriver.SwitchTo().Frame(Name)
+                    : _wrappedDriver.SwitchTo().Frame(_wrappedElement);
+
+                isSwitched = true;
+            }
         }
     }
 }

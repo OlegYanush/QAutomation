@@ -51,6 +51,7 @@
     <Compile Include="Enums\SearchCriteria.cs" />
     <Compile Include="Enums\Mobile\ScreenOrientation.cs" />
     <Compile Include="Enums\Mobile\MobilePlatform.cs" />
+    <Compile Include="Exceptions\UiElementNotFoundException.cs" />
     <Compile Include="Interfaces\Controls\ICheckbox.cs" />
     <Compile Include="Interfaces\IBrowserDriver.cs" />
     <Compile Include="Interfaces\IBrowser.cs" />
@@ -90,6 +91,17 @@
     <Compile Include="Interfaces\Controls\IUiElement.cs" />
     <Compile Include="Locators\Mobile\UiSelector.cs" />
     <Compile Include="Configuration\TimeoutSettings.cs" />
+    <Compile Include="Support\PageObjects\CacheLookupAttribute.cs" />
+    <Compile Include="Support\PageObjects\DefaultPageObjectDecorator.cs" />
+    <Compile Include="Support\PageObjects\DefaultUiElementLocator.cs" />
+    <Compile Include="Support\PageObjects\SearchFromAttribute.cs" />
+    <Compile Include="Support\PageObjects\IPageObjectDecorator.cs" />
+    <Compile Include="Support\PageObjects\IUiElementLocator.cs" />
+    <Compile Include="Support\PageObjects\PageFactory.cs" />
+    <Compile Include="Support\PageObjects\SearchByAttribute.cs" />
+    <Compile Include="Support\PageObjects\UiElementListProxy.cs" />
+    <Compile Include="Support\PageObjects\UiElementProxy.cs" />
+    <Compile Include="Support\PageObjects\UiObjectProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QAutomation.Logger\QAutomation.Logger.csproj">
@@ -97,8 +109,6 @@
       <Name>QAutomation.Logger</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

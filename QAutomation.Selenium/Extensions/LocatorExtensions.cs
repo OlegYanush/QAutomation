@@ -7,6 +7,8 @@
 
     public static class LocatorExtensions
     {
+        public static Locator WithoutParent(this Locator locator) => new Locator(locator.Value, locator.Type);
+
         public static By ToNativeBy(this Locator locator)
         {
             switch (locator.Type)

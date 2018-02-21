@@ -18,7 +18,7 @@
 
         protected ElementFinderService _elementFinderService;
 
-        public Locator Locator { get; private set; }
+        public IUiElement Parent { get; set; }
 
         public IWebDriver WrappedDriver => _wrappedDriver;
         public IWebElement WrappedElement => _wrappedElement;
@@ -32,13 +32,13 @@
         public Size Size => _wrappedElement.Size;
         public Point Location => _wrappedElement.Location;
 
-        public UiElement(IWebDriver driver, IWebElement element, IElementResolver resolver, Locator locator)
+        public UiElement(IWebDriver driver, IWebElement element, IElementResolver resolver, IUiElement parent = null)
         {
-            Locator = locator;
+            Parent = parent;
 
             _wrappedDriver = driver;
             _wrappedElement = element;
-           
+
             _elementFinderService = new ElementFinderService(resolver);
         }
 

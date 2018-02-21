@@ -2,14 +2,12 @@
 {
     using OpenQA.Selenium;
     using QAutomation.Core.Interfaces.Controls;
-    using QAutomation.Core.Locators;
     using QAutomation.Logger;
 
     public class Input : UiElement, IInput
     {
-        public Input(IWebDriver driver, IWebElement element, IElementResolver resolver, Locator locator)
-            : base(driver, element, resolver, locator) { }
-
+        public Input(IWebDriver driver, IWebElement element, IElementResolver resolver, IUiElement parent = null)
+            : base(driver, element, resolver, parent) { }
 
         public void Clear(ILogger log)
         {

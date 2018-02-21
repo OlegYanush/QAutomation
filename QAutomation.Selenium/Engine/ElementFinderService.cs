@@ -1,10 +1,11 @@
 ﻿namespace QAutomation.Selenium.Engine
 {
     using OpenQA.Selenium;
+    using OpenQA.Selenium.Remote;
+    using QAutomation.Core.Exceptions;
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Locators;
     using QAutomation.Selenium.Extensions;
-    using System;
     using System.Collections.Generic;
 
     public class ElementFinderService
@@ -16,74 +17,46 @@
             _resolver = resolver;
         }
 
-        public TUiObject Find<TUiObject>(ISearchContext searchContext, Locator locator)
-         where TUiObject : IUiElement
+        public TUiElement Find<TUiElement>(ISearchContext searchContext, Locator locator, IUiElement parent = null)
+         where TUiElement : IUiElement
         {
-            IWebElement currentElement = null;
+            TUiElement element;
 
-            var currentContext = searchContext;
-            Locator currentParent = locator.Parent;
-
-            while (currentParent != null)
+            try
             {
-                currentElement = currentContext.FindElement(currentParent.ToNativeBy());
-                currentContext = (currentElement as ISearchContext);
+                if (parent != null)
+                    element = parent.Find<TUiElement>(locator, null);
+                else
+                {
+                    var finded = searchContext.FindElement(locator.ToNativeBy());
+                    var wrappedDriver = (searchContext as RemoteWebDriver) ?? (searchContext as RemoteWebElement).WrappedDriver;
 
-                currentParent = currentParent.Parent;
+                    element = _resolver.Resolve<TUiElement>(wrappedDriver, finded, parent);
+                }
+                return element;
             }
-
-            currentElement = currentContext.FindElement(locator.ToNativeBy());
-            var resolved = _resolver.Resolve<TUiObject>(searchContext, currentElement, locator);
-
-            return resolved;
-        }
-
-        public TUiObject Find<TUiObject>(ISearchContext searchContext, IEnumerable<Locator> locators)
-            where TUiObject : IUiElement
-        {
-            if (locators == null)
-                throw new ArgumentNullException(nameof(locators), "List of locators may not be null");
-
-            string errorString = null;
-
-            foreach (var locator in locators)
+            catch (NoSuchElementException ex)
             {
-                try
-                {
-                    return Find<TUiObject>(searchContext, locator);
-                }
-                catch (NoSuchElementException)
-                {
-                    errorString = (errorString == null ? "Could not find element by: " : errorString + ", or: ") + locator;
-                }
+                throw new UiElementNotFoundException($"Element with locator '{locator}' not found.", ex);
             }
-            throw new NoSuchElementException(errorString);
         }
 
-        public IEnumerable<TUiObject> FindAll<TUiObject>(ISearchContext searchContext, Locator locator)
-            where TUiObject : IUiElement
+        public IEnumerable<TUiElement> FindAll<TUiElement>(ISearchContext searchContext, Locator locator, IUiElement parent = null)
+            where TUiElement : IUiElement
         {
-            var elements = searchContext.FindElements(locator.ToNativeBy());
-            var resolved = new List<TUiObject>();
+            List<TUiElement> elements = new List<TUiElement>();
 
-            foreach (var element in elements)
-                resolved.Add(_resolver.Resolve<TUiObject>(searchContext, element, locator));
+            if (parent != null)
+                elements.AddRange(parent.FindAll<TUiElement>(locator, null));
+            else
+            {
+                var finded = searchContext.FindElements(locator.ToNativeBy());
+                var wrappedDriver = (searchContext as RemoteWebDriver) ?? (searchContext as RemoteWebElement).WrappedDriver;
 
-            return resolved;
-        }
-
-        public IEnumerable<TUiObject> FindAll<TUiObject>(ISearchContext searchContext, IEnumerable<Locator> locators)
-          where TUiObject : IUiElement
-        {
-            if (locators == null)
-                throw new ArgumentNullException(nameof(locators), "List of locators may not be null");
-
-            var collection = new List<TUiObject>();
-
-            foreach (var locator in locators)
-                collection.AddRange(FindAll<TUiObject>(searchContext, locator));
-
-            return collection;
+                foreach (var element in finded)
+                    elements.Add(_resolver.Resolve<TUiElement>(wrappedDriver, element, parent));
+            }
+            return elements;
         }
     }
 }

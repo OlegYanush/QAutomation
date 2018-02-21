@@ -8,8 +8,8 @@
 
     public class Checkbox : Button, ICheckbox
     {
-        public Checkbox(IWebDriver driver, IWebElement element, IElementResolver resolver, Locator locator)
-            : base(driver, element, resolver, locator) { }
+        public Checkbox(IWebDriver driver, IWebElement element, IElementResolver resolver, IUiElement parent = null)
+            : base(driver, element, resolver, parent) { }
 
         public CheckboxState GetState(ILogger log)
         {

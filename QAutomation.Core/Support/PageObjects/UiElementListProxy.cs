@@ -1,4 +1,4 @@
-﻿namespace QAutomation.Selenium.Support.PageObjects
+﻿namespace QAutomation.Core.Support.PageObjects
 {
     using System;
     using System.Collections.Generic;
@@ -21,11 +21,11 @@
             }
         }
 
-        internal UiElementListProxy(Type classToProxy, IEnumerable<Locator> locators, IUiElementLocator locator, bool cache)
-            : base(classToProxy, locators, locator, cache) { }
+        internal UiElementListProxy(Type classToProxy, IEnumerable<Locator> locators, IUiElementLocator locator, bool cache, IUiElement parent = null)
+            : base(classToProxy, locators, locator, cache, parent) { }
 
-        public static object CreateProxy(Type classToProxy, IEnumerable<Locator> locators, IUiElementLocator locator, bool cache)
-            => new UiElementListProxy<T>(classToProxy, locators, locator, cache).GetTransparentProxy();
+        public static object CreateProxy(Type classToProxy, IEnumerable<Locator> locators, IUiElementLocator locator, bool cache, IUiElement parent = null)
+            => new UiElementListProxy<T>(classToProxy, locators, locator, cache, parent).GetTransparentProxy();
 
         public override IMessage Invoke(IMessage msg) => InvokeMethod(msg as IMethodCallMessage, Elements);
     }

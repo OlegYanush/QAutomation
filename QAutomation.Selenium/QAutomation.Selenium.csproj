@@ -66,7 +66,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\QAutomationFindByAttribute.cs" />
     <Compile Include="Configs\ChromeDriverConfig.cs" />
     <Compile Include="Configs\FirefoxDriverConfig.cs" />
     <Compile Include="Configs\IEDriverConfig.cs" />
@@ -76,11 +75,8 @@
     <Compile Include="Controls\Frame.cs" />
     <Compile Include="Controls\Input.cs" />
     <Compile Include="Controls\UiElement.cs" />
-    <Compile Include="Support\IUiElementLocator.cs" />
-    <Compile Include="Support\QAutomationElementLocator.cs" />
     <Compile Include="UnityElementResolverService.cs" />
     <Compile Include="IElementResolver.cs" />
-    <Compile Include="Support\PageObjects\QAutomationPageMemberObjectDecorator.cs" />
     <Compile Include="Engine\ElementFinderService.cs" />
     <Compile Include="Engine\WrappedWebDriver.Browser.cs" />
     <Compile Include="Engine\WrappedWebDriver.cs" />
@@ -94,9 +90,6 @@
     <Compile Include="Extensions\WebDriverExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BrowserWindow.cs" />
-    <Compile Include="Support\PageObjects\UiElementListProxy.cs" />
-    <Compile Include="Support\PageObjects\UiElementProxy.cs" />
-    <Compile Include="Support\PageObjects\UiObjectProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\selenium\dotnet\src\support\WebDriver.Support.csproj">
