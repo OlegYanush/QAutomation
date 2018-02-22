@@ -9,7 +9,12 @@
     {
         IUiElementFinder UiElementFinder { get; }
 
-        TUiElement LocateElement<TUiElement>(IEnumerable<Locator> locators, IUiElement parent = null) where TUiElement : IUiElement;
-        IEnumerable<TUiElement> LocateElements<TUiElement>(IEnumerable<Locator> locator, IUiElement parent = null) where TUiElement : IUiElement;
+        TUiElement LocateElement<TUiElement>(IEnumerable<Locator> locators) where TUiElement : IUiElement;
+
+        TUiElement LocateElementInParent<TUiElement>(IUiElement parent, IEnumerable<Locator> locators) where TUiElement : IUiElement;
+
+        IEnumerable<TUiElement> LocateElements<TUiElement>(IEnumerable<Locator> locator) where TUiElement : IUiElement;
+
+        IEnumerable<TUiElement> LocateElementsInParent<TUiElement>(IUiElement parent, IEnumerable<Locator> locators) where TUiElement : IUiElement;
     }
 }

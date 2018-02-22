@@ -5,11 +5,11 @@
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
     public class LocatedOfAttribute : Attribute
     {
-        public LocatedOfAttribute(string propertyName)
+        public LocatedOfAttribute(string memberName)
         {
-            Property = propertyName;
+            Member = memberName;
         }
 
-        public string Property { get; set; }
+        public string Member { get; set; }
     }
 }

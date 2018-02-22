@@ -6,8 +6,11 @@ namespace QAutomation.Selenium.Controls
 {
     public class Button : UiElement, IButton
     {
-        public Button(IWebDriver driver, IWebElement element, IElementResolver resolver, IUiElement parent = null)
-            : base(driver, element, resolver, parent) { }
+        public Button(IWebDriver driver, IWebElement element, IElementResolver resolver)
+            : base(driver, element, resolver) { }
+
+        //public Button(IWebDriver driver, IWebElement element, IUiElement parent, IElementResolver resolver)
+        //    : base(driver, element, parent, resolver) { }
 
         public void Click(ILogger log)
         {

@@ -17,23 +17,15 @@
             _resolver = resolver;
         }
 
-        public TUiElement Find<TUiElement>(ISearchContext searchContext, Locator locator, IUiElement parent = null)
+        public TUiElement Find<TUiElement>(ISearchContext searchContext, Locator locator)
          where TUiElement : IUiElement
         {
-            TUiElement element;
-
             try
             {
-                if (parent != null)
-                    element = parent.Find<TUiElement>(locator, null);
-                else
-                {
-                    var finded = searchContext.FindElement(locator.ToNativeBy());
-                    var wrappedDriver = (searchContext as RemoteWebDriver) ?? (searchContext as RemoteWebElement).WrappedDriver;
+                var finded = searchContext.FindElement(locator.ToNativeBy());
+                var wrappedDriver = (searchContext as RemoteWebDriver) ?? (searchContext as RemoteWebElement).WrappedDriver;
 
-                    element = _resolver.Resolve<TUiElement>(wrappedDriver, finded, parent);
-                }
-                return element;
+                return _resolver.Resolve<TUiElement>(wrappedDriver, finded);
             }
             catch (NoSuchElementException ex)
             {
@@ -41,21 +33,17 @@
             }
         }
 
-        public IEnumerable<TUiElement> FindAll<TUiElement>(ISearchContext searchContext, Locator locator, IUiElement parent = null)
+        public IEnumerable<TUiElement> FindAll<TUiElement>(ISearchContext searchContext, Locator locator)
             where TUiElement : IUiElement
         {
             List<TUiElement> elements = new List<TUiElement>();
 
-            if (parent != null)
-                elements.AddRange(parent.FindAll<TUiElement>(locator, null));
-            else
-            {
-                var finded = searchContext.FindElements(locator.ToNativeBy());
-                var wrappedDriver = (searchContext as RemoteWebDriver) ?? (searchContext as RemoteWebElement).WrappedDriver;
+            var finded = searchContext.FindElements(locator.ToNativeBy());
+            var wrappedDriver = (searchContext as RemoteWebDriver) ?? (searchContext as RemoteWebElement).WrappedDriver;
 
-                foreach (var element in finded)
-                    elements.Add(_resolver.Resolve<TUiElement>(wrappedDriver, element, parent));
-            }
+            foreach (var element in finded)
+                elements.Add(_resolver.Resolve<TUiElement>(wrappedDriver, element));
+
             return elements;
         }
     }

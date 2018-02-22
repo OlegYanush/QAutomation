@@ -15,7 +15,11 @@
             get
             {
                 if (!Cache || _collection == null)
-                    _collection = new List<T>(Locator.LocateElements<T>(Locators));
+                {
+                    _collection.AddRange(Parent != null
+                        ? Locator.LocateElementsInParent<T>(Parent, Locators)
+                        : Locator.LocateElements<T>(Locators));
+                }
 
                 return _collection;
             }

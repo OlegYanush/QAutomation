@@ -2,5 +2,7 @@
 {
     public interface IUiElementFinderService : IUiElementFinder, IFinderByXPath, IFinderById, IFinderByClassName,
                IFinderByName, IFinderByPartialLinkText, IFinderByCssSelector, IFinderByTagName, IFinderByLinkText
-    { }
+    {
+
+    }
 }

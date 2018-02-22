@@ -1,8 +1,6 @@
 ﻿namespace QAutomation.Selenium.Controls
 {
-    using Core.Enums;
     using OpenQA.Selenium;
-    using QAutomation.Core.Interfaces;
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Locators;
     using QAutomation.Logger;
@@ -13,8 +11,8 @@
         private bool _isSwitched;
         private string _name;
 
-        public Frame(IWebDriver driver, IWebElement element, IElementResolver resolver, IUiElement parent = null)
-            : base(driver, element, resolver, parent) { }
+        public Frame(IWebDriver driver, IWebElement element, IElementResolver resolver)
+            : base(driver, element, resolver) { }
 
         public string Name
         {

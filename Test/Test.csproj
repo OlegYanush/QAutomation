@@ -102,6 +102,10 @@
       <Project>{2241b6e4-11f8-4600-b1f0-f97518f2d6a9}</Project>
       <Name>QAutomation.Logger</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QAutomation.NLog\QAutomation.NLogger.csproj">
+      <Project>{92c52109-08f3-4fe8-850a-f942416f91c6}</Project>
+      <Name>QAutomation.NLogger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QAutomation.Selenium\QAutomation.Selenium.csproj">
       <Project>{5d211d25-b827-432b-b84b-282238884e9a}</Project>
       <Name>QAutomation.Selenium</Name>

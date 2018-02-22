@@ -18,8 +18,6 @@
 
         protected ElementFinderService _elementFinderService;
 
-        public IUiElement Parent { get; set; }
-
         public IWebDriver WrappedDriver => _wrappedDriver;
         public IWebElement WrappedElement => _wrappedElement;
 
@@ -32,10 +30,8 @@
         public Size Size => _wrappedElement.Size;
         public Point Location => _wrappedElement.Location;
 
-        public UiElement(IWebDriver driver, IWebElement element, IElementResolver resolver, IUiElement parent = null)
+        public UiElement(IWebDriver driver, IWebElement element, IElementResolver resolver)
         {
-            Parent = parent;
-
             _wrappedDriver = driver;
             _wrappedElement = element;
 
@@ -102,13 +98,11 @@
             }
         }
 
-
         public virtual TUiElement Find<TUiElement>(Locator locator, ILogger log)
             where TUiElement : IUiElement => Find<TUiElement>(_wrappedElement, locator, log);
 
         public virtual IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log)
             where TUiElement : IUiElement => FindAll<TUiElement>(_wrappedElement, locator, log);
-
 
         public TUiElement Find<TUiElement>(Locator locator, ILogger log, double timeoutInSec) where TUiElement : IUiElement
         {

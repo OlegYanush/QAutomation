@@ -1,6 +1,7 @@
 ﻿namespace QAutomation.Selenium.Engine
 {
     using QAutomation.Core.Interfaces;
+    using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Logger;
     using System;
 

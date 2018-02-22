@@ -6,8 +6,6 @@
 
     public interface IUiElement : IUiElementFinder
     {
-        IUiElement Parent { get; }
-
         string Tag { get; }
         string Content { get; }
 

@@ -20,30 +20,31 @@ using Unity;
 using QAutomation.Core.Enums;
 using QAutomation.Selenium;
 using QAutomation.Core.Support.PageObjects;
+using Unity.Injection;
 
 namespace Test
 {
     public class Page
     {
         [LocatedOf(nameof(Bar))]
-        [SearchBy(How = SearchCriteria.Id, Using = "tryhome"), CacheLookup]
+        [LocateBy(How = SearchCriteria.Id, Using = "tryhome"), CacheLookup]
         public IUiElement Home { get; set; }
 
-        [SearchBy(".//a[contains(@class,'w3-button w3-light')]")]
+        [LocateBy(".//a[contains(@class,'w3-button w3-light')]")]
         public IList<IUiElement> Links { get; set; }
 
-        [SearchBy(How = SearchCriteria.ClassName, Using = "trytopnav"), CacheLookup]
+        [LocateBy(How = SearchCriteria.ClassName, Using = "trytopnav"), CacheLookup]
         public IUiElement Nav { get; set; }
 
         [LocatedOf(nameof(Nav))]
-        [SearchBy(".//div[contains(@class,'w3-bar')]"), CacheLookup]
+        [LocateBy(".//div[contains(@class,'w3-bar')]"), CacheLookup]
         public IUiElement Bar { get; set; }
 
-        [SearchBy(How = SearchCriteria.Id, Using = "iframeResult"), CacheLookup]
+        [LocateBy(How = SearchCriteria.Id, Using = "iframeResult"), CacheLookup]
         public IFrame FrameWrapper { get; set; }
 
         [LocatedOf(nameof(FrameWrapper))]
-        [SearchBy(".//*[@src='https://www.w3schools.com']"), CacheLookup]
+        [LocateBy(".//*[@src='https://www.w3schools.com']"), CacheLookup]
         public IFrame ChildFrame { get; set; }
 
         public Page(IBrowserDriver driver)
@@ -56,6 +57,8 @@ namespace Test
     {
         static void Main(string[] args)
         {
+            Console.WriteLine(DateTime.Now);
+
             var container = new UnityContainer();
 
             container.RegisterType<IBrowserDriver, WrappedWebDriver>();
@@ -68,6 +71,7 @@ namespace Test
             container.RegisterType<IJsExecutor, WrappedWebDriver>();
 
             container.RegisterType<IUiElement, UiElement>();
+
             container.RegisterType<IInput, Input>();
             container.RegisterType<IButton, Button>();
             container.RegisterType<ICheckbox, Checkbox>();
@@ -81,35 +85,19 @@ namespace Test
             container.RegisterInstance<IElementResolver>(resolver);
             var driver = container.Resolve<IBrowserDriver>();
 
-
-            //var locator = new Locator("b_searchboxForm", SearchCriteria.ClassName);
-
-            //var childLocator = Locator.Id("sb_form_q", locator);
-
             driver.Navigate("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_iframe", null);
 
-            //var element = driver.Find<IInput>(childLocator, null);
-
             var page = new Page(driver);
-
-            //driver.SwitchToFrame(new Frame("iframeResult"), null);
 
             var value = page.Home.GetAttribute("title", null);
 
             var element = page.ChildFrame.Find<IUiElement>(Locator.Id("nav_references"), null);
 
-            Console.WriteLine(element.Tag);
+            var img = driver.Find<IUiElement>(Locator.XPath("(.//img)[1]"), null);
 
-            //var frame = driver.Find<IFrame>(Locator.Name("iframeResult"), null);
-
-            //var childFrame = frame.Find<IUiElement>(Locator.XPath(".//*[@src = 'https://www.w3schools.com']"), null);
-            //var childFame1 = frame.Find<IFrame>(Locator.XPath(".//*[@src = 'https://www.w3schools.com']"), null);
-
-            //var e = childFame1.Find<IUiElement>(Locator.ClassName("w3-center"), null);
+            Console.WriteLine(img.GetAttribute("style", null));
 
             driver.Quit(null);
-
-            Console.ReadKey();
         }
     }
 }

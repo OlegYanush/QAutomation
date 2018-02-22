@@ -59,7 +59,7 @@
     <Compile Include="Interfaces\Controls\IButton.cs" />
     <Compile Include="Interfaces\Controls\IInput.cs" />
     <Compile Include="Interfaces\IDriverConfig.cs" />
-    <Compile Include="Interfaces\IFrame.cs" />
+    <Compile Include="Interfaces\Controls\IFrame.cs" />
     <Compile Include="Interfaces\IJsExecutor.cs" />
     <Compile Include="Interfaces\IManageNavigationService.cs" />
     <Compile Include="Interfaces\IManageWindowService.cs" />
@@ -94,11 +94,11 @@
     <Compile Include="Support\PageObjects\CacheLookupAttribute.cs" />
     <Compile Include="Support\PageObjects\DefaultPageObjectDecorator.cs" />
     <Compile Include="Support\PageObjects\DefaultUiElementLocator.cs" />
-    <Compile Include="Support\PageObjects\SearchFromAttribute.cs" />
+    <Compile Include="Support\PageObjects\LocatedOfAttribute.cs" />
     <Compile Include="Support\PageObjects\IPageObjectDecorator.cs" />
     <Compile Include="Support\PageObjects\IUiElementLocator.cs" />
     <Compile Include="Support\PageObjects\PageFactory.cs" />
-    <Compile Include="Support\PageObjects\SearchByAttribute.cs" />
+    <Compile Include="Support\PageObjects\LocateByAttribute.cs" />
     <Compile Include="Support\PageObjects\UiElementListProxy.cs" />
     <Compile Include="Support\PageObjects\UiElementProxy.cs" />
     <Compile Include="Support\PageObjects\UiObjectProxy.cs" />

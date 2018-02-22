@@ -15,7 +15,11 @@
             get
             {
                 if (!Cache || _cachedElement == null)
-                    _cachedElement = Locator.LocateElement<T>(Locators);
+                {
+                    _cachedElement = Parent != null
+                        ? Locator.LocateElementInParent<T>(Parent, Locators)
+                        : Locator.LocateElement<T>(Locators);
+                }
 
                 return _cachedElement;
             }

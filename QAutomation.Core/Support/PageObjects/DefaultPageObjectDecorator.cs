@@ -9,6 +9,9 @@
 
     public class DefaultPageObjectDecorator : IPageObjectDecorator
     {
+        private const BindingFlags PublicBindingOptions = BindingFlags.Instance | BindingFlags.Public;
+        private const BindingFlags NonPublicBindingOptions = BindingFlags.Instance | BindingFlags.NonPublic;
+
         private static Type InterfaceToBeProxied => typeof(IUiElement);
 
         private static IList<Locator> CreateLocatorList(MemberInfo member)
@@ -18,13 +21,13 @@
 
             List<Locator> locators = new List<Locator>();
 
-            var attributes = Attribute.GetCustomAttributes(member, typeof(SearchByAttribute), true);
+            var attributes = Attribute.GetCustomAttributes(member, typeof(LocateByAttribute), true);
             if (attributes.Length > 0)
             {
                 Array.Sort(attributes);
                 foreach (var attribute in attributes)
                 {
-                    var castedAttribute = (SearchByAttribute)attribute;
+                    var castedAttribute = (LocateByAttribute)attribute;
 
                     if (castedAttribute.Using == null)
                         castedAttribute.Using = member.Name;
@@ -36,11 +39,8 @@
             return locators.AsReadOnly();
         }
 
-        private static IEnumerable<MemberInfo> GetPageObjectMembers(object pageObject)
+        private static List<MemberInfo> GetPageObjectMembers(object pageObject)
         {
-            const BindingFlags PublicBindingOptions = BindingFlags.Instance | BindingFlags.Public;
-            const BindingFlags NonPublicBindingOptions = BindingFlags.Instance | BindingFlags.NonPublic;
-
             var members = new List<MemberInfo>();
             var type = pageObject.GetType();
 
@@ -54,64 +54,85 @@
                 type = type.BaseType;
             }
 
-            return members.Where(m => IsValidMember(m));
+            return members.Where(m => IsPageObjectMember(m)).ToList();
         }
 
         public void Decorate(IUiElementLocator locator, object page)
         {
-            var members = GetPageObjectMembers(page);
             var dict = new Dictionary<MemberInfo, bool>();
+            var members = GetPageObjectMembers(page);
 
-            members.ToList().ForEach(m => dict.Add(m, false));
+            members.ForEach(m => dict.Add(m, false));
 
-            while (dict.Any(m => !m.Value))
+            var pageObjectType = page.GetType();
+            int attempts = 3;
+
+            while (dict.Any(m => !m.Value) && attempts > 0)
             {
                 foreach (var member in members)
                 {
                     if (dict[member]) continue;
 
-                    if (HasUnresolvedParent(member, page))
-                        continue;
-                    else
+                    var locatedOfAttribute = member.GetCustomAttribute<LocatedOfAttribute>(true);
+
+                    if (locatedOfAttribute != null)
                     {
-                        IList<Locator> locators = CreateLocatorList(member);
+                        var parentMember = members.SingleOrDefault(m => m.Name.Equals(locatedOfAttribute.Member));
+                        var targetParentMemberType = GetTargetType(parentMember);
 
-                        if (locators.Count > 0)
+                        if (!InterfaceToBeProxied.IsAssignableFrom(targetParentMemberType))
+                            throw new Exception($"Page object '{pageObjectType}' doesn't have allowable member '{locatedOfAttribute.Member}'.");
+
+                        IUiElement parent = null;
+
+                        var property = parentMember as PropertyInfo;
+                        var field = parentMember as FieldInfo;
+
+                        if (property != null)
+                            parent = property.GetValue(page) as IUiElement;
+                        if (field != null)
+                            parent = field.GetValue(page) as IUiElement;
+
+                        if (parent != null)
                         {
-                            bool cache = ShouldCacheLookup(member);
-                            object proxyObject = CreateProxyObject(GetTargetType(member), locator, locators, cache);
-
-                            var searchFromAttr = member.GetCustomAttribute<LocatedOfAttribute>(true);
-
-                            if (searchFromAttr != null)
-                            {
-                                var prop = member.DeclaringType.GetProperty(searchFromAttr.Property);
-                                var value = prop.GetValue(page);
-
-                                var locatorParentProp = typeof(Locator).GetProperty(nameof(Locator.ParentElement));
-
-                                locators.ToList().ForEach(l => locatorParentProp.SetValue(l, value));
-                            }
-
-                            var field = member as FieldInfo;
-                            var property = member as PropertyInfo;
-
-                            if (field != null)
-                                field.SetValue(page, proxyObject);
-
-                            if (property != null)
-                                property.SetValue(page, proxyObject, null);
-
+                            SetProxyToPageObject(member, locator, page, parent);
                             dict[member] = true;
                         }
-                        else
-                            dict[member] = true;
+                    }
+                    else
+                    {
+                        SetProxyToPageObject(member, locator, page);
+                        dict[member] = true;
                     }
                 }
+                attempts--;
+            }
+
+            if (dict.Any(m => !m.Value))
+                throw new Exception($"Page object '{pageObjectType}' has looping elements or uninitialized members.");
+        }
+
+        private static void SetProxyToPageObject(MemberInfo member, IUiElementLocator locator, object pageObject, IUiElement parent = null)
+        {
+            var locators = CreateLocatorList(member);
+
+            if (locators.Count > 0)
+            {
+                bool cache = ShouldCacheLookup(member);
+                var proxyObject = CreateProxyObject(GetTargetType(member), locator, locators, cache, parent);
+
+                var field = member as FieldInfo;
+                var property = member as PropertyInfo;
+
+                if (field != null)
+                    field.SetValue(pageObject, proxyObject);
+
+                if (property != null)
+                    property.SetValue(pageObject, proxyObject, null);
             }
         }
 
-        private static object CreateProxyObject(Type memberType, IUiElementLocator locator, IEnumerable<Locator> locators, bool cache)
+        private static object CreateProxyObject(Type memberType, IUiElementLocator locator, IEnumerable<Locator> locators, bool cache, IUiElement parent = null)
         {
             MethodInfo method = null;
 
@@ -140,7 +161,7 @@
             else
                 throw new ArgumentException($"Type of member '{memberType.Name}' isn't a IList<{InterfaceToBeProxied.Name}>,{InterfaceToBeProxied.Name} or derived interface.");
 
-            return method.Invoke(null, new object[] { memberType, locators, locator, cache });
+            return method.Invoke(null, new object[] { memberType, locators, locator, cache, parent });
         }
 
         protected static bool ShouldCacheLookup(MemberInfo member)
@@ -156,62 +177,6 @@
             return cache;
         }
 
-        protected static bool HasUnresolvedParent(MemberInfo member, object page)
-        {
-            var searchFromAttribute = member.GetCustomAttribute<LocatedOfAttribute>(true);
-
-            if (searchFromAttribute != null)
-            {
-                var type = page.GetType();
-
-                var findedProperty = type.GetProperty(searchFromAttribute.Property);
-                var findedField = type.GetField(searchFromAttribute.Property);
-
-                if (findedField == null && findedProperty == null)
-                    throw new ArgumentException($"Page object with type '{type.Name}' doesn't have field or preperty '{searchFromAttribute.Property}'");
-
-                object value = null;
-
-                if (findedProperty != null)
-                    value = findedProperty.GetValue(page);
-
-                if (findedField != null)
-                    value = findedField.GetValue(page);
-
-                return value == null;
-            }
-
-            return false;
-        }
-
-        protected static object InitializePageObjectMember(Type memberType, IUiElementLocator locator)
-        {
-            var locators = CreateLocatorList(memberType);
-
-            if (locators.Count > 0)
-            {
-                bool cache = ShouldCacheLookup(memberType);
-                object proxyObject = CreateProxyObject(GetTargetType(memberType), locator, locators, cache);
-            }
-
-            return null;
-        }
-
-        protected static MemberInfo TryToGetUninitializedParentMember(MemberInfo childMember, object page)
-        {
-            var searchFromAttribute = childMember.GetCustomAttribute<LocatedOfAttribute>(true);
-
-            if (searchFromAttribute != null)
-            {
-                var parentMemberProperty = page.GetType().GetProperty(searchFromAttribute.Property);
-
-                var value = parentMemberProperty.GetValue(page);
-                return value == null ? parentMemberProperty : null;
-            }
-
-            return null;
-        }
-
         protected static Type GetTargetType(MemberInfo member)
         {
             FieldInfo field = member as FieldInfo;
@@ -219,9 +184,9 @@
 
             return property != null
                 ? property.PropertyType
-                : (field != null ? field.FieldType : throw new ArgumentException("member must be a field or preperty.", nameof(member)));
+                : (field != null ? field.FieldType : throw new ArgumentException($"page object member '{member}' must be a field or preperty.", nameof(member)));
         }
-        protected static bool IsValidMember(MemberInfo member)
+        protected static bool IsPageObjectMember(MemberInfo member)
         {
             FieldInfo field = member as FieldInfo;
             PropertyInfo property = member as PropertyInfo;

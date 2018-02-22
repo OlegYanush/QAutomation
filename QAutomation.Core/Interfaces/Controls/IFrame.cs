@@ -1,6 +1,4 @@
-﻿using QAutomation.Core.Interfaces.Controls;
-
-namespace QAutomation.Core.Interfaces
+﻿namespace QAutomation.Core.Interfaces.Controls
 {
     public interface IFrame : IUiElement
     {

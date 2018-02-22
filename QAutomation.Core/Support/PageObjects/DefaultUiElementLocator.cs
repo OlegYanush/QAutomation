@@ -18,8 +18,8 @@
             _uiElementFinder = elementFinder;
         }
 
-        public TUiElement LocateElement<TUiElement>(IEnumerable<Locator> locators, IUiElement parent = null)
-            where TUiElement : IUiElement
+        private TUiElement FindElement<TUiElement>(IUiElementFinder searchContext, IEnumerable<Locator> locators)
+        where TUiElement : IUiElement
         {
             if (locators == null)
                 throw new ArgumentNullException(nameof(locators), "List of criteria may not be null");
@@ -30,7 +30,7 @@
             {
                 try
                 {
-                    return (parent ?? _uiElementFinder).Find<TUiElement>(locator, null);
+                    return searchContext.Find<TUiElement>(locator, null);
                 }
                 catch (UiElementNotFoundException)
                 {
@@ -41,8 +41,15 @@
             throw new UiElementNotFoundException(errorString);
         }
 
-        public IEnumerable<TUiElement> LocateElements<TUiElement>(IEnumerable<Locator> locators, IUiElement parent = null)
-            where TUiElement : IUiElement
+        public TUiElement LocateElementInParent<TUiElement>(IUiElement parent, IEnumerable<Locator> locators)
+            where TUiElement : IUiElement => FindElement<TUiElement>(parent, locators);
+
+        public TUiElement LocateElement<TUiElement>(IEnumerable<Locator> locators)
+            where TUiElement : IUiElement => FindElement<TUiElement>(_uiElementFinder, locators);
+
+
+        private IEnumerable<TUiElement> FindAll<TUiElement>(IUiElementFinder searchContext, IEnumerable<Locator> locators)
+          where TUiElement : IUiElement
         {
             if (locators == null)
                 throw new ArgumentNullException(nameof(locators), "List of criteria may not be null");
@@ -50,9 +57,15 @@
             var elements = new List<TUiElement>();
 
             foreach (var locator in locators)
-                elements.AddRange((parent ?? _uiElementFinder).FindAll<TUiElement>(locator, null));
+                elements.AddRange(searchContext.FindAll<TUiElement>(locator, null));
 
             return elements;
         }
+
+        public IEnumerable<TUiElement> LocateElementsInParent<TUiElement>(IUiElement parent, IEnumerable<Locator> locators)
+            where TUiElement : IUiElement => FindAll<TUiElement>(_uiElementFinder, locators);
+
+        public IEnumerable<TUiElement> LocateElements<TUiElement>(IEnumerable<Locator> locators)
+            where TUiElement : IUiElement => FindAll<TUiElement>(_uiElementFinder, locators);
     }
 }

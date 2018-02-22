@@ -5,7 +5,6 @@
 
     public class Locator
     {
-        public IUiElement ParentElement { get; set; }
         public string Value { get; protected set; }
         public SearchCriteria Type { get; protected set; }
 

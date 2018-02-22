@@ -6,8 +6,8 @@
 
     public class Input : UiElement, IInput
     {
-        public Input(IWebDriver driver, IWebElement element, IElementResolver resolver, IUiElement parent = null)
-            : base(driver, element, resolver, parent) { }
+        public Input(IWebDriver driver, IWebElement element, IElementResolver resolver)
+            : base(driver, element, resolver) { }
 
         public void Clear(ILogger log)
         {

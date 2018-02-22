@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDriver.Support", "..\sel
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDriver", "..\selenium\dotnet\src\webdriver\WebDriver.csproj", "{14474911-4F22-4E9C-ACE3-D21BDD5AE46E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAutomation.NLogger", "QAutomation.NLog\QAutomation.NLogger.csproj", "{92C52109-08F3-4FE8-850A-F942416F91C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{14474911-4F22-4E9C-ACE3-D21BDD5AE46E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14474911-4F22-4E9C-ACE3-D21BDD5AE46E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14474911-4F22-4E9C-ACE3-D21BDD5AE46E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92C52109-08F3-4FE8-850A-F942416F91C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92C52109-08F3-4FE8-850A-F942416F91C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92C52109-08F3-4FE8-850A-F942416F91C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92C52109-08F3-4FE8-850A-F942416F91C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

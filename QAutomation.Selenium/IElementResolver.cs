@@ -5,6 +5,6 @@
 
     public interface IElementResolver
     {
-        TUiElement Resolve<TUiElement>(IWebDriver driver, IWebElement element, IUiElement parent = null) where TUiElement : IUiElement;
+        TUiElement Resolve<TUiElement>(IWebDriver driver, IWebElement element) where TUiElement : IUiElement;
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace QAutomation.Core.Interfaces
 {
+    using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Logger;
 
     public interface IBrowser

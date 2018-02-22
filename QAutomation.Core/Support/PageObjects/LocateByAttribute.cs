@@ -5,13 +5,18 @@
     using System;
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
-    public class SearchByAttribute : Attribute
+    public class LocateByAttribute : Attribute
     {
         private Locator _locator;
 
-        public SearchByAttribute() { }
-        public SearchByAttribute(string locator)
+        public LocateByAttribute() { }
+        public LocateByAttribute(string locator)
         {
+            Using = locator;
+        }
+        public LocateByAttribute(string locator, SearchCriteria how)
+        {
+            How = how;
             Using = locator;
         }
 
