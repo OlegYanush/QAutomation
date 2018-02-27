@@ -2,7 +2,7 @@
 {
     using OpenQA.Selenium;
     using QAutomation.Core.Interfaces.Controls;
-    using QAutomation.Logger;
+    using QAutomation.Logging;
 
     public class Input : UiElement, IInput
     {

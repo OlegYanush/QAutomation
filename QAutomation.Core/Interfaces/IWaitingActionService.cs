@@ -1,7 +1,7 @@
 ﻿namespace QAutomation.Core.Interfaces
 {
     using QAutomation.Core.Locators;
-    using QAutomation.Logger;
+    using QAutomation.Logging;
 
     public interface IWaitingActionService
     {

@@ -1,6 +1,6 @@
 ﻿namespace QAutomation.Core.Interfaces.Controls
 {
-    using QAutomation.Logger;
+    using QAutomation.Logging;
 
     public interface IButton : IUiElement
     {

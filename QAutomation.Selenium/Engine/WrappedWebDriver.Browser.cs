@@ -2,7 +2,7 @@
 {
     using QAutomation.Core.Interfaces;
     using QAutomation.Core.Interfaces.Controls;
-    using QAutomation.Logger;
+    using QAutomation.Logging;
     using System;
 
     public partial class WrappedWebDriver : IBrowser
@@ -103,13 +103,15 @@
             }
         }
 
-        public void SwitchToDefaultContent(ILogger log)
+        public IBrowserDriver SwitchToDefaultContent(ILogger log)
         {
             log?.DEBUG("Switch to default content.");
             try
             {
-                _wrappedDriver.SwitchTo().DefaultContent();
+                _wrappedDriver = _wrappedDriver.SwitchTo().DefaultContent();
                 log?.INFO("Switching to default content successfully completed.");
+
+                return this;
             }
             catch (Exception ex)
             {
@@ -120,13 +122,15 @@
             }
         }
 
-        public void SwitchToFrame(IFrame frame, ILogger log)
+        public IBrowserDriver SwitchToFrame(IFrame frame, ILogger log)
         {
             log?.DEBUG($"Switch to frame by name = '{frame.Name}'.");
             try
             {
-                _wrappedDriver.SwitchTo().Frame(frame.Name);
+                _wrappedDriver = _wrappedDriver.SwitchTo().Frame(frame.Name);
                 log?.INFO($"Switching to frame by name = '{frame.Name}' successfully completed.");
+
+                return this;
             }
             catch (Exception ex)
             {
@@ -137,13 +141,15 @@
             }
         }
 
-        public void SwitchToParentFrame(ILogger log)
+        public IBrowserDriver SwitchToParentFrame(ILogger log)
         {
             log?.DEBUG("Switch to parent frame.");
             try
             {
-                _wrappedDriver.SwitchTo().ParentFrame();
+                _wrappedDriver = _wrappedDriver.SwitchTo().ParentFrame();
                 log?.INFO("Switching to parent frame successfully completed.");
+
+                return this;
             }
             catch (Exception ex)
             {

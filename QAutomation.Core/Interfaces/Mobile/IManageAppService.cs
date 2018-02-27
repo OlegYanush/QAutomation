@@ -1,6 +1,6 @@
 ﻿namespace QAutomation.Core.Interfaces.Mobile
 {
-    using QAutomation.Logger;
+    using QAutomation.Logging;
     using System.Collections.Generic;
 
     public interface IManageAppService

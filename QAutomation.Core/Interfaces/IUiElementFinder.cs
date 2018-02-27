@@ -2,7 +2,7 @@
 {
     using Controls;
     using QAutomation.Core.Locators;
-    using QAutomation.Logger;
+    using QAutomation.Logging;
     using System.Collections.Generic;
 
     public interface IUiElementFinder

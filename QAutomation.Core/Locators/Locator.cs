@@ -1,7 +1,6 @@
 ﻿namespace QAutomation.Core.Locators
 {
     using Enums;
-    using QAutomation.Core.Interfaces.Controls;
 
     public class Locator
     {

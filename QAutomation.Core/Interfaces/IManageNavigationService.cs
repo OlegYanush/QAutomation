@@ -1,6 +1,6 @@
 ﻿namespace QAutomation.Core.Interfaces
 {
-    using QAutomation.Logger;
+    using QAutomation.Logging;
 
     public interface IManageNavigationService
     {

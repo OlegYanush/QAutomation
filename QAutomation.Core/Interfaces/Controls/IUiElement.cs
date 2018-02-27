@@ -1,7 +1,7 @@
 ﻿namespace QAutomation.Core.Interfaces.Controls
 {
     using QAutomation.Core.Interfaces;
-    using QAutomation.Logger;
+    using QAutomation.Logging;
     using System.Drawing;
 
     public interface IUiElement : IUiElementFinder

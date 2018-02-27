@@ -4,7 +4,7 @@
     using QAutomation.Core.Interfaces;
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Locators;
-    using QAutomation.Logger;
+    using QAutomation.Logging;
     using QAutomation.Selenium.Extensions;
     using System;
     using System.Collections.Generic;

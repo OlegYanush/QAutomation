@@ -104,11 +104,10 @@
     <Compile Include="Support\PageObjects\UiObjectProxy.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\QAutomation.Logger\QAutomation.Logger.csproj">
+    <ProjectReference Include="..\QAutomation.Logging\QAutomation.Logging.csproj">
       <Project>{2241b6e4-11f8-4600-b1f0-f97518f2d6a9}</Project>
-      <Name>QAutomation.Logger</Name>
+      <Name>QAutomation.Logging</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

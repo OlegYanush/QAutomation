@@ -1,7 +1,7 @@
 ﻿namespace QAutomation.Core.Interfaces.Mobile
 {
     using Enums.Mobile;
-    using QAutomation.Logger;
+    using QAutomation.Logging;
     using System.Collections.Generic;
 
     public interface IManageDeviceService

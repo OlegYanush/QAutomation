@@ -1,7 +1,7 @@
 ﻿namespace QAutomation.Selenium.Engine
 {
     using QAutomation.Core.Interfaces;
-    using QAutomation.Logger;
+    using QAutomation.Logging;
     using System;
     using System.Collections.Generic;
 

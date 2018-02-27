@@ -1,7 +1,7 @@
 ﻿namespace QAutomation.Core.Interfaces.Controls
 {
     using QAutomation.Core.Enums;
-    using QAutomation.Logger;
+    using QAutomation.Logging;
 
     public interface ICheckbox : IUiElement
     {

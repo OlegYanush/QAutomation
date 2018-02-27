@@ -3,7 +3,7 @@
     using OpenQA.Selenium;
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Locators;
-    using QAutomation.Logger;
+    using QAutomation.Logging;
     using System.Collections.Generic;
 
     public class Frame : UiElement, IFrame

@@ -1,7 +1,7 @@
 ﻿namespace QAutomation.Core.Interfaces
 {
     using Controls;
-    using QAutomation.Logger;
+    using QAutomation.Logging;
     using System.Collections.Generic;
 
     public interface IFinderByTagName

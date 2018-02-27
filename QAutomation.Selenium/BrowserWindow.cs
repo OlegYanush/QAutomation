@@ -1,7 +1,7 @@
 ﻿namespace QAutomation.Selenium
 {
     using OpenQA.Selenium;
-    using QAutomation.Logger;
+    using QAutomation.Logging;
     using System;
     using System.Drawing;
 

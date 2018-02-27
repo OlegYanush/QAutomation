@@ -64,6 +64,12 @@
     <Reference Include="Unity.ServiceLocation, Version=2.1.0.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.5.8\lib\net47\Unity.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="WebDriver, Version=3.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.3.9.1\lib\net45\WebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver.Support, Version=3.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.Support.3.9.1\lib\net45\WebDriver.Support.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configs\ChromeDriverConfig.cs" />
@@ -92,21 +98,13 @@
     <Compile Include="BrowserWindow.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\selenium\dotnet\src\support\WebDriver.Support.csproj">
-      <Project>{0ed94830-738b-4f01-a000-cbd038e12b75}</Project>
-      <Name>WebDriver.Support</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\selenium\dotnet\src\webdriver\WebDriver.csproj">
-      <Project>{14474911-4f22-4e9c-ace3-d21bdd5ae46e}</Project>
-      <Name>WebDriver</Name>
-    </ProjectReference>
     <ProjectReference Include="..\QAutomation.Core\QAutomation.Core.csproj">
       <Project>{39b66db9-f457-4766-bc61-f9c0365bd772}</Project>
       <Name>QAutomation.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\QAutomation.Logger\QAutomation.Logger.csproj">
+    <ProjectReference Include="..\QAutomation.Logging\QAutomation.Logging.csproj">
       <Project>{2241b6e4-11f8-4600-b1f0-f97518f2d6a9}</Project>
-      <Name>QAutomation.Logger</Name>
+      <Name>QAutomation.Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

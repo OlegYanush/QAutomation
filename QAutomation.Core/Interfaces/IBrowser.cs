@@ -1,7 +1,7 @@
 ﻿namespace QAutomation.Core.Interfaces
 {
     using QAutomation.Core.Interfaces.Controls;
-    using QAutomation.Logger;
+    using QAutomation.Logging;
 
     public interface IBrowser
     {
@@ -13,8 +13,8 @@
         string GetPageSource(ILogger log);
         IFrame GetFrameByName(string name);
 
-        void SwitchToParentFrame(ILogger log);
-        void SwitchToDefaultContent(ILogger log);
-        void SwitchToFrame(IFrame frame, ILogger log);
+        IBrowserDriver SwitchToParentFrame(ILogger log);
+        IBrowserDriver SwitchToDefaultContent(ILogger log);
+        IBrowserDriver SwitchToFrame(IFrame frame, ILogger log);
     }
 }
