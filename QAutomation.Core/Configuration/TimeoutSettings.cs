@@ -1,4 +1,4 @@
-﻿namespace QAutomation.Core
+﻿namespace QAutomation.Core.Configuration
 {
     public class TimeoutSettings
     {

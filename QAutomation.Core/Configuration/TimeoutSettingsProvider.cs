@@ -10,22 +10,21 @@
 
         static TimeoutSettingsProvider()
         {
-            try
+            var section = ConfigurationManager.GetSection(CONFIGURATION_SECTION_NAME) as TimeoutSettingsSection;
+
+            if (section == null)
+                throw new ConfigurationErrorsException("Section with timeout settings section doesn't exist in app configuration file.");
+
+            Settings = new TimeoutSettings
             {
-                var section = (TimeoutSettingsSection)ConfigurationManager.GetSection(CONFIGURATION_SECTION_NAME);
+                ExplicitWait = section.ExplicitTimeout.Value,
+                ImplicitWait = section.ImplicitTimeout.Value,
 
-                Settings = new TimeoutSettings
-                {
-                    ExplicitWait = section.ExplicitTimeout.Value,
-                    ImplicitWait = section.ImplicitTimeout.Value,
+                HttpCommandTimeout = section.HttpCommandTimeout.Value,
 
-                    HttpCommandTimeout = section.HttpCommandTimeout.Value,
-
-                    JavaScriptTimeout = section.JavascriptTimeout.Value,
-                    PoolingInterval = section.JavascriptTimeout.Value
-                };
-            }
-            catch { throw; }
+                JavaScriptTimeout = section.JavascriptTimeout.Value,
+                PoolingInterval = section.JavascriptTimeout.Value
+            };
         }
     }
 }

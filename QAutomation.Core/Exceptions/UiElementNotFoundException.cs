@@ -9,7 +9,6 @@
 
         public UiElementNotFoundException(string message) 
             : base(message) { }
-      
 
         public UiElementNotFoundException(string message, Exception innerException) 
             : base(message, innerException) { }

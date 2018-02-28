@@ -1,7 +1,7 @@
 ﻿namespace QAutomation.Selenium.Configs
 {
     using OpenQA.Selenium;
-    using QAutomation.Core;
+    using QAutomation.Core.Configuration;
     using QAutomation.Core.Enums;
     using QAutomation.Core.Interfaces;
     using System;

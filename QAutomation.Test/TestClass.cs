@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using QAutomation.Core;
+using QAutomation.Core.Configuration;
 using QAutomation.Core.Enums;
 using QAutomation.Core.Interfaces;
 using QAutomation.Core.Interfaces.Controls;
@@ -50,6 +52,8 @@ namespace QAutomation.Test
 
     [TestFixture]
     [Parallelizable(ParallelScope.All)]
+    [Description("This is test fixture description")]
+    [Category("Test"), Category("My Category")]
     public class TestClass
     {
         [Test]
