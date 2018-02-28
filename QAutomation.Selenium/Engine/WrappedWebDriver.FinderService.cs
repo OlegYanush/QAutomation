@@ -23,7 +23,7 @@
             }
             catch (Exception ex)
             {
-                var message = "Error occurred during finding element by locator '{locator}'.";
+                var message = $"Error occurred during finding element by locator '{locator}'.";
                 log?.ERROR(message, ex);
 
                 throw new Exception(message, ex);
@@ -49,17 +49,17 @@
 
         public IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log) where TUiElement : IUiElement
         {
-            log?.DEBUG($"Find elements by locator '{locator}'.");
+            log?.DEBUG($"Find elements by locator = {locator}.");
             try
             {
                 var elements = _elementFinderService.FindAll<TUiElement>(_wrappedDriver, locator);
-                log?.INFO($"Elements by locator '{locator}' successfully found.");
+                log?.INFO($"Elements by locator = {locator} successfully found.");
 
                 return elements;
             }
             catch (Exception ex)
             {
-                var message = "Error occurred during finding elements by locator '{locator}'.";
+                var message = $"Error occurred during finding elements by locator = {locator}.";
                 log?.ERROR(message, ex);
 
                 throw new Exception(message, ex);

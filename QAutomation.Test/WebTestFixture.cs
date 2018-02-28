@@ -1,11 +1,6 @@
 ﻿namespace QAutomation.Test
 {
     using QAutomation.Core.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Unity.Resolution;
     using Unity;
     using QAutomation.Selenium;
@@ -19,9 +14,11 @@
 
         public WebTestFixture(WebDriverConfig config)
         {
-            var resolver = _container.Resolve<IElementResolver>(new ParameterOverride("resolver", _container));
+            var container = UnityContainerFactory.GetContainer();
 
-            _driver = _container.Resolve<IBrowserDriver>(new ResolverOverride[]
+            var resolver = container.Resolve<IElementResolver>(new ParameterOverride("resolver", container));
+
+            _driver = container.Resolve<IBrowserDriver>(new ResolverOverride[]
             {
                 new ParameterOverride("config", config),
                 new ParameterOverride("resolver", resolver)

@@ -4,6 +4,7 @@
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Locators;
     using QAutomation.Logging;
+    using System;
     using System.Collections.Generic;
 
     public class Frame : UiElement, IFrame
@@ -25,27 +26,90 @@
             }
         }
 
+        public bool Switched => _isSwitched;
+
         public override TUiObject Find<TUiObject>(Locator locator, ILogger log)
-        {
-            SwitchToCurrentFrame(ref _isSwitched);
-            return Find<TUiObject>(_wrappedDriver, locator, log);
-        }
+            => Find<TUiObject>(_wrappedDriver, locator, log);
 
         public override IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log)
+           => FindAll<TUiElement>(_wrappedDriver, locator, log);
+
+        public void SwitchToDefaultContent(ILogger log)
         {
-            SwitchToCurrentFrame(ref _isSwitched);
-            return base.FindAll<TUiElement>(locator, log);
+            string frameName = null;
+
+            try
+            {
+                frameName = string.IsNullOrEmpty(Name) ? "unknown" : Name;
+                log?.DEBUG($"Switch to default content from frame with name = '{frameName}'.");
+
+                _wrappedDriver = _wrappedDriver.SwitchTo().DefaultContent();
+                log?.INFO($"Switching to default content from frame with name = '{frameName}' successfully completed.");
+
+                _isSwitched = false;
+            }
+            catch (Exception ex)
+            {
+                var message = $"Error occurred durring switching to default content from frame with name = '{frameName}'.";
+                log?.ERROR(message, ex);
+
+                throw new Exception(message, ex);
+            }
         }
 
-        private void SwitchToCurrentFrame(ref bool isSwitched)
+        public void SwitchToParentFrame(ILogger log)
         {
-            if (!isSwitched)
-            {
-                _wrappedDriver = !string.IsNullOrEmpty(Name)
-                    ? _wrappedDriver.SwitchTo().Frame(Name)
-                    : _wrappedDriver.SwitchTo().Frame(_wrappedElement);
+            string frameName = null;
 
-                isSwitched = true;
+            try
+            {
+                frameName = string.IsNullOrEmpty(Name) ? "unknown" : Name;
+                log?.DEBUG($"Switch to parent frame from the frame with name = '{frameName}'.");
+
+                if (!Switched)
+                    log?.WARN($"Driver doesn't located in the frame with name = '{frameName}'. Switching to parent frame is impossible.");
+                else
+                {
+                    _wrappedDriver = _wrappedDriver.SwitchTo().DefaultContent();
+                    log?.INFO($"Switching to default content from frame with name = '{frameName}' successfully completed.");
+
+                    _isSwitched = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                var message = $"Error occurred durring switching to parent frame from the frame with name = '{frameName}'.";
+                log?.ERROR(message, ex);
+
+                throw new Exception(message, ex);
+            }
+        }
+
+        public void SwitchToSelf(ILogger log)
+        {
+            string frameName = null;
+
+            try
+            {
+                frameName = string.IsNullOrEmpty(Name) ? "unknown" : Name;
+                log?.DEBUG($"Switch to the frame with name = '{frameName}'.");
+
+                if (Switched)
+                    log?.INFO($"Driver already switched to the frame with name = '{frameName}'.");
+                else
+                {
+                    _wrappedDriver = _wrappedDriver.SwitchTo().Frame(_wrappedElement);
+                    log?.INFO($"Switching to the frame with name = '{frameName}' successfully completed.");
+
+                    _isSwitched = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                var message = $"Error occurred durring switching to the frame with name = '{frameName}'.";
+                log?.ERROR(message, ex);
+
+                throw new Exception(message, ex);
             }
         }
     }

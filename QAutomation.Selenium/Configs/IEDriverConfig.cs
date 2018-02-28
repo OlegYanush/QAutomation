@@ -10,7 +10,7 @@
 
     public class IEDriverConfig : WebDriverConfig
     {
-        public override Browser Browser => Browser.InternetExplorer;
+        public override Browsers Browser => Browsers.InternetExplorer;
 
         public override IWebDriver CreateLocalDriver()
         {

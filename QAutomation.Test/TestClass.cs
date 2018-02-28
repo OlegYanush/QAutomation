@@ -91,7 +91,9 @@ namespace QAutomation.Test
 
             var value = page.Home.GetAttribute("title", logger);
 
-            var element = page.ChildFrame.Find<IUiElement>(Locator.Id("nav_references"), logger);
+            var element = driver.Find<IInput>(Locator.Id("id"), logger);
+
+            //var element = page.ChildFrame.Find<IUiElement>(Locator.Id("nav_references"), logger);
 
             var img = driver.Find<IUiElement>(Locator.XPath("(.//img)[1]"), logger);
 

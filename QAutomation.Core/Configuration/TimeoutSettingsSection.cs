@@ -4,19 +4,24 @@
 
     public class TimeoutSettingsSection : ConfigurationSection
     {
-        [ConfigurationProperty("ImplicitTimeout")]
-        public ValueConfigurationElement<double> ImplicitTimeout => (ValueConfigurationElement<double>) this["ImplicitTimeout"];
+        [ConfigurationProperty(nameof(ImplicitTimeout))]
+        public ValueConfigurationElement<double> ImplicitTimeout
+            => (ValueConfigurationElement<double>)this[nameof(ImplicitTimeout)];
 
-        [ConfigurationProperty("ExplicitTimeout")]
-        public ValueConfigurationElement<double> ExplicitTimeout => (ValueConfigurationElement<double>)this["ExplicitTimeout"];
+        [ConfigurationProperty(nameof(ExplicitTimeout))]
+        public ValueConfigurationElement<double> ExplicitTimeout
+            => (ValueConfigurationElement<double>)this[nameof(ExplicitTimeout)];
 
-        [ConfigurationProperty("JavascriptTimeout")]
-        public ValueConfigurationElement<double> JavascriptTimeout => (ValueConfigurationElement<double>)this["JavascriptTimeout"];
+        [ConfigurationProperty(nameof(JavascriptTimeout))]
+        public ValueConfigurationElement<double> JavascriptTimeout
+            => (ValueConfigurationElement<double>)this[nameof(JavascriptTimeout)];
 
-        [ConfigurationProperty("PoolingInterval")]
-        public ValueConfigurationElement<double> PoolingInterval => (ValueConfigurationElement<double>)this["PoolingInterval"];
+        [ConfigurationProperty(nameof(PoolingInterval))]
+        public ValueConfigurationElement<double> PoolingInterval
+            => (ValueConfigurationElement<double>)this[nameof(PoolingInterval)];
 
-        [ConfigurationProperty("HttpCommandTimeout")]
-        public ValueConfigurationElement<double> HttpCommandTimeout => (ValueConfigurationElement<double>)this["HttpCommandTimeout"];
+        [ConfigurationProperty(nameof(HttpCommandTimeout))]
+        public ValueConfigurationElement<double> HttpCommandTimeout
+            => (ValueConfigurationElement<double>)this[nameof(HttpCommandTimeout)];
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace QAutomation.Core.Enums
 {
-    public enum Browser : byte
+    public enum Browsers : byte
     {
         Chrome,
         Safari,

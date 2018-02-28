@@ -89,10 +89,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="TestWebClass.cs" />
+    <Compile Include="UnityContainerFactory.cs" />
     <Compile Include="WebTestFixture.cs" />
     <Compile Include="WebTestFixtureData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\QAutomation.Asserting\QAutomation.Asserting.csproj">
+      <Project>{BF3DBE6D-24EB-477A-8C15-A43D26505E31}</Project>
+      <Name>QAutomation.Asserting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QAutomation.Core\QAutomation.Core.csproj">
       <Project>{39b66db9-f457-4766-bc61-f9c0365bd772}</Project>
       <Name>QAutomation.Core</Name>

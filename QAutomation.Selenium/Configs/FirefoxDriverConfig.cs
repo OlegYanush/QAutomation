@@ -12,7 +12,7 @@
 
     public class FirefoxDriverConfig : WebDriverConfig
     {
-        public override Browser Browser => Browser.Firefox;
+        public override Browsers Browser => Browsers.Firefox;
 
         public override IWebDriver CreateLocalDriver()
         {

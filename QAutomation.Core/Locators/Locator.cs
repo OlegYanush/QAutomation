@@ -29,6 +29,6 @@
 
         public static Locator PartialLinkText(string partialLinkText) => new Locator(partialLinkText, SearchCriteria.PartialLinkText);
 
-        public override string ToString() => $"[Type: {Type}, Value: {Value}]";
+        public override string ToString() => $"[Search criteria: {Type}, Value: {Value}]";
     }
 }

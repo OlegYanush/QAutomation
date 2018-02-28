@@ -8,7 +8,7 @@
 
     public abstract class WebDriverConfig : IBrowserDriverConfig
     {
-        public abstract Browser Browser { get; }
+        public abstract Browsers Browser { get; }
         public string Version { get; set; }
 
         public TimeoutSettings Timeouts { get; set; }
@@ -22,5 +22,7 @@
         public abstract IWebDriver CreateRemoteDriver();
 
         protected abstract ICapabilities GetCapabilites();
+
+        public override string ToString() => $"{Browser}{(Version != null ? $"({Version})" : string.Empty)}";
     }
 }

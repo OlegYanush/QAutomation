@@ -23,13 +23,13 @@
             try
             {
                 var finded = searchContext.FindElement(locator.ToNativeBy());
-                var wrappedDriver = (searchContext as RemoteWebDriver) ?? (searchContext as RemoteWebElement).WrappedDriver;
+                var wrappedDriver = GetRemoteWebDriver(searchContext);
 
                 return _resolver.Resolve<TUiElement>(wrappedDriver, finded);
             }
             catch (NoSuchElementException ex)
             {
-                throw new UiElementNotFoundException($"Element with locator '{locator}' not found.", ex);
+                throw new UiElementNotFoundException($"Element by locator {locator} not found.", ex);
             }
         }
 
@@ -39,12 +39,15 @@
             List<TUiElement> elements = new List<TUiElement>();
 
             var finded = searchContext.FindElements(locator.ToNativeBy());
-            var wrappedDriver = (searchContext as RemoteWebDriver) ?? (searchContext as RemoteWebElement).WrappedDriver;
+            var wrappedDriver = GetRemoteWebDriver(searchContext);
 
             foreach (var element in finded)
                 elements.Add(_resolver.Resolve<TUiElement>(wrappedDriver, element));
 
             return elements;
         }
+
+        private IWebDriver GetRemoteWebDriver(ISearchContext context)
+            => (context as RemoteWebDriver) ?? (context as RemoteWebElement).WrappedDriver;
     }
 }

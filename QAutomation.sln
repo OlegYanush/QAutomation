@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAutomation.Logging", "QAut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAutomation.NLogWrapper", "QAutomation.NLogWrapper\QAutomation.NLogWrapper.csproj", "{92C52109-08F3-4FE8-850A-F942416F91C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAutomation.Asserting", "QAutomation.Asserting\QAutomation.Asserting.csproj", "{BF3DBE6D-24EB-477A-8C15-A43D26505E31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{92C52109-08F3-4FE8-850A-F942416F91C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92C52109-08F3-4FE8-850A-F942416F91C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92C52109-08F3-4FE8-850A-F942416F91C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF3DBE6D-24EB-477A-8C15-A43D26505E31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF3DBE6D-24EB-477A-8C15-A43D26505E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF3DBE6D-24EB-477A-8C15-A43D26505E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF3DBE6D-24EB-477A-8C15-A43D26505E31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

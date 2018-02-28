@@ -23,7 +23,7 @@ namespace QAutomation.Test
         }
 
         [Test]
-        public void Method()
+        public void TestMethod()
         {
             TestLog?.INFO("Method log");
 

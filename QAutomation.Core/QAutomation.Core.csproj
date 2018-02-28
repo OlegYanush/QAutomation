@@ -46,7 +46,7 @@
     <Compile Include="Configuration\TimeoutSettingsSection.cs" />
     <Compile Include="Configuration\TimeoutSettingsProvider.cs" />
     <Compile Include="Configuration\ValueConfigurationElement.cs" />
-    <Compile Include="Enums\Browser.cs" />
+    <Compile Include="Enums\Browsers.cs" />
     <Compile Include="Enums\CheckboxState.cs" />
     <Compile Include="Enums\SearchCriteria.cs" />
     <Compile Include="Enums\Mobile\ScreenOrientation.cs" />

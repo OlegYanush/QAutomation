@@ -12,7 +12,7 @@
 
     public class ChromeDriverConfig : WebDriverConfig
     {
-        public override Browser Browser => Browser.Chrome;
+        public override Browsers Browser => Browsers.Chrome;
 
         public override IWebDriver CreateLocalDriver()
         {

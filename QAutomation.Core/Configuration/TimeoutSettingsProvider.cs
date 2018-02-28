@@ -4,13 +4,15 @@
 
     public class TimeoutSettingsProvider : ConfigurationSection
     {
+        private const string CONFIGURATION_SECTION_NAME = "TimeoutSettings";
+
         public static readonly TimeoutSettings Settings;
 
         static TimeoutSettingsProvider()
         {
             try
             {
-                var section = (TimeoutSettingsSection)ConfigurationManager.GetSection("TimeoutSettings");
+                var section = (TimeoutSettingsSection)ConfigurationManager.GetSection(CONFIGURATION_SECTION_NAME);
 
                 Settings = new TimeoutSettings
                 {
