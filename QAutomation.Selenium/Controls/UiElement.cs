@@ -2,6 +2,7 @@
 {
     using OpenQA.Selenium;
     using QAutomation.Core.Configuration;
+    using QAutomation.Core.Interfaces;
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Locators;
     using QAutomation.Logging;
@@ -11,12 +12,14 @@
     using System.Collections.Generic;
     using System.Drawing;
 
-    public class UiElement : IUiElement
+    public class UiElement : IUiElement, IWraps<IWebElement>
     {
         protected IWebDriver _wrappedDriver;
         protected IWebElement _wrappedElement;
 
         protected ElementFinderService _elementFinderService;
+
+        public string Description { get; set; }
 
         public IWebDriver WrappedDriver => _wrappedDriver;
         public IWebElement WrappedElement => _wrappedElement;
@@ -45,7 +48,7 @@
             try
             {
                 var attributeValue = _wrappedElement.GetAttribute(attribute);
-                log?.DEBUG($"Getting value for attribute with name successfully completed. Value = '{attributeValue}'.");
+                log?.DEBUG($"Getting value for attribute with name = '{attribute}' successfully completed. Value = '{attributeValue}'.");
 
                 return attributeValue;
             }

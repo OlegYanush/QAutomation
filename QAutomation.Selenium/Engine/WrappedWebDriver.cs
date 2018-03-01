@@ -2,7 +2,11 @@
 {
     using OpenQA.Selenium;
     using QAutomation.Core.Interfaces;
+    using QAutomation.Core.Interfaces.Controls;
+    using QAutomation.Core.Locators;
+    using QAutomation.Logging;
     using QAutomation.Selenium.Configs;
+    using System;
     using Unity;
 
     public partial class WrappedWebDriver : IBrowserDriver
@@ -12,7 +16,7 @@
 
         private Core.Interfaces.IWindow _currentWindow;
         private ElementFinderService _elementFinderService;
-      
+
         public IBrowserDriverConfig Config => _config;
         public IWebDriver WrappedDriver => _wrappedDriver;
 
@@ -24,5 +28,7 @@
             _currentWindow = new BrowserWindow(_wrappedDriver);
             _elementFinderService = new ElementFinderService(resolver);
         }
+
+        public IUiElement Find(Locator locator, ILogger log) => Find<IUiElement>(locator, log);
     }
 }

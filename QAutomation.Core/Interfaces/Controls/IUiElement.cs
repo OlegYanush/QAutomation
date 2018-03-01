@@ -6,6 +6,8 @@
 
     public interface IUiElement : IUiElementFinder
     {
+        string Description { get; set; }
+
         string Tag { get; }
         string Content { get; }
 

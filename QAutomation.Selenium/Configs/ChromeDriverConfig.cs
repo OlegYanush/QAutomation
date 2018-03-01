@@ -1,10 +1,6 @@
 ﻿namespace QAutomation.Selenium.Configs
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Chrome;
     using OpenQA.Selenium.Remote;
@@ -16,25 +12,39 @@
 
         public override IWebDriver CreateLocalDriver()
         {
-            var driver = new ChromeDriver();
+            ChromeDriverService service;
+
+            string path = Environment.GetEnvironmentVariable("webdriver.chrome.driver", EnvironmentVariableTarget.Machine);
+            if (path != null)
+                service = ChromeDriverService.CreateDefaultService(path);
+            else
+                service = ChromeDriverService.CreateDefaultService();
+
+            service.HideCommandPromptWindow = false;
+            var options = GetOptions();
+
+            var driver = new ChromeDriver(service, options, TimeSpan.FromSeconds(Timeouts.HttpCommandTimeout));
+            ProcessID = service.ProcessId;
 
             return driver;
         }
 
         public override IWebDriver CreateRemoteDriver()
         {
-            return new RemoteWebDriver(GridUri, GetOptions());
+            var capabilites = GetOptions().ToCapabilities();
+            return new RemoteWebDriver(GridUri, capabilites, TimeSpan.FromSeconds(Timeouts.HttpCommandTimeout));
         }
 
-        protected override ICapabilities GetCapabilites()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected DriverOptions GetOptions()
+        protected ChromeOptions GetOptions()
         {
             var options = new ChromeOptions();
 
+            options.AddUserProfilePreference("download.prompt_for_download", true);
+            options.AddUserProfilePreference("download.default_directory", "NULL");
+            options.AddArgument("disable-infobars");
+            options.AddArgument("disable-blink-features=BlockCredentialedSubresources");
+
+            options.Proxy = GetProxy();
             return options;
         }
     }

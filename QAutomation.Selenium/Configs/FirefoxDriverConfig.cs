@@ -1,10 +1,6 @@
 ﻿namespace QAutomation.Selenium.Configs
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Firefox;
     using OpenQA.Selenium.Remote;
@@ -16,23 +12,60 @@
 
         public override IWebDriver CreateLocalDriver()
         {
-            var driver = new FirefoxDriver();
+            FirefoxDriverService service;
+            string path = Environment.GetEnvironmentVariable("webdriver.gecko.driver", EnvironmentVariableTarget.Machine);
+            if (path != null)
+                service = FirefoxDriverService.CreateDefaultService(path);
+            else
+                service = FirefoxDriverService.CreateDefaultService();
+
+            service.HideCommandPromptWindow = true;
+
+            var ops = new FirefoxOptions { Profile = CreateProfile() };
+            ops.SetPreference("security.enterprise_roots.enabled", true);
+
+            var driver = new FirefoxDriver(service, ops, TimeSpan.FromSeconds(Timeouts.HttpCommandTimeout));
+            ProcessID = service.ProcessId;
 
             return driver;
         }
 
         public override IWebDriver CreateRemoteDriver()
         {
-            var driver = new RemoteWebDriver(GridUri, GetCapabilites(), TimeSpan.FromSeconds(Timeouts.HttpCommandTimeout));
+            var ops = new FirefoxOptions { Profile = CreateProfile() };
+            ops.SetPreference("security.enterprise_roots.enabled", true);
 
-            return driver;
+            return new RemoteWebDriver(GridUri, ops.ToCapabilities(), TimeSpan.FromSeconds(Timeouts.HttpCommandTimeout));
         }
 
-        protected override ICapabilities GetCapabilites()
+        private FirefoxProfile CreateProfile()
         {
-            var options = new FirefoxOptions();
+            FirefoxProfile profile = new FirefoxProfile
+            {
+                EnableNativeEvents = true,
+                DeleteAfterUse = true,
+                AcceptUntrustedCertificates = true
+            };
 
-            return options.ToCapabilities();
+            if (Proxy != null || ProxyAutoConfigUrl != null)
+            {
+                profile.SetPreference("network.proxy.no_proxies_on", "localhost, 127.0.0.1");
+
+                if (ProxyAutoConfigUrl != null)
+                {
+                    profile.SetPreference("network.proxy.type", 2);
+                    profile.SetPreference("network.proxy.autoconfig_url", ProxyAutoConfigUrl);
+                }
+                if (Proxy != null)
+                {
+                    profile.SetPreference("network.proxy.type", 1);
+
+                    profile.SetPreference("network.proxy.http", Proxy);
+                    profile.SetPreference("network.proxy.ssl", Proxy);
+                }
+            }
+
+            return profile;
         }
     }
 }

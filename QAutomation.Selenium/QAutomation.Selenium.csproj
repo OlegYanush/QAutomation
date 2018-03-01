@@ -81,6 +81,8 @@
     <Compile Include="Controls\Frame.cs" />
     <Compile Include="Controls\Input.cs" />
     <Compile Include="Controls\UiElement.cs" />
+    <Compile Include="Engine\WrappedWebDriver.Actions.cs" />
+    <Compile Include="Extensions\IUiElementExtension.cs" />
     <Compile Include="UnityElementResolverService.cs" />
     <Compile Include="IElementResolver.cs" />
     <Compile Include="Engine\ElementFinderService.cs" />

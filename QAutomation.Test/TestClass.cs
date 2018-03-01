@@ -77,8 +77,21 @@ namespace QAutomation.Test
             container.RegisterType<ICheckbox, Checkbox>();
             container.RegisterType<IFrame, Frame>();
 
+
             container.RegisterInstance(container);
-            container.RegisterInstance<WebDriverConfig>(new ChromeDriverConfig { GridUri = new Uri("http://127.0.0.1:4444/wd/hub/"), UseGrid = false });
+            container.RegisterInstance<WebDriverConfig>(
+                new ChromeDriverConfig
+                {
+                    GridUri = new Uri("http://127.0.0.1:4444/wd/hub/"),
+                    UseGrid = false,
+                    Timeouts = new TimeoutSettings
+                    {
+                        ExplicitWait = 5,
+                        HttpCommandTimeout = 120,
+                        JavaScriptTimeout = 60,
+                        PoolingInterval = 0.5
+                    }
+                });
 
             var resolver = new UnityElementResolverService(container);
 
@@ -95,11 +108,11 @@ namespace QAutomation.Test
 
             var value = page.Home.GetAttribute("title", logger);
 
-            var element = driver.Find<IInput>(Locator.Id("id"), logger);
+            var element = driver.Find<Input>(Locator.Id("id"), logger);
 
             //var element = page.ChildFrame.Find<IUiElement>(Locator.Id("nav_references"), logger);
 
-            var img = driver.Find<IUiElement>(Locator.XPath("(.//img)[1]"), logger);
+            var img = driver.Find<UiElement>(Locator.XPath("(.//img)[1]"), logger);
 
             driver.Quit(logger);
 

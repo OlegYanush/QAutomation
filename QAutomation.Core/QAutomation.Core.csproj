@@ -63,6 +63,7 @@
     <Compile Include="Interfaces\IJsExecutor.cs" />
     <Compile Include="Interfaces\IManageNavigationService.cs" />
     <Compile Include="Interfaces\IManageWindowService.cs" />
+    <Compile Include="Interfaces\IWraps[T].cs" />
     <Compile Include="Interfaces\IUiElementFinderService.cs" />
     <Compile Include="Interfaces\IWindow.cs" />
     <Compile Include="Interfaces\Mobile\IManageAppService.cs" />

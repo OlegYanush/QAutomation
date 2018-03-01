@@ -20,12 +20,17 @@
         public TUiElement Find<TUiElement>(ISearchContext searchContext, Locator locator)
          where TUiElement : IUiElement
         {
+            var finded = Find(searchContext, locator);
+            var wrappedDriver = GetRemoteWebDriver(searchContext);
+
+            return _resolver.Resolve<TUiElement>(wrappedDriver, finded);
+        }
+
+        public IWebElement Find(ISearchContext searchContext, Locator locator)
+        {
             try
             {
-                var finded = searchContext.FindElement(locator.ToNativeBy());
-                var wrappedDriver = GetRemoteWebDriver(searchContext);
-
-                return _resolver.Resolve<TUiElement>(wrappedDriver, finded);
+                return searchContext.FindElement(locator.ToNativeBy());
             }
             catch (NoSuchElementException ex)
             {
