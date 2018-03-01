@@ -1,17 +1,11 @@
 ﻿namespace QAutomation.Selenium.Engine
 {
-    using OpenQA.Selenium;
     using OpenQA.Selenium.Interactions;
-    using QAutomation.Core.Interfaces;
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Locators;
     using QAutomation.Logging;
     using QAutomation.Selenium.Extensions;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public partial class WrappedWebDriver
     {
@@ -19,13 +13,13 @@
 
         public void ActionsMoveTo(IUiElement element, ILogger log)
         {
-            log?.DEBUG($"Move cursor to {element}.");
+            log?.TRACE($"Move cursor to {element}.");
             try
             {
-                var wraps = element.GetWraps();
-                new Actions(_wrappedDriver).MoveToElement(wraps.WrappedElement).Perform();
+                var wrap = element.GetWrap();
+                new Actions(WrappedDriver).MoveToElement(wrap.WrappedElement).Perform();
 
-                log?.INFO($"Moving to {element} successfully completed.");
+                log?.DEBUG($"Moving to {element} successfully completed.");
             }
             catch (Exception ex)
             {
@@ -38,13 +32,13 @@
 
         public void ActionsClick(IUiElement element, ILogger log)
         {
-            log?.DEBUG($"Actions click on {element}.");
+            log?.TRACE($"Actions click on {element}.");
             try
             {
-                var wraps = element.GetWraps();
-                new Actions(_wrappedDriver).Click(wraps.WrappedElement).Perform();
+                var wrap = element.GetWrap();
+                new Actions(WrappedDriver).Click(wrap.WrappedElement).Perform();
 
-                log?.INFO($"Actions click on {element} successfully completed.");
+                log?.DEBUG($"Actions click on {element} successfully completed.");
             }
             catch (Exception ex)
             {
@@ -57,13 +51,13 @@
 
         public void ActionsRightClick(IUiElement element, ILogger log)
         {
-            log?.DEBUG($"Actions right click on {element}.");
+            log?.TRACE($"Actions right click on {element}.");
             try
             {
-                var wraps = element.GetWraps();
-                new Actions(_wrappedDriver).ContextClick(wraps.WrappedElement).Perform();
+                var wrap = element.GetWrap();
+                new Actions(WrappedDriver).ContextClick(wrap.WrappedElement).Perform();
 
-                log?.INFO($"Actions right click on {element} successfully completed.");
+                log?.DEBUG($"Actions right click on {element} successfully completed.");
             }
             catch (Exception ex)
             {
@@ -76,13 +70,13 @@
 
         public void ActionsDoubleClick(IUiElement element, ILogger log)
         {
-            log?.DEBUG($"Actions double click on {element}.");
+            log?.TRACE($"Actions double click on {element}.");
             try
             {
-                var wraps = element.GetWraps();
-                new Actions(_wrappedDriver).DoubleClick(wraps.WrappedElement).Perform();
+                var wrap = element.GetWrap();
+                new Actions(WrappedDriver).DoubleClick(wrap.WrappedElement).Perform();
 
-                log?.INFO($"Actions double click on {element} successfully completed.");
+                log?.DEBUG($"Actions double click on {element} successfully completed.");
             }
             catch (Exception ex)
             {
@@ -91,18 +85,18 @@
             }
         }
 
-        public void ActionsSendKeys(Locator locator, string value, ILogger log) 
+        public void ActionsSendKeys(Locator locator, string value, ILogger log)
             => ActionsSendKeys(Find(locator, log), value, log);
 
         public void ActionsSendKeys(IUiElement element, string value, ILogger log)
         {
-            log?.DEBUG($"Actions send '{value}' keys to {element}.");
+            log?.TRACE($"Actions send '{value}' keys to {element}.");
             try
             {
-                var wraps = element.GetWraps();
-                new Actions(_wrappedDriver).SendKeys(wraps.WrappedElement, value).Perform();
+                var wrap = element.GetWrap();
+                new Actions(WrappedDriver).SendKeys(wrap.WrappedElement, value).Perform();
 
-                log?.INFO($"Actions send '{value}' keys to {element} successfully completed.");
+                log?.DEBUG($"Actions send '{value}' keys to {element} successfully completed.");
             }
             catch (Exception ex)
             {
@@ -120,13 +114,13 @@
 
             try
             {
-                var sourceWraps = source.GetWraps();
-                var targetWraps = target.GetWraps();
+                var sourceWrap = source.GetWrap();
+                var targetWrap = target.GetWrap();
 
-                new Actions(WrappedDriver).MoveToElement(sourceWraps.WrappedElement)
-                    .ClickAndHold(sourceWraps.WrappedElement)
-                    .MoveToElement(targetWraps.WrappedElement)
-                    .Release(targetWraps.WrappedElement)
+                new Actions(WrappedDriver).MoveToElement(sourceWrap.WrappedElement)
+                    .ClickAndHold(sourceWrap.WrappedElement)
+                    .MoveToElement(targetWrap.WrappedElement)
+                    .Release(targetWrap.WrappedElement)
                     .Build().Perform();
 
                 log?.DEBUG($"Actions drag and drop from {source} to {target} successfully completed.");

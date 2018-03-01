@@ -12,6 +12,8 @@
         private const BindingFlags PublicBindingOptions = BindingFlags.Instance | BindingFlags.Public;
         private const BindingFlags NonPublicBindingOptions = BindingFlags.Instance | BindingFlags.NonPublic;
 
+
+        private static List<Type> _interfacesToBeProxied;
         private static Type InterfaceToBeProxied => typeof(IUiElement);
 
         private static IList<Locator> CreateLocatorList(MemberInfo member)

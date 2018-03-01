@@ -4,6 +4,6 @@
 
     public interface IJsExecutor
     {
-        string ExecuteJavaScript(string script, ILogger log);
+        object ExecuteJavaScript(string script, object[] args, ILogger log);
     }
 }

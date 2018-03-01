@@ -7,7 +7,7 @@
 
     public static class IUiElementExtension
     {
-        public static IWraps<IWebElement> GetWraps(this IUiElement element)
+        public static IWraps<IWebElement> GetWrap(this IUiElement element)
         {
             var wraps = element as IWraps<IWebElement>;
 

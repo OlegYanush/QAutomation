@@ -41,6 +41,7 @@
 
             options.AddUserProfilePreference("download.prompt_for_download", true);
             options.AddUserProfilePreference("download.default_directory", "NULL");
+
             options.AddArgument("disable-infobars");
             options.AddArgument("disable-blink-features=BlockCredentialedSubresources");
 

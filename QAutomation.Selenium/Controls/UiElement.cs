@@ -141,5 +141,7 @@
                 _wrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(defaultTimeout));
             }
         }
+
+        public override string ToString() => $"[{Description} with type {GetType()}]";
     }
 }

@@ -25,7 +25,7 @@ namespace QAutomation.Test
     {
         [LocatedOf(nameof(Bar))]
         [LocateBy(How = SearchCriteria.Id, Using = "tryhome"), CacheLookup]
-        public IUiElement Home { get; set; }
+        public IButton Home { get; set; }
 
         [LocateBy(".//a[contains(@class,'w3-button w3-light')]")]
         public IList<IUiElement> Links { get; set; }
@@ -36,6 +36,7 @@ namespace QAutomation.Test
         [LocatedOf(nameof(Nav))]
         [LocateBy(".//div[contains(@class,'w3-bar')]"), CacheLookup]
         public IUiElement Bar { get; set; }
+
 
         [LocateBy(How = SearchCriteria.Id, Using = "iframeResult"), CacheLookup]
         public IFrame FrameWrapper { get; set; }
@@ -108,7 +109,13 @@ namespace QAutomation.Test
 
             var value = page.Home.GetAttribute("title", logger);
 
-            var element = driver.Find<Input>(Locator.Id("id"), logger);
+            var button = driver.Find<IButton>(Locator.Id("tryhome"), logger);
+
+            button.Description = "Button for returning to Home";
+
+            //page.Home.Click(logger);
+
+            (driver as WrappedWebDriver).JsClick(button, logger);
 
             //var element = page.ChildFrame.Find<IUiElement>(Locator.Id("nav_references"), logger);
 
