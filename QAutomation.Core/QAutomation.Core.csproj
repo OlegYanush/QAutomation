@@ -51,6 +51,7 @@
     <Compile Include="Enums\SearchCriteria.cs" />
     <Compile Include="Enums\Mobile\ScreenOrientation.cs" />
     <Compile Include="Enums\Mobile\MobilePlatform.cs" />
+    <Compile Include="Enums\UiElementState.cs" />
     <Compile Include="Exceptions\UiElementNotFoundException.cs" />
     <Compile Include="Interfaces\Controls\ICheckbox.cs" />
     <Compile Include="Interfaces\IBrowserDriver.cs" />

@@ -1,13 +1,12 @@
 ﻿namespace QAutomation.Core.Interfaces.Controls
 {
     using QAutomation.Core.Interfaces;
+    using QAutomation.Core.Locators;
     using QAutomation.Logging;
     using System.Drawing;
 
     public interface IUiElement : IUiElementFinder
     {
-        string Description { get; set; }
-
         string Tag { get; }
         string Content { get; }
 
