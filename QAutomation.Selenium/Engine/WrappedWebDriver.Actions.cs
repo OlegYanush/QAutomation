@@ -19,11 +19,11 @@
                 var wrap = element.GetWrap();
                 new Actions(WrappedDriver).MoveToElement(wrap.WrappedElement).Perform();
 
-                log?.DEBUG($"Moving to {element} successfully completed.");
+                log?.DEBUG($"Moving cursor to {element} successfully completed.");
             }
             catch (Exception ex)
             {
-                log?.ERROR($"Error occurred during moving to {element}.", ex);
+                log?.ERROR($"Error occurred during moving cursor to {element}.", ex);
                 throw;
             }
         }

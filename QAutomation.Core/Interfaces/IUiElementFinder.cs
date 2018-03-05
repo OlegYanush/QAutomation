@@ -7,10 +7,10 @@
 
     public interface IUiElementFinder
     {
-        TUiElement Find<TUiElement>(Locator locator, ILogger log) where TUiElement : IUiElement;
-        TUiElement Find<TUiElement>(Locator locator, ILogger log, double timeoutInSec) where TUiElement : IUiElement;
+        TUiElement Find<TUiElement>(Locator locator, ILogger log, string description = null) where TUiElement : IUiElement;
+        TUiElement Find<TUiElement>(Locator locator, ILogger log, double timeoutInSec, string description = null) where TUiElement : IUiElement;
 
-        IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log) where TUiElement : IUiElement;
-        IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log, double timeoutInSec) where TUiElement : IUiElement;
+        IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log, string description = null) where TUiElement : IUiElement;
+        IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log, double timeoutInSec, string description = null) where TUiElement : IUiElement;
     }
 }

@@ -7,6 +7,9 @@
 
     public interface IUiElement : IUiElementFinder
     {
+        Locator Locator { get; set; }
+        string Description { get; set; }
+
         string Tag { get; }
         string Content { get; }
 

@@ -12,7 +12,6 @@
     using System;
     using System.Diagnostics;
     using System.Threading;
-    using Unity;
 
     public partial class WrappedWebDriver : IBrowserDriver
     {
@@ -36,8 +35,8 @@
 
         public IUiElement Find(Locator locator, ILogger log) => Find<IUiElement>(locator, log);
 
-        public TUiElement TryFind<TUiElement>(Locator locator, double searchTimeoutInSec, ILogger log)
-            where TUiElement : IUiElement
+        public TUiElement TryFindInParent<TUiElement>(Locator locator, double searchTimeoutInSec, ILogger log)
+            where TUiElement : class, IUiElement
         {
             log?.TRACE($"Try find element by locator {locator} with search timeout {searchTimeoutInSec} second(s).");
             try
@@ -57,7 +56,7 @@
             catch (Exception ex)
             {
                 log?.TRACE($"Element by locator {locator} not found.", ex);
-                return default(TUiElement);
+                return null;
             }
             finally
             {
@@ -69,7 +68,7 @@
         }
 
         public TUiElement TryFindInParent<TUiElement>(IUiElement parent, Locator locator, double searchTimeoutInSec, ILogger log)
-            where TUiElement : IUiElement
+            where TUiElement : class, IUiElement
         {
             log?.TRACE($"Try find element by locator {locator} in parent {parent} with search timeout {searchTimeoutInSec} second(s).");
             try
@@ -89,7 +88,7 @@
             catch (Exception ex)
             {
                 log?.TRACE($"Element by locator {locator} in parent {parent} not found.", ex);
-                return default(TUiElement);
+                return null;
             }
             finally
             {
@@ -109,23 +108,21 @@
                 if (state == UiElementState.None)
                     throw new Exception($"Couldn't wait for state: {nameof(UiElementState.None)}.");
 
-                var settings = TimeoutSettingsProvider.Settings;
-
-                timeoutInSec = timeoutInSec == 0 ? settings.ExplicitWait : timeoutInSec;
-                poolingIntervalInSec = poolingIntervalInSec == 0 ? settings.PoolingInterval : poolingIntervalInSec;
+                timeoutInSec = timeoutInSec == 0 ? Config.Timeouts.ExplicitWait : timeoutInSec;
+                poolingIntervalInSec = poolingIntervalInSec == 0 ? Config.Timeouts.PoolingInterval : poolingIntervalInSec;
 
                 double sleepTime = poolingIntervalInSec;
                 var stopwatch = Stopwatch.StartNew();
 
                 while (stopwatch.Elapsed.TotalMilliseconds <= timeoutInSec)
                 {
-                    var element = TryFind<TUiElement>(locator, poolingIntervalInSec, log);
+                    var element = TryFindInParent<TUiElement>(locator, poolingIntervalInSec, log);
 
                     if (element != null)
                     {
                         switch (state)
                         {
-                            case UiElementState.Preset:
+                            case UiElementState.Present:
                                 return element;
                             case UiElementState.Visible:
                                 if (element.Displayed) return element;
@@ -139,10 +136,13 @@
                             case UiElementState.NotVisible:
                                 if (!element.Displayed) return element;
                                 break;
+                                //case UiElementState.Available:
+                                //    if (element.Displayed && element.Enabled) return element;
+                                //    break;
                         }
                     }
-                    else if (state.HasFlag(UiElementState.Absent))
-                        return element;
+                    //else if (state.HasFlag(UiElementState.Absent))
+                    //    return element;
 
                     Thread.Sleep(TimeSpan.FromSeconds(sleepTime));
                 }

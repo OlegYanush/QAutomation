@@ -1,13 +1,16 @@
-﻿namespace QAutomation.Core.Enums
+﻿using System;
+
+namespace QAutomation.Core.Enums
 {
-    public enum UiElementState
+    public enum UiElementState : byte
     {
         None,
-        Preset,
+        Present,
         Enabled,
         Visible,
-        Absent,
         Disabled,
-        NotVisible
+        NotVisible,
+        AbsentOrNotVisible,
+        Available = Enabled | Visible
     }
 }

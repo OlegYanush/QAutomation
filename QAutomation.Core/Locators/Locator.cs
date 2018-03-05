@@ -1,8 +1,9 @@
 ﻿namespace QAutomation.Core.Locators
 {
     using Enums;
+    using System;
 
-    public class Locator
+    public class Locator : IEquatable<Locator>
     {
         public string Value { get; protected set; }
         public SearchCriteria Type { get; protected set; }
@@ -30,5 +31,7 @@
         public static Locator PartialLinkText(string partialLinkText) => new Locator(partialLinkText, SearchCriteria.PartialLinkText);
 
         public override string ToString() => $"[Search criteria: {Type}, Value: {Value}]";
+
+        public bool Equals(Locator other) => other != null ? Value.Equals(other.Value) && Type == other.Type : false;
     }
 }

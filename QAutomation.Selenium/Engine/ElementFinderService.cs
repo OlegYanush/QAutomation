@@ -17,13 +17,13 @@
             _resolver = resolver;
         }
 
-        public TUiElement Find<TUiElement>(ISearchContext searchContext, Locator locator)
+        public TUiElement Find<TUiElement>(ISearchContext searchContext, Locator locator, string description = null)
          where TUiElement : IUiElement
         {
             var finded = Find(searchContext, locator);
             var wrappedDriver = GetRemoteWebDriver(searchContext);
 
-            return _resolver.Resolve<TUiElement>(wrappedDriver, finded);
+            return _resolver.Resolve<TUiElement>(wrappedDriver, finded, locator, description);
         }
 
         public IWebElement Find(ISearchContext searchContext, Locator locator)
@@ -38,7 +38,7 @@
             }
         }
 
-        public IEnumerable<TUiElement> FindAll<TUiElement>(ISearchContext searchContext, Locator locator)
+        public IEnumerable<TUiElement> FindAll<TUiElement>(ISearchContext searchContext, Locator locator, string description = null)
             where TUiElement : IUiElement
         {
             List<TUiElement> elements = new List<TUiElement>();
@@ -47,7 +47,7 @@
             var wrappedDriver = GetRemoteWebDriver(searchContext);
 
             foreach (var element in finded)
-                elements.Add(_resolver.Resolve<TUiElement>(wrappedDriver, element));
+                elements.Add(_resolver.Resolve<TUiElement>(wrappedDriver, element, locator, description));
 
             return elements;
         }

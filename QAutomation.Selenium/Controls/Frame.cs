@@ -12,8 +12,11 @@
         private bool _isSwitched;
         private string _name;
 
-        public Frame(IWebDriver driver, IWebElement element, IElementResolver resolver)
-            : base(driver, element, resolver) { }
+        public Frame(IWebDriver driver, IWebElement element, IElementResolver resolver, Locator locator)
+            : base(driver, element, resolver, locator) { }
+
+        public Frame(IWebDriver driver, IWebElement element, IElementResolver resolver, Locator locator, string description)
+            : base(driver, element, resolver, locator, description) { }
 
         public string Name
         {
@@ -28,11 +31,11 @@
 
         public bool Switched => _isSwitched;
 
-        public override TUiObject Find<TUiObject>(Locator locator, ILogger log)
-            => Find<TUiObject>(_wrappedDriver, locator, log);
+        public override TUiObject Find<TUiObject>(Locator locator, ILogger log, string description = null)
+            => Find<TUiObject>(_wrappedDriver, locator, log, description);
 
-        public override IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log)
-           => FindAll<TUiElement>(_wrappedDriver, locator, log);
+        public override IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log, string description = null)
+           => FindAll<TUiElement>(_wrappedDriver, locator, log, description);
 
         public void SwitchToDefaultContent(ILogger log)
         {
