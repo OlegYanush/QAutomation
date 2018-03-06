@@ -8,7 +8,7 @@
     {
         public void Back(ILogger log)
         {
-            log?.DEBUG("Click 'Back' button.");
+            log?.TRACE("Click 'Back' button.");
             try
             {
                 _wrappedDriver.Navigate().Back();
@@ -25,7 +25,7 @@
 
         public void Forward(ILogger log)
         {
-            log?.DEBUG("Click 'Forward' button.");
+            log?.TRACE("Click 'Forward' button.");
             try
             {
                 _wrappedDriver.Navigate().Forward();
@@ -42,7 +42,7 @@
 
         public void Navigate(string absoluteUrl, ILogger log)
         {
-            log?.DEBUG($"Navigate by absolute url = '{absoluteUrl}'.");
+            log?.TRACE($"Navigate by absolute url = '{absoluteUrl}'.");
             try
             {
                 _wrappedDriver.Navigate().GoToUrl(absoluteUrl);
@@ -65,7 +65,7 @@
 
         public void Refresh(ILogger log)
         {
-            log?.DEBUG("Click 'Refresh' button.");
+            log?.TRACE("Click 'Refresh' button.");
             try
             {
                 _wrappedDriver.Navigate().Back();

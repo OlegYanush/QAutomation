@@ -5,7 +5,7 @@
     using QAutomation.Core.Interfaces.Controls;
     using System;
 
-    public static class IUiElementExtension
+    public static class ElementExtension
     {
         public static IWraps<IWebElement> GetWrap(this IUiElement element)
         {

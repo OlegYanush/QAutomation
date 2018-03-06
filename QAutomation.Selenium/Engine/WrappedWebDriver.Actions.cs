@@ -19,7 +19,7 @@
                 var wrap = element.GetWrap();
                 new Actions(WrappedDriver).MoveToElement(wrap.WrappedElement).Perform();
 
-                log?.DEBUG($"Moving cursor to {element} successfully completed.");
+                log?.TRACE($"Moving cursor to {element} successfully completed.");
             }
             catch (Exception ex)
             {
@@ -38,7 +38,7 @@
                 var wrap = element.GetWrap();
                 new Actions(WrappedDriver).Click(wrap.WrappedElement).Perform();
 
-                log?.DEBUG($"Actions click on {element} successfully completed.");
+                log?.TRACE($"Actions click on {element} successfully completed.");
             }
             catch (Exception ex)
             {
@@ -57,7 +57,7 @@
                 var wrap = element.GetWrap();
                 new Actions(WrappedDriver).ContextClick(wrap.WrappedElement).Perform();
 
-                log?.DEBUG($"Actions right click on {element} successfully completed.");
+                log?.TRACE($"Actions right click on {element} successfully completed.");
             }
             catch (Exception ex)
             {
@@ -76,7 +76,7 @@
                 var wrap = element.GetWrap();
                 new Actions(WrappedDriver).DoubleClick(wrap.WrappedElement).Perform();
 
-                log?.DEBUG($"Actions double click on {element} successfully completed.");
+                log?.TRACE($"Actions double click on {element} successfully completed.");
             }
             catch (Exception ex)
             {
@@ -96,7 +96,7 @@
                 var wrap = element.GetWrap();
                 new Actions(WrappedDriver).SendKeys(wrap.WrappedElement, value).Perform();
 
-                log?.DEBUG($"Actions send '{value}' keys to {element} successfully completed.");
+                log?.TRACE($"Actions send '{value}' keys to {element} successfully completed.");
             }
             catch (Exception ex)
             {
@@ -123,7 +123,7 @@
                     .Release(targetWrap.WrappedElement)
                     .Build().Perform();
 
-                log?.DEBUG($"Actions drag and drop from {source} to {target} successfully completed.");
+                log?.TRACE($"Actions drag and drop from {source} to {target} successfully completed.");
             }
             catch (Exception ex)
             {

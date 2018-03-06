@@ -11,13 +11,13 @@
 
         public IReadOnlyCollection<string> GetAllWindowHandles(ILogger log)
         {
-            log?.DEBUG("Get all browser window handles.");
+            log?.TRACE("Get all browser window handles.");
             try
             {
                 var handles = _wrappedDriver.WindowHandles;
                 log?.INFO("Getting all browser window handles successfully compleeted.");
 
-                log?.DEBUG($"All window handles : {string.Join(",", handles)}");
+                log?.TRACE($"All window handles : {string.Join(",", handles)}");
                 return handles;
             }
             catch (Exception ex)

@@ -5,7 +5,7 @@
     using System;
     using OpenQA.Selenium;
 
-    public static class LocatorExtensions
+    public static class LocatorExtension
     {
         public static By ToNativeBy(this Locator locator)
         {

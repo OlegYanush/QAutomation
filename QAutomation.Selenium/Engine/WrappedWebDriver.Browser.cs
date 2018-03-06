@@ -9,7 +9,7 @@
     {
         public void Close(ILogger log)
         {
-            log?.DEBUG("Close last window.");
+            log?.TRACE("Close last window.");
             try
             {
                 _wrappedDriver.Close();
@@ -26,7 +26,7 @@
 
         public string GetPageTitle(ILogger log)
         {
-            log?.DEBUG("Get current page title.");
+            log?.TRACE("Get current page title.");
             try
             {
                 var title = _wrappedDriver.Title;
@@ -45,7 +45,7 @@
 
         public string GetPageUrl(ILogger log)
         {
-            log?.DEBUG("Get current URL.");
+            log?.TRACE("Get current URL.");
             try
             {
                 var url = _wrappedDriver.Url;
@@ -69,11 +69,11 @@
 
         public string GetPageSource(ILogger log)
         {
-            log?.DEBUG("Get current page source.");
+            log?.TRACE("Get current page source.");
             try
             {
                 var source = _wrappedDriver.PageSource;
-                log?.DEBUG($"Getting current page source successfully completed. Page source = '{source}'.");
+                log?.TRACE($"Getting current page source successfully completed. Page source = '{source}'.");
 
                 return source;
             }
@@ -88,7 +88,7 @@
 
         public void Quit(ILogger log)
         {
-            log?.DEBUG("Dispose driver.");
+            log?.TRACE("Dispose driver.");
             try
             {
                 _wrappedDriver.Quit();
@@ -105,7 +105,7 @@
 
         public IBrowserDriver SwitchToDefaultContent(ILogger log)
         {
-            log?.DEBUG("Switch to default content.");
+            log?.TRACE("Switch to default content.");
             try
             {
                 _wrappedDriver = _wrappedDriver.SwitchTo().DefaultContent();
@@ -124,7 +124,7 @@
 
         public IBrowserDriver SwitchToFrame(IFrame frame, ILogger log)
         {
-            log?.DEBUG($"Switch to frame by name = '{frame.Name}'.");
+            log?.TRACE($"Switch to frame by name = '{frame.Name}'.");
             try
             {
                 _wrappedDriver = _wrappedDriver.SwitchTo().Frame(frame.Name);
@@ -143,7 +143,7 @@
 
         public IBrowserDriver SwitchToParentFrame(ILogger log)
         {
-            log?.DEBUG("Switch to parent frame.");
+            log?.TRACE("Switch to parent frame.");
             try
             {
                 _wrappedDriver = _wrappedDriver.SwitchTo().ParentFrame();

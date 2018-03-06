@@ -44,8 +44,24 @@
         public string Tag => _wrappedElement.TagName;
         public string Content => _wrappedElement.Text;
 
-        public bool Enabled => _wrappedElement.Enabled;
-        public bool Displayed => _wrappedElement.Displayed;
+        public UiElementState State
+        {
+            get
+            {
+                var accumulator = UiElementState.None;
+
+                if (WrappedElement == null)
+                    accumulator |= UiElementState.Absent;
+                else
+                {
+                    accumulator |= UiElementState.Present;
+                    accumulator |= (WrappedElement.Displayed ? UiElementState.Visible : UiElementState.NotVisible);
+                    accumulator |= (WrappedElement.Enabled ? UiElementState.Enabled : UiElementState.Disabled);
+                }
+
+                return accumulator;
+            }
+        }
 
         public Size Size => _wrappedElement.Size;
         public Point Location => _wrappedElement.Location;
@@ -172,6 +188,12 @@
         }
 
         public override string ToString()
-            => $"[{(Description ?? $"ui element with locator {Locator}")} and type {GetType().Name.Split('.').Last()}]";
+        {
+            var part = string.IsNullOrEmpty(Description)
+                ? $"ui element with locator {Locator}" 
+                : Description;
+
+            return $"[{part} and {GetType().Name.Split('.').Last()} type]";
+        }
     }
 }

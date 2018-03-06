@@ -6,7 +6,7 @@
 
     public interface IElementResolver
     {
-        TUiElement Resolve<TUiElement>(IWebDriver driver, IWebElement element, Locator locator, string description = null) 
+        TUiElement Resolve<TUiElement>(IWebDriver driver, IWebElement element, Locator locator, string description = null)
             where TUiElement : IUiElement;
     }
 }

@@ -5,23 +5,21 @@
     public class TimeoutSettingsSection : ConfigurationSection
     {
         [ConfigurationProperty(nameof(ImplicitTimeout))]
-        public ValueConfigurationElement<double> ImplicitTimeout
-            => (ValueConfigurationElement<double>)this[nameof(ImplicitTimeout)];
+        public ValueConfigurationElement<double> ImplicitTimeout => (ValueConfigurationElement<double>)this[nameof(ImplicitTimeout)];
 
-        [ConfigurationProperty(nameof(ExplicitTimeout))]
-        public ValueConfigurationElement<double> ExplicitTimeout
-            => (ValueConfigurationElement<double>)this[nameof(ExplicitTimeout)];
+        [ConfigurationProperty(nameof(PageLoadTimeout))]
+        public ValueConfigurationElement<double> PageLoadTimeout => (ValueConfigurationElement<double>)this[nameof(PageLoadTimeout)];
+
+        [ConfigurationProperty(nameof(SearchTimeout))]
+        public ValueConfigurationElement<double> SearchTimeout => (ValueConfigurationElement<double>)this[nameof(SearchTimeout)];
+
+        [ConfigurationProperty(nameof(PollingInterval))]
+        public ValueConfigurationElement<double> PollingInterval => (ValueConfigurationElement<double>)this[nameof(PollingInterval)];
 
         [ConfigurationProperty(nameof(JavascriptTimeout))]
-        public ValueConfigurationElement<double> JavascriptTimeout
-            => (ValueConfigurationElement<double>)this[nameof(JavascriptTimeout)];
-
-        [ConfigurationProperty(nameof(PoolingInterval))]
-        public ValueConfigurationElement<double> PoolingInterval
-            => (ValueConfigurationElement<double>)this[nameof(PoolingInterval)];
+        public ValueConfigurationElement<double> JavascriptTimeout => (ValueConfigurationElement<double>)this[nameof(JavascriptTimeout)];
 
         [ConfigurationProperty(nameof(HttpCommandTimeout))]
-        public ValueConfigurationElement<double> HttpCommandTimeout
-            => (ValueConfigurationElement<double>)this[nameof(HttpCommandTimeout)];
+        public ValueConfigurationElement<double> HttpCommandTimeout => (ValueConfigurationElement<double>)this[nameof(HttpCommandTimeout)];
     }
 }

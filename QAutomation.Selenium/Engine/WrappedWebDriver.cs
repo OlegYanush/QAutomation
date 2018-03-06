@@ -45,7 +45,7 @@
                 WrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(searchTimeoutInSec));
 
                 var finded = _elementFinderService.Find<TUiElement>(WrappedDriver, locator);
-                log?.DEBUG($"Element by locator {locator} successfully found.");
+                log?.TRACE($"Element by locator {locator} successfully found.");
 
                 return finded;
             }
@@ -77,7 +77,7 @@
                 WrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(searchTimeoutInSec));
 
                 var finded = parent.Find<TUiElement>(locator, log);
-                log?.DEBUG($"Element by locator {locator} in parent {parent} successfully found.");
+                log?.TRACE($"Element by locator {locator} in parent {parent} successfully found.");
 
                 return finded;
             }
@@ -99,61 +99,6 @@
             }
         }
 
-        public TUiElement WaitForElementState<TUiElement>(Locator locator, UiElementState state, ILogger log, double timeoutInSec = 0, double poolingIntervalInSec = 0)
-            where TUiElement : class, IUiElement
-        {
-            log?.TRACE($"Waiting state {state} for element by locator {locator}.");
-            try
-            {
-                if (state == UiElementState.None)
-                    throw new Exception($"Couldn't wait for state: {nameof(UiElementState.None)}.");
 
-                timeoutInSec = timeoutInSec == 0 ? Config.Timeouts.ExplicitWait : timeoutInSec;
-                poolingIntervalInSec = poolingIntervalInSec == 0 ? Config.Timeouts.PoolingInterval : poolingIntervalInSec;
-
-                double sleepTime = poolingIntervalInSec;
-                var stopwatch = Stopwatch.StartNew();
-
-                while (stopwatch.Elapsed.TotalMilliseconds <= timeoutInSec)
-                {
-                    var element = TryFindInParent<TUiElement>(locator, poolingIntervalInSec, log);
-
-                    if (element != null)
-                    {
-                        switch (state)
-                        {
-                            case UiElementState.Present:
-                                return element;
-                            case UiElementState.Visible:
-                                if (element.Displayed) return element;
-                                break;
-                            case UiElementState.Enabled:
-                                if (element.Enabled) return element;
-                                break;
-                            case UiElementState.Disabled:
-                                if (!element.Enabled) return element;
-                                break;
-                            case UiElementState.NotVisible:
-                                if (!element.Displayed) return element;
-                                break;
-                                //case UiElementState.Available:
-                                //    if (element.Displayed && element.Enabled) return element;
-                                //    break;
-                        }
-                    }
-                    //else if (state.HasFlag(UiElementState.Absent))
-                    //    return element;
-
-                    Thread.Sleep(TimeSpan.FromSeconds(sleepTime));
-                }
-
-                throw new WebDriverTimeoutException($"Timeout {timeoutInSec} reached.");
-            }
-            catch (Exception ex)
-            {
-                log?.ERROR($"Error occurred during waiting {state} state for element by locator {locator}.", ex);
-                throw;
-            }
-        }
     }
 }

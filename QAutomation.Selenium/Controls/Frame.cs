@@ -44,7 +44,7 @@
             try
             {
                 frameName = string.IsNullOrEmpty(Name) ? "unknown" : Name;
-                log?.DEBUG($"Switch to default content from frame with name = '{frameName}'.");
+                log?.TRACE($"Switch to default content from frame with name = '{frameName}'.");
 
                 _wrappedDriver = _wrappedDriver.SwitchTo().DefaultContent();
                 log?.INFO($"Switching to default content from frame with name = '{frameName}' successfully completed.");
@@ -67,7 +67,7 @@
             try
             {
                 frameName = string.IsNullOrEmpty(Name) ? "unknown" : Name;
-                log?.DEBUG($"Switch to parent frame from the frame with name = '{frameName}'.");
+                log?.TRACE($"Switch to parent frame from the frame with name = '{frameName}'.");
 
                 if (!Switched)
                     log?.WARN($"Driver doesn't located in the frame with name = '{frameName}'. Switching to parent frame is impossible.");
@@ -95,7 +95,7 @@
             try
             {
                 frameName = string.IsNullOrEmpty(Name) ? "unknown" : Name;
-                log?.DEBUG($"Switch to the frame with name = '{frameName}'.");
+                log?.TRACE($"Switch to the frame with name = '{frameName}'.");
 
                 if (Switched)
                     log?.INFO($"Driver already switched to the frame with name = '{frameName}'.");

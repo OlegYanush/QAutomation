@@ -8,7 +8,7 @@
     {
         public void AddCookie(string name, string value, ILogger log)
         {
-            log?.DEBUG($"Add cookie with name = '{name}' and value = '{value}'.");
+            log?.TRACE($"Add cookie with name = '{name}' and value = '{value}'.");
             try
             {
                 _wrappedDriver.Manage().Cookies.AddCookie(new OpenQA.Selenium.Cookie(name, value));
@@ -25,7 +25,7 @@
 
         public void DeleteAllCookies(ILogger log)
         {
-            log?.DEBUG($"Clear all cookies'.");
+            log?.TRACE($"Clear all cookies'.");
             try
             {
                 _wrappedDriver.Manage().Cookies.DeleteAllCookies();
@@ -42,7 +42,7 @@
 
         public void DeleteCookie(string name, ILogger log)
         {
-            log?.DEBUG($"Delete cookie by name = '{name}'.");
+            log?.TRACE($"Delete cookie by name = '{name}'.");
             try
             {
                 _wrappedDriver.Manage().Cookies.DeleteCookieNamed(name);
@@ -59,7 +59,7 @@
 
         public string GetCookie(string name, ILogger log)
         {
-            log?.DEBUG($"Get cookie by name = '{name}'.");
+            log?.TRACE($"Get cookie by name = '{name}'.");
             try
             {
                 var cookie = _wrappedDriver.Manage().Cookies.GetCookieNamed(name);

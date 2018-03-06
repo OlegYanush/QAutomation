@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using QAutomation.Core.Enums;
 using QAutomation.Core.Interfaces;
 using QAutomation.Core.Interfaces.Controls;
 using QAutomation.Core.Locators;
@@ -24,11 +25,13 @@ namespace QAutomation.Test
             var xpath = ".//a[@class='b-main-navigation__link' and contains(.,'Автобарахолка')]";
 
             WebDriver.Navigate("https://www.onliner.by", SetupLog);
-            var link = WebDriver.FindElementByXPath<IButton>(xpath, SetupLog, "Ссылка на автобарахолку");
+            //var link = WebDriver.FindElementByXPath<IButton>(xpath, SetupLog, "Ссылка на автобарахолку");
 
-            (WebDriver as WrappedWebDriver)?.WaitForElementCondition<IUiElement>(Locator.XPath(xpath), e => e.Displayed, TestLog);
+            var casted = WebDriver as WrappedWebDriver;
 
-            link.Click(SetupLog);
+            var button = casted.WaitForElementCondition<IButton>(Locator.XPath(xpath), btn => btn.State.HasFlag(UiElementState.Enabled), SetupLog);
+
+            //link.Click(SetupLog);
         }
 
         [Test]

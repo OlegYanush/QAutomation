@@ -1,5 +1,6 @@
 ﻿namespace QAutomation.Core.Interfaces.Controls
 {
+    using QAutomation.Core.Enums;
     using QAutomation.Core.Interfaces;
     using QAutomation.Core.Locators;
     using QAutomation.Logging;
@@ -10,11 +11,10 @@
         Locator Locator { get; set; }
         string Description { get; set; }
 
+        UiElementState State { get; }
+
         string Tag { get; }
         string Content { get; }
-
-        bool Displayed { get; }
-        bool Enabled { get; }
 
         Size Size { get; }
         Point Location { get; }

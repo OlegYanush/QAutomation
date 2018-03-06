@@ -15,7 +15,7 @@
             _container = container;
         }
 
-        public TUiElement Resolve<TUiElement>(IWebDriver driver, IWebElement element, Locator locator, string description = null)
+        public TUiElement Resolve<TUiElement>(IWebDriver driver, IWebElement element, Locator locator, string description)
            where TUiElement : IUiElement
         {
             var resolved = _container.Resolve<TUiElement>(new ResolverOverride[]
@@ -24,7 +24,7 @@
                 new ParameterOverride("element", element),
                 new ParameterOverride("resolver", this),
                 new ParameterOverride("locator", locator),
-                new ParameterOverride("description", description)
+                new ParameterOverride("description", description ?? string.Empty)
             });
 
             return resolved;

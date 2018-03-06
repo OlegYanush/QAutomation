@@ -29,6 +29,11 @@
         public bool UseGrid { get; set; }
         public Uri GridUri { get; set; }
 
+        public WebDriverConfig()
+        {
+            Timeouts = TimeoutSettingsProvider.Settings;
+        }
+
         public IWebDriver CreateDriver()
         {
             var driver = UseGrid
@@ -53,6 +58,8 @@
 
             if (IsJavaScriptEnabled)
                 driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(Timeouts.JavaScriptTimeout);
+
+            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(Timeouts.PageLoadTimeout);
 
             return driver;
         }

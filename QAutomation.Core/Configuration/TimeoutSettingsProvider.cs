@@ -13,17 +13,17 @@
             var section = ConfigurationManager.GetSection(CONFIGURATION_SECTION_NAME) as TimeoutSettingsSection;
 
             if (section == null)
-                throw new ConfigurationErrorsException("Section with timeout settings section doesn't exist in app configuration file.");
+                throw new ConfigurationErrorsException("Section with timeout settings doesn't exist in configuration file.");
 
             Settings = new TimeoutSettings
             {
-                ExplicitWait = section.ExplicitTimeout.Value,
                 ImplicitWait = section.ImplicitTimeout.Value,
 
-                HttpCommandTimeout = section.HttpCommandTimeout.Value,
+                SearchTimeout = section.SearchTimeout.Value,
+                PollingInterval = section.PollingInterval.Value,
 
                 JavaScriptTimeout = section.JavascriptTimeout.Value,
-                PoolingInterval = section.JavascriptTimeout.Value
+                HttpCommandTimeout = section.HttpCommandTimeout.Value
             };
         }
     }

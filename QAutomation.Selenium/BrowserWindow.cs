@@ -16,7 +16,7 @@
 
         public void Close(ILogger log)
         {
-            log?.DEBUG("Close active browser window.");
+            log?.TRACE("Close active browser window.");
             try
             {
                 _wrappedDriver.Close();
@@ -33,7 +33,7 @@
 
         public void FullScreen(ILogger log)
         {
-            log?.DEBUG("Turn active browser window to full screen mode.");
+            log?.TRACE("Turn active browser window to full screen mode.");
             try
             {
                 _wrappedDriver.Manage().Window.FullScreen();
@@ -50,7 +50,7 @@
 
         public string GetHandle(ILogger log)
         {
-            log?.DEBUG("Get active browser window handle.");
+            log?.TRACE("Get active browser window handle.");
             try
             {
                 var handle = _wrappedDriver.CurrentWindowHandle;
@@ -69,7 +69,7 @@
 
         public Point GetPosition(ILogger log)
         {
-            log?.DEBUG("Get active browser window position.");
+            log?.TRACE("Get active browser window position.");
             try
             {
                 var position = _wrappedDriver.Manage().Window.Position;
@@ -88,7 +88,7 @@
 
         public Size GetSize(ILogger log)
         {
-            log?.DEBUG("Get active browser window size.");
+            log?.TRACE("Get active browser window size.");
             try
             {
                 var size = _wrappedDriver.Manage().Window.Size;
@@ -107,7 +107,7 @@
 
         public void Maximize(ILogger log)
         {
-            log?.DEBUG("Maximize active browser window.");
+            log?.TRACE("Maximize active browser window.");
             try
             {
                 _wrappedDriver.Manage().Window.Maximize();
@@ -124,7 +124,7 @@
 
         public void Minimize(ILogger log)
         {
-            log?.DEBUG("Minimize active browser window.");
+            log?.TRACE("Minimize active browser window.");
             try
             {
                 _wrappedDriver.Manage().Window.Minimize();
@@ -141,7 +141,7 @@
 
         public void SetPosition(Point position, ILogger log)
         {
-            log?.DEBUG($"Set active browser window position = '{position}'.");
+            log?.TRACE($"Set active browser window position = '{position}'.");
             try
             {
                 _wrappedDriver.Manage().Window.Position = position;
@@ -158,7 +158,7 @@
 
         public void SetSize(Size size, ILogger log)
         {
-            log?.DEBUG($"Set active browser window size = '{size}'.");
+            log?.TRACE($"Set active browser window size = '{size}'.");
             try
             {
                 _wrappedDriver.Manage().Window.Size = size;

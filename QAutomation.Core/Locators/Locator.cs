@@ -30,7 +30,7 @@
 
         public static Locator PartialLinkText(string partialLinkText) => new Locator(partialLinkText, SearchCriteria.PartialLinkText);
 
-        public override string ToString() => $"[Search criteria: {Type}, Value: {Value}]";
+        public override string ToString() => $"[Type: {Type}, Selector: {Value}]";
 
         public bool Equals(Locator other) => other != null ? Value.Equals(other.Value) && Type == other.Type : false;
     }

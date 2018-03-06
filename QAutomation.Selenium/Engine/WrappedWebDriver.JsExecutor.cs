@@ -17,7 +17,7 @@
             try
             {
                 var result = ((IJavaScriptExecutor)WrappedDriver).ExecuteAsyncScript(script, args);
-                log?.DEBUG($"Executing js code = '{script}' successfully completed. Result = '{result}'.");
+                log?.TRACE($"Executing js code = '{script}' successfully completed. Result = '{result}'.");
 
                 return result;
             }
@@ -27,17 +27,14 @@
                 throw;
             }
         }
-
         public object ExecuteJavaScript(string script, IUiElement element, ILogger log)
             => ExecuteJavaScript(script, new object[] { element.GetWrap().WrappedElement }, log);
-
         public object ExecuteJavaScript(string script, ILogger log) => ExecuteJavaScript(script, new object[] { }, log);
 
         public string GetJsText(Locator locator, ILogger log) => GetJsText(Find(locator, log), log);
-
         public string GetJsText(IUiElement element, ILogger log)
         {
-            log?.DEBUG($"Get text for element {element}");
+            log?.TRACE($"Get text for element {element}");
             try
             {
                 var code = "return getTextFromNode(arguments[0], arguments[1]);function getTextFromNode(e,o)" +
@@ -46,7 +43,7 @@
 
                 var text = ((string)ExecuteJavaScript(code, new object[] { element.GetWrap().WrappedElement, true }, log)).Trim();
 
-                log?.DEBUG($"Getting text for element {element} successfully completed. Text = '{text}'.");
+                log?.TRACE($"Getting text for element {element} successfully completed. Text = '{text}'.");
                 return text;
             }
             catch (Exception ex)
@@ -111,18 +108,53 @@
         public void JsClick(Locator locator, ILogger log) => JsClick(Find(locator, log), log);
         public void JsClick(IUiElement element, ILogger log)
         {
-            log?.TRACE($"Js click on {element} started");
+            log?.TRACE($"Js click on {element} started.");
             try
             {
-                string jsScript = "var evObj = document.createEvent('MouseEvents');evObj.initMouseEvent('click',true" +
-                    ", true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);arguments[0].dispatchEvent(evObj);";
+                string script = "var evObj = document.createEvent('MouseEvents');evObj.initMouseEvent('click',true, " +
+                    "true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);arguments[0].dispatchEvent(evObj);";
 
-                ExecuteJavaScript(jsScript, new object[] { element.GetWrap().WrappedElement }, log);
-                log?.DEBUG($"Js clicking on {element} has been successfully completed");
+                ExecuteJavaScript(script, new object[] { element.GetWrap().WrappedElement }, log);
+                log?.TRACE($"Js clicking on {element} has been successfully completed.");
             }
             catch (Exception ex)
             {
-                log?.ERROR($"JS clicking on {element} has been completed with exception", ex);
+                log?.ERROR($"JS clicking on {element} has been completed with exception.", ex);
+                throw;
+            }
+        }
+
+        public void JsDoubleClick(Locator locator, ILogger log) => JsDoubleClick(Find(locator, log), log);
+        public void JsDoubleClick(IUiElement element, ILogger log)
+        {
+            log?.TRACE($"Js double click on {element} started.");
+            try
+            {
+                string script = "var evObj = document.createEvent('MouseEvents');evObj.initMouseEvent(\"dblclick\",true, " +
+                    "false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);arguments[0].dispatchEvent(evObj);";
+
+                ExecuteJavaScript(script, element, log);
+                log?.TRACE($"JS double clicking on {element} has been successfully completed");
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR($"JS double clicking on {element} has been completed with exception.", ex);
+                throw;
+            }
+        }
+
+        public void JsHide(Locator locator, ILogger log) => JsHide(Find(locator, log), log);
+        public void JsHide(IUiElement element, ILogger log)
+        {
+            log?.TRACE($"JS hide {element} started.");
+            try
+            {
+                ExecuteJavaScript("arguments[0].style.display = none;", element, log);
+                log?.TRACE($"JS hiding {element} has been successfully completed.");
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR($"JS hiding {element} has been completed with exception.", ex);
                 throw;
             }
         }
