@@ -1,17 +1,13 @@
 ﻿namespace QAutomation.Selenium.Engine
 {
     using OpenQA.Selenium;
-    using QAutomation.Core.Configuration;
-    using QAutomation.Core.Enums;
     using QAutomation.Core.Interfaces;
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Locators;
     using QAutomation.Logging;
     using QAutomation.Selenium.Configs;
-    using QAutomation.Selenium.Extensions;
+    using QAutomation.Xium.Shared;
     using System;
-    using System.Diagnostics;
-    using System.Threading;
 
     public partial class WrappedWebDriver : IBrowserDriver
     {
@@ -33,6 +29,12 @@
             _elementFinderService = new ElementFinderService(resolver);
         }
 
+        public void SetImplicitWait(double timeoutInSec, ILogger log)
+        {
+            log?.TRACE($"Set implicit wait timeout to {timeoutInSec} second(s).");
+            WrappedDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(timeoutInSec);
+        }
+
         public IUiElement Find(Locator locator, ILogger log) => Find<IUiElement>(locator, log);
 
         public TUiElement TryFindInParent<TUiElement>(Locator locator, double searchTimeoutInSec, ILogger log)
@@ -41,30 +43,20 @@
             log?.TRACE($"Try find element by locator {locator} with search timeout {searchTimeoutInSec} second(s).");
             try
             {
-                log?.TRACE($"Set implicit wait timeout to {searchTimeoutInSec} second(s).");
-                WrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(searchTimeoutInSec));
+                SetImplicitWait(searchTimeoutInSec, log);
 
                 var finded = _elementFinderService.Find<TUiElement>(WrappedDriver, locator);
                 log?.TRACE($"Element by locator {locator} successfully found.");
 
                 return finded;
             }
-            catch (StaleElementReferenceException)
-            {
-                throw;
-            }
+            catch (StaleElementReferenceException) { throw; }
             catch (Exception ex)
             {
                 log?.TRACE($"Element by locator {locator} not found.", ex);
                 return null;
             }
-            finally
-            {
-                var defaultTimeout = TimeoutSettingsProvider.Settings.ImplicitWait;
-                WrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(defaultTimeout));
-
-                log?.TRACE($"Reset implicit wait timeout to {defaultTimeout} second(s).");
-            }
+            finally { SetImplicitWait(Config.Timeouts.ImplicitWait, log); }
         }
 
         public TUiElement TryFindInParent<TUiElement>(IUiElement parent, Locator locator, double searchTimeoutInSec, ILogger log)
@@ -73,32 +65,20 @@
             log?.TRACE($"Try find element by locator {locator} in parent {parent} with search timeout {searchTimeoutInSec} second(s).");
             try
             {
-                log?.TRACE($"Set implicit wait timeout to {searchTimeoutInSec} second(s).");
-                WrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(searchTimeoutInSec));
+                SetImplicitWait(searchTimeoutInSec, log);
 
                 var finded = parent.Find<TUiElement>(locator, log);
                 log?.TRACE($"Element by locator {locator} in parent {parent} successfully found.");
 
                 return finded;
             }
-            catch (StaleElementReferenceException)
-            {
-                throw;
-            }
+            catch (StaleElementReferenceException) { throw; }
             catch (Exception ex)
             {
                 log?.TRACE($"Element by locator {locator} in parent {parent} not found.", ex);
                 return null;
             }
-            finally
-            {
-                var defaultTimeout = TimeoutSettingsProvider.Settings.ImplicitWait;
-                WrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(defaultTimeout));
-
-                log?.TRACE($"Reset implicit wait timeout to {defaultTimeout} second(s).");
-            }
+            finally { SetImplicitWait(Config.Timeouts.ImplicitWait, log); }
         }
-
-
     }
 }

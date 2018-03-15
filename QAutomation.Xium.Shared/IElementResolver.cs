@@ -1,4 +1,4 @@
-﻿namespace QAutomation.Selenium
+﻿namespace QAutomation.Xium.Shared
 {
     using OpenQA.Selenium;
     using QAutomation.Core.Interfaces.Controls;

@@ -39,6 +39,9 @@
         {
             var options = new ChromeOptions();
 
+            if (Version != null)
+                options.BrowserVersion = Version;
+
             options.AddUserProfilePreference("download.prompt_for_download", true);
             options.AddUserProfilePreference("download.default_directory", "NULL");
 

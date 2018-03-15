@@ -5,6 +5,7 @@
     using QAutomation.Selenium;
     using QAutomation.Selenium.Controls;
     using QAutomation.Selenium.Engine;
+    using QAutomation.Xium.Shared;
     using Unity;
 
     public static class UnityContainerFactory

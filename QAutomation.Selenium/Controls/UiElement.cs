@@ -7,8 +7,7 @@
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Locators;
     using QAutomation.Logging;
-    using QAutomation.Selenium.Engine;
-    using QAutomation.Selenium.Extensions;
+    using QAutomation.Xium.Shared;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
@@ -155,45 +154,35 @@
         {
             try
             {
-                log?.TRACE($"Set implicit timeout = {timeoutInSec} second(s)");
-                _wrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(timeoutInSec));
-
+                SetImplicitWait(timeoutInSec, log);
                 return Find<TUiElement>(locator, log, description);
             }
-            finally
-            {
-                var defaultTimeout = TimeoutSettingsProvider.Settings.ImplicitWait;
-                log?.TRACE($"Reset implicit timeout to {defaultTimeout} second(s).");
-
-                _wrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(defaultTimeout));
-            }
+            finally { SetImplicitWait(TimeoutSettingsProvider.Settings.ImplicitWait, log); }
         }
         public IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log, double timeoutInSec, string description = null)
             where TUiElement : IUiElement
         {
             try
             {
-                log?.TRACE($"Set implicit timeout = {timeoutInSec} second(s)");
-                _wrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(timeoutInSec));
-
+                SetImplicitWait(timeoutInSec, log);
                 return FindAll<TUiElement>(locator, log, description);
             }
-            finally
-            {
-                var defaultTimeout = TimeoutSettingsProvider.Settings.ImplicitWait;
-                log?.TRACE($"Reset implicit timeout to {defaultTimeout} second(s).");
-
-                _wrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(defaultTimeout));
-            }
+            finally { SetImplicitWait(TimeoutSettingsProvider.Settings.ImplicitWait, log); }
         }
 
         public override string ToString()
         {
             var part = string.IsNullOrEmpty(Description)
-                ? $"ui element with locator {Locator}" 
+                ? $"ui element with locator {Locator}"
                 : Description;
 
             return $"[{part} and {GetType().Name.Split('.').Last()} type]";
+        }
+
+        private void SetImplicitWait(double timeoutInSec, ILogger log)
+        {
+            log?.TRACE($"Set implicit wait timeout to {timeoutInSec} second(s).");
+            WrappedDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(timeoutInSec);
         }
     }
 }

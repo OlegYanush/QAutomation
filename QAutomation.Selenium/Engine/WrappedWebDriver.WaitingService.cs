@@ -13,14 +13,10 @@
     public partial class WrappedWebDriver : IWaitingActionService
     {
         public void WaitForElementNotVisible(Locator locator, ILogger log)
-        {
-            throw new NotImplementedException();
-        }
+            => WaitForElementCondition<IUiElement>(locator, el => el.State.HasFlag(UiElementState.NotVisible), log);
 
         public void WaitForElementVisible(Locator locator, ILogger log)
-        {
-            throw new NotImplementedException();
-        }
+            => WaitForElementCondition<IUiElement>(locator, el => el.State.HasFlag(UiElementState.Visible), log);
 
         public void WaitForCompletelyPageLoad(ILogger log)
         {

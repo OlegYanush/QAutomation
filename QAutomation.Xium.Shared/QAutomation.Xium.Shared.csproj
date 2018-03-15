@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5D211D25-B827-432B-B84B-282238884E9A}</ProjectGuid>
+    <ProjectGuid>{750B401A-637C-4966-B411-3C3F55DD81A7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QAutomation.Selenium</RootNamespace>
-    <AssemblyName>QAutomation.Selenium</AssemblyName>
+    <RootNamespace>QAutomation.Xium.Shared</RootNamespace>
+    <AssemblyName>QAutomation.Xium.Shared</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -72,46 +71,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configs\ChromeDriverConfig.cs" />
-    <Compile Include="Configs\FirefoxDriverConfig.cs" />
-    <Compile Include="Configs\IEDriverConfig.cs" />
-    <Compile Include="Configs\WebDriverConfig.cs" />
-    <Compile Include="Controls\Button.cs" />
-    <Compile Include="Controls\Checkbox.cs" />
-    <Compile Include="Controls\Frame.cs" />
-    <Compile Include="Controls\Input.cs" />
-    <Compile Include="Controls\UiElement.cs" />
-    <Compile Include="Engine\WrappedWebDriver.Actions.cs" />
-    <Compile Include="Extensions\ElementExtension.cs" />
-    <Compile Include="Engine\WrappedWebDriver.Browser.cs" />
-    <Compile Include="Engine\WrappedWebDriver.cs" />
-    <Compile Include="Engine\WrappedWebDriver.FinderService.cs" />
-    <Compile Include="Engine\WrappedWebDriver.JsExecutor.cs" />
-    <Compile Include="Engine\WrappedWebDriverr.ManageCookieService.cs" />
-    <Compile Include="Engine\WrappedWebDriver.ManageNavigationService.cs" />
-    <Compile Include="Engine\WrappedWebDriver.ManageWindowService.cs" />
-    <Compile Include="Engine\WrappedWebDriver.WaitingService.cs" />
+    <Compile Include="ElementFinderService.cs" />
+    <Compile Include="IElementResolver.cs" />
+    <Compile Include="LocatorExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BrowserWindow.cs" />
+    <Compile Include="UnityElementResolverService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QAutomation.Core\QAutomation.Core.csproj">
       <Project>{39b66db9-f457-4766-bc61-f9c0365bd772}</Project>
       <Name>QAutomation.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\QAutomation.Logging\QAutomation.Logging.csproj">
-      <Project>{2241b6e4-11f8-4600-b1f0-f97518f2d6a9}</Project>
-      <Name>QAutomation.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\QAutomation.Xium.Shared\QAutomation.Xium.Shared.csproj">
-      <Project>{750b401a-637c-4966-b411-3c3f55dd81a7}</Project>
-      <Name>QAutomation.Xium.Shared</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,6 +10,7 @@ using QAutomation.Core.Interfaces.Controls;
 using QAutomation.Core.Locators;
 using QAutomation.Selenium.Configs;
 using QAutomation.Selenium.Engine;
+using ReportPortal.Client.Models;
 
 namespace QAutomation.Test
 {
@@ -20,25 +21,26 @@ namespace QAutomation.Test
         public TestWebClass(WebDriverConfig config) : base(config) { }
 
 
+        [SetUp]
         public override void SetUp()
         {
-            var xpath = ".//a[@class='b-main-navigation__link' and contains(.,'Автобарахолка')]";
-
             WebDriver.Navigate("https://www.onliner.by", SetupLog);
-            //var link = WebDriver.FindElementByXPath<IButton>(xpath, SetupLog, "Ссылка на автобарахолку");
-
-            var casted = WebDriver as WrappedWebDriver;
-
-            var button = casted.WaitForElementCondition<IButton>(Locator.XPath(xpath), btn => btn.State.HasFlag(UiElementState.Enabled), SetupLog);
-
-            //link.Click(SetupLog);
         }
 
         [Test]
         public void TestMethod()
         {
+            var xpath = ".//a[@class='b-main-navigation__link' and contains(.,'Автобарахолка')]";
+
+            var casted = WebDriver as WrappedWebDriver;
+
+            var button = casted.WaitForElementCondition<IButton>(Locator.XPath(xpath), btn => btn.State.HasFlag(UiElementState.Enabled), TestLog);
+
+            button.Click(TestLog);
+            casted.Refresh(TestLog);
         }
 
+        [TearDown]
         public override void TearDown()
         {
             WebDriver.Quit(TeardownLog);

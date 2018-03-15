@@ -1,7 +1,7 @@
-﻿using QAutomation.Logging;
-
-namespace QAutomation.Core.Interfaces.Controls
+﻿namespace QAutomation.Core.Interfaces.Controls
 {
+    using QAutomation.Logging;
+
     public interface IFrame : IUiElement
     {
         string Name { get; }

@@ -11,10 +11,7 @@
         {
             var wraps = element as IWraps<IWebElement>;
 
-            if (wraps == null)
-                throw new InvalidCastException($"{element.GetType()} type need to implements {nameof(IWraps<IWebElement>)} interface.");
-
-            return wraps;
+            return wraps ?? throw new InvalidCastException($"{element.GetType()} type need to implements {nameof(IWraps<IWebElement>)} interface.");
         }
     }
 }

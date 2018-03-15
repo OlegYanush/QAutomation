@@ -68,7 +68,7 @@
             log?.TRACE("Click 'Refresh' button.");
             try
             {
-                _wrappedDriver.Navigate().Back();
+                _wrappedDriver.Navigate().Refresh();
                 log?.INFO("Clicking 'Refresh' button successfully completed.");
             }
             catch (Exception ex)

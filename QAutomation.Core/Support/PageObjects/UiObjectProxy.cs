@@ -11,6 +11,7 @@
     internal abstract class UiObjectProxy : RealProxy
     {
         private readonly IUiElement _parent;
+        private readonly string _description;
 
         private readonly IUiElementLocator _locator;
         private readonly IEnumerable<Locator> _locators;

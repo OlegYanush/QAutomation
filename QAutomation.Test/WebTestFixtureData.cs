@@ -34,8 +34,11 @@ namespace QAutomation.Test
             {
                 return new List<WebDriverConfig>
                 {
-                    new FirefoxDriverConfig(),
-                    new ChromeDriverConfig()
+                    //new FirefoxDriverConfig { Version = "57", UseGrid = true, GridUri = new Uri("http://localhost:4455/wd/hub/") },
+                    //new FirefoxDriverConfig { Version = "58", UseGrid = true, GridUri = new Uri("http://localhost:4455/wd/hub/") },
+                    //new ChromeDriverConfig { Version = "64", UseGrid = true, GridUri = new Uri("http://localhost:4455/wd/hub/") },
+                    //new ChromeDriverConfig { Version = "65", UseGrid = true, GridUri = new Uri("http://localhost:4455/wd/hub/") },
+                    new IEDriverConfig { Version = "11", UseGrid = true, GridUri = new Uri("http://localhost:4444/wd/hub/") }
                 };
             }
         }

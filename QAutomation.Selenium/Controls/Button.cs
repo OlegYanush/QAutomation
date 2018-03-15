@@ -2,6 +2,7 @@
 using QAutomation.Core.Interfaces.Controls;
 using QAutomation.Core.Locators;
 using QAutomation.Logging;
+using QAutomation.Xium.Shared;
 
 namespace QAutomation.Selenium.Controls
 {

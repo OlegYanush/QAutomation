@@ -1,6 +1,7 @@
 ﻿namespace QAutomation.Appium.Configs
 {
     using System;
+    using OpenQA.Selenium;
     using OpenQA.Selenium.Appium.iOS;
     using QAutomation.Core.Enums.Mobile;
     using QAutomation.Core.Interfaces.Mobile;
@@ -8,27 +9,25 @@
 
     public class IosDriverConfig : MobileDriverConfig
     {
-        public IosDriverConfig(IUnityContainer container)
-           : base(container) { }
+        public IosDriverConfig()
+        {
+            Platform = MobilePlatform.IOS;
+        }
 
-        public override MobilePlatform Platform => MobilePlatform.IOS;
-
-        public override IMobileDriver CreateEmulatorDriver()
+        public override IWebDriver CreateEmulatorDriver()
         {
             var timeout = TimeSpan.FromSeconds(HttpCommandTimeoutInSec);
             var driver = new IOSDriver<IOSElement>(RemoteAddressServerUri, GetEmulatorCapabilities(), timeout);
 
-            ConfigurateDriverTimeouts(driver);
-            return null;
+            return driver;
         }
 
-        public override IMobileDriver CreateRealDeviceDriver()
+        public override IWebDriver CreateRealDeviceDriver()
         {
             var timeout = TimeSpan.FromSeconds(HttpCommandTimeoutInSec);
             var driver = new IOSDriver<IOSElement>(RemoteAddressServerUri, GetRealDeviceCapabilities(), timeout);
 
-            ConfigurateDriverTimeouts(driver);
-            return null;
+            return driver;
         }
     }
 }

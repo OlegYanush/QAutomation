@@ -5,6 +5,7 @@
     using Unity;
     using QAutomation.Selenium;
     using QAutomation.Selenium.Configs;
+    using QAutomation.Xium.Shared;
 
     public abstract class WebTestFixture : BaseTestFixture
     {

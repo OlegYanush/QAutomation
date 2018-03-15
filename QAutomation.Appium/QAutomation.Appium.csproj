@@ -77,7 +77,6 @@
     <Compile Include="Configs\MobileDriverConfig.cs" />
     <Compile Include="Controls\Button.cs" />
     <Compile Include="Controls\Input.cs" />
-    <Compile Include="Engine\ElementFinderService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\UiObject.cs" />
   </ItemGroup>
@@ -86,9 +85,13 @@
       <Project>{39b66db9-f457-4766-bc61-f9c0365bd772}</Project>
       <Name>QAutomation.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\QAutomation.Logger\QAutomation.Logger.csproj">
+    <ProjectReference Include="..\QAutomation.Logging\QAutomation.Logging.csproj">
       <Project>{2241B6E4-11F8-4600-B1F0-F97518F2D6A9}</Project>
       <Name>QAutomation.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QAutomation.Xium.Shared\QAutomation.Xium.Shared.csproj">
+      <Project>{750b401a-637c-4966-b411-3c3f55dd81a7}</Project>
+      <Name>QAutomation.Xium.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

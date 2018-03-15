@@ -1,4 +1,4 @@
-﻿namespace QAutomation.Selenium.Extensions
+﻿namespace QAutomation.Xium.Shared
 {
     using QAutomation.Core.Enums;
     using QAutomation.Core.Locators;
@@ -7,7 +7,7 @@
 
     public static class LocatorExtension
     {
-        public static By ToNativeBy(this Locator locator)
+        public static By ToSeleniumBy(this Locator locator)
         {
             switch (locator.Type)
             {
@@ -29,7 +29,7 @@
                     return By.TagName(locator.Value);
 
                 default:
-                    throw new Exception(string.Format("Unknown web locator type: {0}", locator.Type));
+                    throw new Exception($"Unknown locator type: {locator.Type}");
             }
         }
     }

@@ -4,6 +4,7 @@
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Locators;
     using QAutomation.Logging;
+    using QAutomation.Xium.Shared;
     using System;
     using System.Collections.Generic;
 

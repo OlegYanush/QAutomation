@@ -8,8 +8,6 @@
         bool UseEmulator { get; set; }
         string Version { get; set; }
 
-        IMobileDriver CreateDriver();
-        IMobileDriver CreateEmulatorDriver();
-        IMobileDriver CreateRealDeviceDriver();
+     
     }
 }

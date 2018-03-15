@@ -7,6 +7,7 @@
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Interfaces.Mobile;
     using QAutomation.Logger;
+    using QAutomation.Xium.Shared;
     using System;
     using System.Collections.Generic;
     using Unity;

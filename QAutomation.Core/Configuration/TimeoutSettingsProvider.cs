@@ -23,7 +23,9 @@
                 PollingInterval = section.PollingInterval.Value,
 
                 JavaScriptTimeout = section.JavascriptTimeout.Value,
-                HttpCommandTimeout = section.HttpCommandTimeout.Value
+                HttpCommandTimeout = section.HttpCommandTimeout.Value,
+
+                PageLoadTimeout = section.PageLoadTimeout.Value
             };
         }
     }

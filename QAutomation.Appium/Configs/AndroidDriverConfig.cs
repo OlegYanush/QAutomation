@@ -1,19 +1,17 @@
 ﻿namespace QAutomation.Appium.Configs
 {
     using System;
+    using OpenQA.Selenium;
     using OpenQA.Selenium.Appium.Android;
     using OpenQA.Selenium.Remote;
-    using QAutomation.Appium.Engine.Android;
     using QAutomation.Core.Enums.Mobile;
-    using QAutomation.Core.Interfaces.Mobile;
-    using Unity;
 
     public class AndroidDriverConfig : MobileDriverConfig
     {
-        public AndroidDriverConfig(IUnityContainer container)
-            : base(container) { }
-
-        public override MobilePlatform Platform => MobilePlatform.Android;
+        public AndroidDriverConfig()
+        {
+            Platform = MobilePlatform.Android;
+        }
 
         public string AppActivity { get; set; }
         public string AppPackage { get; set; }
@@ -30,22 +28,20 @@
 
         public bool IgnoreUnimportantViews { get; set; }
 
-        public override IMobileDriver CreateEmulatorDriver()
+        public override IWebDriver CreateEmulatorDriver()
         {
             var timeout = TimeSpan.FromSeconds(HttpCommandTimeoutInSec);
             var driver = new AndroidDriver<AndroidElement>(RemoteAddressServerUri, GetEmulatorCapabilities(), timeout);
 
-            ConfigurateDriverTimeouts(driver);
-            return new WrappedAndroidDriver(driver, this, _unityContainer);
+            return driver;
         }
 
-        public override IMobileDriver CreateRealDeviceDriver()
+        public override IWebDriver CreateRealDeviceDriver()
         {
             var timeout = TimeSpan.FromSeconds(HttpCommandTimeoutInSec);
             var driver = new AndroidDriver<AndroidElement>(RemoteAddressServerUri, GetRealDeviceCapabilities(), timeout);
 
-            ConfigurateDriverTimeouts(driver);
-            return new WrappedAndroidDriver(driver, this, _unityContainer);
+            return driver;
         }
 
         protected override DesiredCapabilities GetEmulatorCapabilities()

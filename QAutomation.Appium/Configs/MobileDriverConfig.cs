@@ -2,6 +2,7 @@
 {
     using OpenQA.Selenium;
     using OpenQA.Selenium.Remote;
+    using QAutomation.Core.Configuration;
     using QAutomation.Core.Enums.Mobile;
     using QAutomation.Core.Interfaces.Mobile;
     using System;
@@ -9,14 +10,10 @@
 
     public abstract class MobileDriverConfig : IMobileDriverConfig
     {
-        protected IUnityContainer _unityContainer { get; set; }
+        public abstract IWebDriver CreateEmulatorDriver();
+        public abstract IWebDriver CreateRealDeviceDriver();
 
-        protected MobileDriverConfig(IUnityContainer container)
-        {
-            _unityContainer = container;
-        }
-
-        public abstract MobilePlatform Platform { get; }
+        public MobilePlatform Platform { get; protected set; }
         public string Version { get; set; }
 
         public bool UseEmulator { get; set; }
@@ -46,10 +43,9 @@
 
         public bool AutoWebView { get; set; }
 
-        public IMobileDriver CreateDriver() => UseEmulator ? CreateEmulatorDriver() : CreateRealDeviceDriver();
+        public TimeoutSettings Timeouts => throw new NotImplementedException();
 
-        public abstract IMobileDriver CreateEmulatorDriver();
-        public abstract IMobileDriver CreateRealDeviceDriver();
+        public IWebDriver CreateDriver() => UseEmulator ? CreateEmulatorDriver() : CreateRealDeviceDriver();
 
         protected virtual DesiredCapabilities GetEmulatorCapabilities()
         {

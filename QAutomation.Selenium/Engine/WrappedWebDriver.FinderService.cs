@@ -34,19 +34,12 @@
         public TUiElement Find<TUiElement>(Locator locator, ILogger log, double timeoutInSec, string description = null)
             where TUiElement : IUiElement
         {
-            log?.TRACE($"Set implicit wait to {timeoutInSec} second(s).");
             try
             {
-                _wrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(timeoutInSec));
+                SetImplicitWait(timeoutInSec, log);
                 return Find<TUiElement>(locator, log, description);
             }
-            finally
-            {
-                var defaultTimeout = TimeoutSettingsProvider.Settings.ImplicitWait;
-                log?.TRACE($"Reset implicit wait to {defaultTimeout} second(s).");
-
-                _wrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(defaultTimeout));
-            }
+            finally { SetImplicitWait(Config.Timeouts.ImplicitWait, log); }
         }
 
         public IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log, string description = null)
@@ -72,19 +65,12 @@
         public IEnumerable<TUiElement> FindAll<TUiElement>(Locator locator, ILogger log, double timeoutInSec, string description = null)
             where TUiElement : IUiElement
         {
-            log?.TRACE($"Set implicit wait to {timeoutInSec} second(s).");
             try
             {
-                _wrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(timeoutInSec));
+                SetImplicitWait(timeoutInSec, log);
                 return FindAll<TUiElement>(locator, log, description);
             }
-            finally
-            {
-                var defaultTimeout = TimeoutSettingsProvider.Settings.ImplicitWait;
-                log?.TRACE($"Reset implicit wait to {defaultTimeout} second(s).");
-
-                _wrappedDriver.SetImplicitWait(TimeSpan.FromSeconds(defaultTimeout));
-            }
+            finally { SetImplicitWait(Config.Timeouts.ImplicitWait, log); }
         }
 
         public TUiElement FindElementByClassName<TUiElement>(string className, ILogger log, string description = null)
