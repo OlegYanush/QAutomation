@@ -17,7 +17,7 @@
             try
             {
                 var wrap = element.GetWrap();
-                new Actions(WrappedDriver).MoveToElement(wrap.WrappedElement).Perform();
+                new Actions(WrappedDriver).MoveToElement(wrap.Wrapped).Perform();
 
                 log?.TRACE($"Moving cursor to {element} successfully completed.");
             }
@@ -36,7 +36,7 @@
             try
             {
                 var wrap = element.GetWrap();
-                new Actions(WrappedDriver).Click(wrap.WrappedElement).Perform();
+                new Actions(WrappedDriver).Click(wrap.Wrapped).Perform();
 
                 log?.TRACE($"Actions click on {element} successfully completed.");
             }
@@ -55,7 +55,7 @@
             try
             {
                 var wrap = element.GetWrap();
-                new Actions(WrappedDriver).ContextClick(wrap.WrappedElement).Perform();
+                new Actions(WrappedDriver).ContextClick(wrap.Wrapped).Perform();
 
                 log?.TRACE($"Actions right click on {element} successfully completed.");
             }
@@ -74,7 +74,7 @@
             try
             {
                 var wrap = element.GetWrap();
-                new Actions(WrappedDriver).DoubleClick(wrap.WrappedElement).Perform();
+                new Actions(WrappedDriver).DoubleClick(wrap.Wrapped).Perform();
 
                 log?.TRACE($"Actions double click on {element} successfully completed.");
             }
@@ -94,7 +94,7 @@
             try
             {
                 var wrap = element.GetWrap();
-                new Actions(WrappedDriver).SendKeys(wrap.WrappedElement, value).Perform();
+                new Actions(WrappedDriver).SendKeys(wrap.Wrapped, value).Perform();
 
                 log?.TRACE($"Actions send '{value}' keys to {element} successfully completed.");
             }
@@ -117,10 +117,10 @@
                 var sourceWrap = source.GetWrap();
                 var targetWrap = target.GetWrap();
 
-                new Actions(WrappedDriver).MoveToElement(sourceWrap.WrappedElement)
-                    .ClickAndHold(sourceWrap.WrappedElement)
-                    .MoveToElement(targetWrap.WrappedElement)
-                    .Release(targetWrap.WrappedElement)
+                new Actions(WrappedDriver).MoveToElement(sourceWrap.Wrapped)
+                    .ClickAndHold(sourceWrap.Wrapped)
+                    .MoveToElement(targetWrap.Wrapped)
+                    .Release(targetWrap.Wrapped)
                     .Build().Perform();
 
                 log?.TRACE($"Actions drag and drop from {source} to {target} successfully completed.");

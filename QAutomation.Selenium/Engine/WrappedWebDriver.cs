@@ -9,7 +9,7 @@
     using QAutomation.Xium.Shared;
     using System;
 
-    public partial class WrappedWebDriver : IBrowserDriver
+    public partial class WrappedWebDriver : IBrowserDriver, IWraps<IWebDriver>
     {
         private WebDriverConfig _config;
         private IWebDriver _wrappedDriver;
@@ -19,6 +19,8 @@
 
         public IBrowserDriverConfig Config => _config;
         public IWebDriver WrappedDriver => _wrappedDriver;
+
+        public IWebDriver Wrapped => _wrappedDriver;
 
         public WrappedWebDriver(WebDriverConfig config, IElementResolver resolver)
         {

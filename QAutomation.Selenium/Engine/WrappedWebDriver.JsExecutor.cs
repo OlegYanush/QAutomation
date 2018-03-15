@@ -28,7 +28,7 @@
             }
         }
         public object ExecuteJavaScript(string script, IUiElement element, ILogger log)
-            => ExecuteJavaScript(script, new object[] { element.GetWrap().WrappedElement }, log);
+            => ExecuteJavaScript(script, new object[] { element.GetWrap().Wrapped }, log);
         public object ExecuteJavaScript(string script, ILogger log) => ExecuteJavaScript(script, new object[] { }, log);
 
         public string GetJsText(Locator locator, ILogger log) => GetJsText(Find(locator, log), log);
@@ -41,7 +41,7 @@
                     "{void 0==o&&(o=!0);for(var r='',d=0;d<e.childNodes.length;d++){var i=e.childNodes[d];if(3===i.nodeType)" +
                     "{var t=i.nodeValue.trim();o&&(t=' '+t),r+=t}}return r.trim()}";
 
-                var text = ((string)ExecuteJavaScript(code, new object[] { element.GetWrap().WrappedElement, true }, log)).Trim();
+                var text = ((string)ExecuteJavaScript(code, new object[] { element.GetWrap().Wrapped, true }, log)).Trim();
 
                 log?.TRACE($"Getting text for element {element} successfully completed. Text = '{text}'.");
                 return text;
@@ -69,7 +69,7 @@
                     string ss = $"arguments[0].style.{style}='';";
                     styleJS += ss + "\n";
                 }
-                ExecuteJavaScript(styleJS, new object[] { element.GetWrap().WrappedElement }, log);
+                ExecuteJavaScript(styleJS, new object[] { element.GetWrap().Wrapped }, log);
             }
             catch (Exception ex)
             {
@@ -96,7 +96,7 @@
                     string ss = $"arguments[0].style.{name}='{value}';";
                     styleJS += ss + "\n";
                 }
-                ExecuteJavaScript(styleJS, new object[] { element.GetWrap().WrappedElement }, log);
+                ExecuteJavaScript(styleJS, new object[] { element.GetWrap().Wrapped }, log);
             }
             catch (Exception ex)
             {
@@ -114,7 +114,7 @@
                 string script = "var evObj = document.createEvent('MouseEvents');evObj.initMouseEvent('click',true, " +
                     "true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);arguments[0].dispatchEvent(evObj);";
 
-                ExecuteJavaScript(script, new object[] { element.GetWrap().WrappedElement }, log);
+                ExecuteJavaScript(script, new object[] { element.GetWrap().Wrapped }, log);
                 log?.TRACE($"Js clicking on {element} has been successfully completed.");
             }
             catch (Exception ex)

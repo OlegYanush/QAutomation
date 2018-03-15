@@ -1,7 +1,6 @@
 ﻿namespace QAutomation.Core.Interfaces.Mobile
 {
-    public interface IMobileDriver : IUiElementFinderService, IFinderByAccessibilyId,
+    public interface IMobileDriver : IBrowserDriver, IFinderByAccessibilyId,
         IManageAppService, IManageDeviceService, IManageInputService, IHasSessionService
     { }
-
 }

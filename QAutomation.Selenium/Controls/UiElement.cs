@@ -38,7 +38,7 @@
         public string Description { get; set; }
 
         public IWebDriver WrappedDriver => _wrappedDriver;
-        public IWebElement WrappedElement => _wrappedElement;
+        public IWebElement Wrapped => _wrappedElement;
 
         public string Tag => _wrappedElement.TagName;
         public string Content => _wrappedElement.Text;
@@ -49,13 +49,13 @@
             {
                 var accumulator = UiElementState.None;
 
-                if (WrappedElement == null)
+                if (Wrapped == null)
                     accumulator |= UiElementState.Absent;
                 else
                 {
                     accumulator |= UiElementState.Present;
-                    accumulator |= (WrappedElement.Displayed ? UiElementState.Visible : UiElementState.NotVisible);
-                    accumulator |= (WrappedElement.Enabled ? UiElementState.Enabled : UiElementState.Disabled);
+                    accumulator |= (Wrapped.Displayed ? UiElementState.Visible : UiElementState.NotVisible);
+                    accumulator |= (Wrapped.Enabled ? UiElementState.Enabled : UiElementState.Disabled);
                 }
 
                 return accumulator;

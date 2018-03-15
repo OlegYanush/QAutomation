@@ -4,6 +4,7 @@
     using OpenQA.Selenium.Appium.Android;
     using QAutomation.Appium.Configs;
     using QAutomation.Core;
+    using QAutomation.Core.Interfaces;
     using QAutomation.Core.Interfaces.Controls;
     using QAutomation.Core.Interfaces.Mobile;
     using QAutomation.Logger;
@@ -12,7 +13,7 @@
     using System.Collections.Generic;
     using Unity;
 
-    public partial class WrappedAndroidDriver : IMobileDriver
+    public partial class WrappedAndroidDriver : IMobileDriver, IWraps<AndroidDriver<AndroidElement>>
     {
         private AndroidDriverConfig _config;
         private AndroidDriver<AndroidElement> _nativeDriver;
@@ -21,6 +22,8 @@
 
         public AndroidDriverConfig Config => _config;
         public AndroidDriver<AndroidElement> WrappedDriver => _nativeDriver;
+
+        public AndroidDriver<AndroidElement> Wrapped => _nativeDriver;
 
         public WrappedAndroidDriver(AndroidDriver<AndroidElement> nativeDriver, AndroidDriverConfig config, IUnityContainer container)
         {

@@ -2,6 +2,6 @@
 {
     public interface IWraps<T>
     {
-        T WrappedElement { get; }
+        T Wrapped { get; }
     }
 }
